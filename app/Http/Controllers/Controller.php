@@ -37,7 +37,10 @@ class Controller extends BaseController
             $user->user_type = $userData->user_type;
             $user->save();
             // sendMail();
-            $this->setReferralCode($user,$userData->referral);
+            $referral = '';
+            if(!empty($userData->referral))
+                $referral = $userData->referral;
+            $this->setReferralCode($user,$referral);
             DB::commit();
             return $user;
         }catch (Exception $e) {
@@ -46,16 +49,16 @@ class Controller extends BaseController
         }
     }
 
-    public function setReferralCode($user,$referalCode='AAAAAAA')
+    public function setReferralCode($user,$referalCode='')
     {
         $referral = $this->generateUniqueReferral();
         $user->referral_code = $referral->code;
         if($referalCode != ''){
             $referralFind = Referral::where('code',$referalCode)->first();
             if($referralFind){
-                $referredBy = User::find($referralFind->userId);
-                $this->addNewPointTotheUser($referredBy,10,'Referral Bonus for UserId:'.$user->id);
-                $user->referred_by = $referredBy->id;
+                // $referredBy = User::find($referralFind->userId);
+                $this->addNewPointTotheUser($referralFind,10,'Referral Bonus for UserId:'.$user->id);
+                $user->referred_by = $referralFind->userId;
             }
         }
         $user->save();
@@ -67,7 +70,7 @@ class Controller extends BaseController
     public function addNewPointTotheUser($user,$points,$remark='')
     {
         $newPoint = new UserPoints;
-            $newPoint->userId = $user->id;
+            $newPoint->userId = $user->userId;
             $newPoint->points = $points;
             $newPoint->remarks = $remark;
         $newPoint->save();

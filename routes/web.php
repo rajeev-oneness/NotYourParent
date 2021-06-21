@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// front side routes
+Route::get('/', 'front\FrontController@index')->name('front.home');
+Route::get('/about-us', 'front\FrontController@aboutUs')->name('front.about-us');
+Route::get('/resources', 'front\FrontController@resources')->name('front.resources');
+Route::get('/directory', 'front\FrontController@directory')->name('front.directory');
+Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
+Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
 
-Auth::routes();
+// auth routes
+Auth::routes(['logout'=>false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::any('logout',[HomeController::class,'logout'])->name('logout');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
