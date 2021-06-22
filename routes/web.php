@@ -22,6 +22,9 @@ Route::get('/directory', 'front\FrontController@directory')->name('front.directo
 Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
 Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
 
+//ajax calls
+
+
 // auth routes
 Auth::routes(['logout'=>false]);
 

@@ -53,7 +53,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => 'AAAAAAB',
             ],
             [
-                'user_type' => 1,
+                'user_type' => 3,
                 'name' => 'Student Demo',
                 'email' => 'student@student.com',
                 'password' => Hash::make('secret'),

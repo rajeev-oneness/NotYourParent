@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\ContactUs;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,10 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        try{
-            //view()->share('contact', ContactUs::where('id',1)->where('type',1)->first());    
-        }catch(Exception $e){
-            // dd($e);
+        $tablefind = \Schema::hasTable('contact_us');
+        if($tablefind){
+            $contact = ContactUs::where('type',0)->first();
+        }else{
+            $contact = (object)[];
+
         }
+        view()->share('contact', $contact);
     }
 }

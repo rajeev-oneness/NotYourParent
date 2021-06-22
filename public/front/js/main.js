@@ -31,7 +31,7 @@ jQuery(function ($) {
         nav: true,
         dots: false,
         navText: [
-            "<img src='ifront/mages/blue-arrow-left.png'>",
+            "<img src='front/images/blue-arrow-left.png'>",
             "<img src='front/images/blue-arrow-right.png'>",
         ],
         responsiveClass: true,
@@ -55,7 +55,7 @@ jQuery(function ($) {
         nav: true,
         dots: false,
         navText: [
-            "<img src='ifront/mages/blue-arrow-left.png'>",
+            "<img src='front/images/blue-arrow-left.png'>",
             "<img src='front/images/blue-arrow-right.png'>",
         ],
         responsiveClass: true,
@@ -77,7 +77,7 @@ jQuery(function ($) {
         nav: true,
         dots: false,
         navText: [
-            "<img src='ifront/mages/blue-arrow-left.png'>",
+            "<img src='front/images/blue-arrow-left.png'>",
             "<img src='front/images/blue-arrow-right.png'>",
         ],
         items: 1,
