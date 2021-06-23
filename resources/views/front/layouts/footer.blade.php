@@ -24,8 +24,8 @@
         <nav class="footer_nav">
             <ul>
                 <li><a href="javascript:void(0);">Categories</a></li>
-                <li><a href="javascript:void(0);">Knowledge Bank</a></li>
-                <li><a href="javascript:void(0);">How It Works?</a></li>
+                <li><a href="{{route('front.knowledge-bank')}}">Knowledge Bank</a></li>
+                <li><a href="{{route('front.how-it-works')}}">How It Works?</a></li>
                 <li><a href="{{route('front.about-us')}}">About Us</a></li>
             </ul>
         </nav>

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +15,23 @@ use App\Http\Controllers;
 
 // front side routes
 Route::get('/', 'front\FrontController@index')->name('front.home');
-Route::get('/about-us', 'front\FrontController@aboutUs')->name('front.about-us');
+Route::get('/about-us', 'front\FrontController@index')->name('front.about-us');
 Route::get('/resources', 'front\FrontController@resources')->name('front.resources');
+Route::get('/how-it-works', 'front\FrontController@howItWorks')->name('front.how-it-works');
+Route::get('/knowledge-bank', 'front\FrontController@knowledgeBank')->name('front.knowledge-bank');
 Route::get('/directory', 'front\FrontController@directory')->name('front.directory');
 Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
 Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
 
 //ajax calls
+Route::post('/directory-ajax-call', 'front\FrontController@directorySearch')->name('directory.search.ajax');
 
 
 // auth routes
 Auth::routes(['logout'=>false]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::any('logout',[HomeController::class,'logout'])->name('logout');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::any('logout','HomeController@logout')->name('logout');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){

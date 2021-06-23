@@ -1,4 +1,4 @@
-<header class="{{(request()->routeIs('front.experts.*') || request()->routeIs('front.experts' ))?'experts_header':'main_header'}}">
+<header class="{{(request()->routeIs('front.experts.*') || request()->routeIs('front.experts') || request()->routeIs('front.how-it-works') || request()->routeIs('front.knowledge-bank'))?'experts_header':'main_header'}}">
     <div class="container">
         <div class="header_top position-relative">
             <div class="row no-gutters justify-content-center">
@@ -19,8 +19,8 @@
         <nav class="main_navigation">
             <ul>
                 <li><a href="#">Categories</a></li>
-                <li><a href="#">Knowledge Bank</a></li>
-                <li><a href="#">How It Works?</a></li>
+                <li><a href="{{route('front.knowledge-bank')}}">Knowledge Bank</a></li>
+                <li><a href="{{route('front.how-it-works')}}">How It Works?</a></li>
                 <li><a href="{{route('front.about-us')}}">About Us</a></li>
             </ul>
         </nav>

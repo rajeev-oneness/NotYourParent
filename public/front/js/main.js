@@ -116,3 +116,13 @@ jQuery(function ($) {
         }
     });
 });
+
+// Password show hide function (jQuery)
+function showHide() {
+    var showHide = document.getElementById("c_pass");
+    if (showHide.type === "password") {
+        showHide.type = "text";
+    } else {
+        showHide.type = "password";
+    }
+}

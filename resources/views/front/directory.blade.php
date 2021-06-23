@@ -13,47 +13,49 @@
         <div class="resource_banner_content directory_banner_content">
             <h1 class="text-uppercase darkblue proxima_bold text-center">Find an <span class="proxima_black golden">Expart</span></h1>
             <div class="expart_search_wrap">
-                <div class="expart_search_top">
-                    <div class="expart_search_grid">
-                        <label>Topic</label>
-                        <select>
-                            <option>Music & Instruments</option>
-                            <option>Select 1</option>
-                            <option>Select 2</option>
-                            <option>Select 3</option>
-                            <option>Select 4</option>
-                        </select>
+                <form action="{{route('front.directory')}}">
+                    <div class="expart_search_top">
+                        <div class="expart_search_grid">
+                            <label>Topic</label>
+                            <select name="topic">
+                                <option value="" hidden>Select Topic</option>
+                                @foreach ($topics as $topic)
+                                    <option value="{{$topic->id}}">{{$topic->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="expart_search_grid">
+                            <label>Available</label>
+                            <select name="available">
+                                <option value="" hidden>Select Availability</option>
+                                <option>Now</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div class="expart_search_grid">
+                            <label>Seniority</label>
+                            {{-- <input type="hidden" name="seniority" id="seniority_level" value=""> --}}
+                            <select id="seniority" name="seniority">
+                                <option value="" hidden>Select Seniority Level</option>
+                                @for ($i = 1; $i <= 7; $i++)
+                                    <option value="{{$i}}">{{$i}} {{($i == 1)? 'Year' : 'Years'}} +</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <button class="search_icon_top" type="submit">
+                            <img src="{{asset('front/images/search_icon.png')}}" alt="">
+                        </button>
                     </div>
-                    <div class="expart_search_grid">
-                        <label>Available</label>
-                        <select>
-                            <option>Now</option>
-                            <option>No</option>
-                        </select>
+                </form>
+                <form action="{{route('front.directory')}}">
+                    <div class="expart_search_bottom">
+                        <span class="proxima_black darkblue text-uppercase">or</span>
+                        <input type="text" placeholder="Search an Expert via Name" name="expert" id="expert_input">
+                        <button class="search_icon_bottom" type="submit">
+                            <img src="{{asset('front/images/search_icon.png')}}" alt="">
+                        </button>
                     </div>
-                    <div class="expart_search_grid">
-                        <label>Seniority</label>
-                        <select>
-                            <option>1 Years +</option>
-                            <option>2 Years +</option>
-                            <option>3 Years +</option>
-                            <option>4 Years +</option>
-                            <option>5 Years +</option>
-                            <option>6 Years +</option>
-                            <option>7 Years +</option>
-                        </select>
-                    </div>
-                    <button class="search_icon_top">
-                        <img src="{{asset('front/images/search_icon.png')}}" alt="">
-                    </button>
-                </div>
-                <div class="expart_search_bottom">
-                    <span class="proxima_black darkblue text-uppercase">or</span>
-                    <input type="text" placeholder="Search an Expert via Name" name="">
-                    <button class="search_icon_bottom">
-                        <img src="{{asset('front/images/search_icon.png')}}" alt="">
-                    </button>
-                </div>
+                </form>
             </div>		
         </div>
     </div>
@@ -70,44 +72,13 @@
         </div>
 
         <div class="available_sessions">
-            <h3 class="proxima_normal darkblue"><span class="text-uppercase proxima_exbold">9 SESSIONS</span> Available Now</h3>
+            <h3 class="proxima_normal darkblue" id="count_section"></h3>
         </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                        <div class="mentor_course_img">
-                            <img src="{{asset('front/images/mentor-img-1.jpg')}}">
-                            <div class="mentor_course_overlay">
-                                <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                                <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                                <ul>
-                                    <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                    <li class="mentor_price">30$ <span>Only</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mentor_course_content">
-                            <div class="mentor_course_review">
-                                <div class="mentor_course_review_img">
-                                    <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                                </div>
-                                <div class="mentor_course_review_name">
-                                    <h5>Yasmain Marlly</h5>
-                                    <h6>Fashion Expert</h6>
-                                </div>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                            <ul>
-                                <li><a href="#">Consult Now</a></li>
-                                <li><a href="#">Visit Profile</a></li>
-                            </ul>
-                        </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
+        <div class="row" id="course_list">
+            {{-- <div class="col-lg-4">
                 <div class="mentor_course">
                     <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-2.jpg')}}">
+                        <img src="{{asset('front/images/mentor-img-1.jpg')}}">
                         <div class="mentor_course_overlay">
                             <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
                             <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
@@ -134,224 +105,10 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-3.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="#">Consult Now</a></li>
-                            <li><a href="#">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-3.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="#">Consult Now</a></li>
-                            <li><a href="#">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                        <div class="mentor_course_img">
-                            <img src="{{asset('front/images/mentor-img-1.jpg')}}">
-                            <div class="mentor_course_overlay">
-                                <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                                <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                                <ul>
-                                    <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                    <li class="mentor_price">30$ <span>Only</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mentor_course_content">
-                            <div class="mentor_course_review">
-                                <div class="mentor_course_review_img">
-                                    <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                                </div>
-                                <div class="mentor_course_review_name">
-                                    <h5>Yasmain Marlly</h5>
-                                    <h6>Fashion Expert</h6>
-                                </div>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                            <ul>
-                                <li><a href="#">Consult Now</a></li>
-                                <li><a href="#">Visit Profile</a></li>
-                            </ul>
-                        </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-2.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="#">Consult Now</a></li>
-                            <li><a href="#">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                        <div class="mentor_course_img">
-                            <img src="{{asset('front/images/mentor-img-1.jpg')}}">
-                            <div class="mentor_course_overlay">
-                                <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                                <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                                <ul>
-                                    <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                    <li class="mentor_price">30$ <span>Only</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mentor_course_content">
-                            <div class="mentor_course_review">
-                                <div class="mentor_course_review_img">
-                                    <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                                </div>
-                                <div class="mentor_course_review_name">
-                                    <h5>Yasmain Marlly</h5>
-                                    <h6>Fashion Expert</h6>
-                                </div>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                            <ul>
-                                <li><a href="#">Consult Now</a></li>
-                                <li><a href="#">Visit Profile</a></li>
-                            </ul>
-                        </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-2.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="#">Consult Now</a></li>
-                            <li><a href="#">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-3.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub> Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="#">Consult Now</a></li>
-                            <li><a href="#">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            </div> --}}
+        </div>
+        <div class="text-center view_all_mentor">
+            <a href="javascript:void(0);" class="green_btn parimary_btn" id="load_more">Load More</a>
         </div>
     </div>
     <div class="mentors_section_plane">
@@ -362,6 +119,4 @@
 
 @endsection
 
-@section('script')
-    
-@endsection
+@include('front.ajax.course-search-data')
