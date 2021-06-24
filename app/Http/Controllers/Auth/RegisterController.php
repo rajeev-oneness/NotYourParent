@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referral' => ['string','nullable','exists:referrals,code'],
-            'user_type' => ['required','min:1','numeric','exists:user_types,id'],
+            'user_type' => ['required','min:1','numeric','exists:user_types,id','regex:/[2-3]{1}/'],
         ]);
     }
 

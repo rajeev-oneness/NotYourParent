@@ -42,16 +42,29 @@
 			<div class="form-container">
 				<h4>MENTOR ONLINE WITH</h4>
 				<h3>NOT YOUR PARENT</h3>
-				<form action="">
-					<input type="hidden" name="userType" value="{{$data['userType']}}">
-					<div class="name">
-						<input class="fname" type="text" name="first_name" placeholder="First Name" required>
-						<input class="lname" type="text" name="last_name" placeholder="Last Name" required>
-					</div>
-					<input class="email" type="text" name="email" placeholder="Email Id or Phone Number" required>
-					{{-- <input class="skill" type="text" name="skill" placeholder="Skill"> --}}
+				<form method="POST" action="{{ route('register') }}">
+					@csrf
+					<input type="hidden" name="user_type" value="{{$data['userType']}}">
+					@error('user_type')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
+					@error('referral')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
+					<input class="email" type="text" name="referral" placeholder="Referral Code (if any)" value="{{old('referral')}}">
+					@error('name')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
+					<input class="email" type="text" name="name" placeholder="Full Name" value="{{old('name')}}" required>
+					@error('email')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
+					<input class="email" type="email" name="email" placeholder="Email Address"  value="{{old('email')}}" required>
+					@error('password')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
 					<input class="pass" type="password" name="password" placeholder="Password" required>
-					<input class="cpass" type="password" name="comfirm_password" placeholder="Confirm Password" required>
+					<input class="cpass" type="password" name="password_confirmation" placeholder="Confirm Password" required>
 					<div class="agreement">
 						<input class="check" type="checkbox" required>
 						<p>I agree that my submitted data is being collected and stored.</p>
