@@ -9,8 +9,14 @@
                 </div>
                 <div class="header_right">
                     <ul>
+                        @auth
+                        <li class="expart_btn"><a href="javascript:void(0);">{{auth()->user()->name}}</a></li>
+                        <li class="sign_up_btn"><a href="{{route('logout')}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Log Out</a></li>
+                        @endauth
+                        @guest
                         <li class="expart_btn"><a href="{{route('front.sign-up',['userType' => 2])}}">Become an Expert</a></li>
-                        <li class="sign_up_btn"><a href="{{route('front.sign-up',['userType' => 3])}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Sign Up</a></li>							
+                        <li class="sign_up_btn"><a href="{{route('front.sign-up',['userType' => 3])}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Sign Up</a></li>
+                        @endguest							
                     </ul>
                 </div>
             </div>

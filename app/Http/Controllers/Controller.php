@@ -57,22 +57,22 @@ class Controller extends BaseController
             $referralFind = Referral::where('code',$referalCode)->first();
             if($referralFind){
                 // $referredBy = User::find($referralFind->userId);
-                $this->addNewPointTotheUser($referralFind,10,'Referral Bonus for UserId:'.$user->id);
+                $this->addNewPointTotheUser($referralFind->userId,50,'Referral Bonus for UserId:'.$user->id);
                 $user->referred_by = $referralFind->userId;
             }
         }
         $user->save();
         $referral->userId = $user->id;
         $referral->save();
-        $this->addNewPointTotheUser($user,10,'Joining Bonus');
+        $this->addNewPointTotheUser($user->id,10,'Joining Bonus');
     }
 
-    public function addNewPointTotheUser($user,$points,$remark='')
+    public function addNewPointTotheUser($userId,$points,$remark='')
     {
         $newPoint = new UserPoints;
-            $newPoint->userId = $user->userId;
-            $newPoint->points = $points;
-            $newPoint->remarks = $remark;
+        $newPoint->userId = $userId;
+        $newPoint->points = $points;
+        $newPoint->remarks = $remark;
         $newPoint->save();
         return $newPoint;
     }
