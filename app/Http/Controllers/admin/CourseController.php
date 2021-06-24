@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('admin.course.add');
+        $categories = Category::all();
+        return view('admin.course.add', compact('categories'));
     }
 
     /**
@@ -38,7 +40,27 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'price' => 'required',
+            'duration' => 'required',
+            'categoryId' => 'required'
+        ]);
+        $fileName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/'), $fileName);
+        $image ='uploads/'.$fileName;
+        $course = new Course();
+        $course->categoryId = $request->categoryId;
+        $course->image = $image;
+        $course->name = $request->name;
+        $course->description = $request->description;
+        $course->duration = $request->duration;
+        $course->price = $request->price;
+        $course->teacherId = Auth::user()->id;
+        $course->save();
+        return redirect()->route('admin.course.index');
     }
 
     /**
