@@ -63,7 +63,7 @@
                             <p>{{$course->description}}</p>
                             <ul>
                                 <li><a href="javascript:void(0);">Consult Now</a></li>
-                                <li><a href="javascript:void(0);">Visit Profile</a></li>
+                                <li><a href="{{route('front.experts', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                             </ul>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                                 <h4 class="white proxima_exbold">{{$testimonial->teacherDetails->name}}</h4>
                                 <h5 class="text-uppercase white proxima_exbold">MUSIC TRICKS</h5>
                                 <img src="{{asset('front/images/reviews_star.png')}}">
-                                <a class="secondary_btn green_btn" href="javascript:void(0);">More Classes</a>
+                                <a class="secondary_btn green_btn" href="{{route('front.experts', ['expertId' => $testimonial->teacherDetails->id])}}">More Classes</a>
                             </div>
                         </div>
                         <div class="class_teacher_img_wrap position-relative align-self-center">

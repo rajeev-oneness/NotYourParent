@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TeacherTopic extends Model
 {
     use HasFactory,SoftDeletes;
+
+    public function topicDetail()
+    {
+        return $this->belongsTo('App\Models\Topic', 'topicId', 'id');
+    }
 }

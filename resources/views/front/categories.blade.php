@@ -13,11 +13,18 @@
 	<div class="container position-relative">					
 		<div class="banner_content">
 			<h1 class="text-uppercase proxima_bold">TOP <br><strong class="proxima_black">CATEGORIES</strong></h1>
-			<div class="banner_search_box">
-				<input class="banner_search_field " placeholder="All Categories" type="text" name="">
+
+			<div class="dropdown banner_search_box">
+				<button class="darkblue proxima_bold dropdown-toggle banner_search_field" type="button" data-toggle="dropdown">All Categories</button>
+				<ul class="dropdown-menu custom_dropdown_menu">
+				  @foreach ($categories as $category)
+					  <li><a href="{{route('directory.search.ajax', ['categoryId' => $category->id])}}">{{$category->name}}</a></li>
+				  @endforeach
+				</ul>
 				<input class="banner_search_btn parimary_btn green_btn" type="button" value="Join Live Classes" name="">
 				<input class="banner_search_btn parimary_btn darkblue_btn" type="button" value="Free Visit" name="">
-			</div>
+			  </div>
+
 		</div>
 		
 	<img class="puz" src="{{asset('front/images/puz.png')}}" alt="">
@@ -26,7 +33,7 @@
 <!-- banner_section -->
 
 
-<section class="mentors_section directory_mentors_section">
+<section class="position-relative directory_mentors_section">
 	<div class="container">
 		<div class="section_heading how_it_wrok_heading text-center">
 			<h2 class="proxima_black text-uppercase darkblue">Top Categories</h2>

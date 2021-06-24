@@ -15,10 +15,12 @@
             <div class="jenny_status">
                 <div class="online"><span class="active"></span> <a class="text-uppercase darkblue" href="javascript:void(0);">online</a> </div>
                 
-                <a class="darkblue proxima_exbold verified" href="javascript:void(0);">Verified</a>
+                <a class="darkblue proxima_exbold verified" href="javascript:void(0);">{{($teacher->is_verified == 1)? 'Verified' : 'Not Verified'}}</a>
             </div>
-            <h1 class="proxima_exbold darkblue text-uppercase">jenny Doe</h1>
-            <h3 class="golden designation">Fashion & Tailoring</h3>
+            <h1 class="proxima_exbold darkblue text-uppercase">{{$teacher->name}}</h1>
+            @foreach ($topics as $topic)
+                <h3 class="golden designation">{{$topic->topicDetail->name}}</h3>
+            @endforeach
             <h3 class="proxima_exbold black">TOTAL <span class="golden">120+</span> CLASSES <span style="color: #e76f37;">4.5</span> <span class="proxima_normal" style="color: #003456;">Ratings</span></h3>
             <h3 style="color: #003456;"><span class="darkblue proxima_exbold">34,598</span> Students</h3>
             <h6 class="darkblue text-uppercase proxima_bold">Regular sessions</h6>
@@ -101,20 +103,14 @@
             </div>
             <div class="footer_social">
                 <ul>
-                    <li><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="{{($teacher->linkedin_url != '')?$teacher->linkedin_url:'javascript:void(0);'}}"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="{{($teacher->fb_url != '')?$teacher->fb_url:'javascript:void(0);'}}"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="{{($teacher->twitter_url != '')?$teacher->twitter_url:'javascript:void(0);'}}"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="{{($teacher->instagram_url != '')?$teacher->instagram_url:'javascript:void(0);'}}"><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
             <h6 class="darkblue text_uupercase proxima_exbold">BIO</h6>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro explicabo earum perspiciatis vitae eaque
-                dolorum cupiditate dolores accusamus quidem odit, dolor quis nulla error temporibus, assumenda
-                voluptatibus blanditiis! Ea ipsum reiciendis repellendus maxime nesciunt nulla. Ducimus nihil saepe
-                provident atque magnam laborum eos soluta eveniet doloribus delectus, magni reiciendis quo similique ad ipsum quibusdam.
-            </p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit sit amet consectetur adipisicing elit</p>
+            <p>{!!$teacher->bio!!}</p>
         </div>
     </div>
 </section>
@@ -341,27 +337,26 @@
 <section class="experts_testimonials ">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase white">what people says about jenny</h2>
+            <h2 class="proxima_black text-uppercase white">what people says about {{$teacher->name}}</h2>
             <p class="darkgray proxima_light white">Greater Pittsburgh's Expert Basement Waterproofing & Foundation
                 Repair Contractor</p>
         </div>
 
+        
         <div class="review_slider_wrap position-relative">
             <div class="review_slider owl-carousel owl-theme">
+                @forelse ($testimonials as $testimonial)
                 <div class="review_slider_item">
                     <div class="review_slider_item_left">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                            piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard
-                            McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of
-                            the more obscure Latin words, </p>
+                        <p>{!!$testimonial->quote!!}</p>
 
                         <div class="review_person">
                             <div class="review_person_img align-self-center">
-                                <img src="{{asset('front/images/reviews_class_master.jpg')}}">
+                                <img src="{{asset($testimonial->image)}}">
                             </div>
                             <div class="review_person_details align-self-center">
-                                <h4 class="text-uppercase darkblue proxima_exbold">Robin Wise</h4>
-                                <h5 class="text-uppercase white">Charlotte, NC</h5>
+                                <h4 class="text-uppercase darkblue proxima_exbold">{{$testimonial->name}}</h4>
+                                <h5 class="text-uppercase white">{{$testimonial->designation}}</h5>
                             </div>
                         </div>
                     </div>
@@ -371,56 +366,25 @@
                             <h3 class="text-uppercase darkblue">Total <span class="golden">120+</span>
                                 <br><b>Classes</b></h3>
                             <div class="class_teacher_name">
-                                <h4 class="darkblue proxima_exbold">Jenifar Doe</h4>
-                                <h5 class="text-uppercase darkblue proxima_exbold">fashion & tailoring</h5>
+                                <h4 class="darkblue proxima_exbold">{{$testimonial->teacherDetails->name}}</h4>
+                                @foreach ($topics as $topic)
+                                    <h5 class="text-uppercase darkblue proxima_exbold">{{$topic->topicDetail->name}}, </h5>
+                                @endforeach
                                 <img src="{{asset('front/images/reviews_star.png')}}">
                             </div>
                         </div>
                         <div class="class_teacher_img_wrap experts_img_wrap position-relative align-self-center">
                             <div class="class_teacher_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
+                                <img src="{{asset($testimonial->teacherDetails->image)}}">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="review_slider_item">
-                    <div class="review_slider_item_left">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                            piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard
-                            McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of
-                            the more obscure Latin words, </p>
-
-                        <div class="review_person">
-                            <div class="review_person_img align-self-center">
-                                <img src="{{asset('front/images/reviews_class_master.jpg')}}">
-                            </div>
-                            <div class="review_person_details align-self-center">
-                                <h4 class="text-uppercase darkblue proxima_exbold">Robin Wise</h4>
-                                <h5 class="text-uppercase white">Charlotte, NC</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="review_slider_item_right bg-gray">
-                        <div class="class_teacher_description align-self-center">
-                            <h3 class="text-uppercase darkblue">Total <span class="golden">120+</span>
-                                <br><b>Classes</b></h3>
-                            <div class="class_teacher_name">
-                                <h4 class="darkblue proxima_exbold">Jenifar Doe</h4>
-                                <h5 class="text-uppercase darkblue proxima_exbold">fashion & tailoring</h5>
-                                <img src="{{asset('front/images/reviews_star.png')}}">
-                            </div>
-                        </div>
-                        <div class="class_teacher_img_wrap experts_img_wrap position-relative align-self-center">
-                            <div class="class_teacher_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                    <h4 class="proxima_black text-uppercase white text-center">oops ! No testimonial found</h4>
+                @endforelse
             </div>
-
-        </div>
+        </div>    
 
         <div class="text-center">
             <a href="javascript:void(0);" class="parimary_btn green_btn">explore all</a>
