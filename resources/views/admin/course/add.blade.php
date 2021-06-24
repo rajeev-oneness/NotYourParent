@@ -18,6 +18,7 @@
                         <div class="form-group required">
                             <label for="category" class="control-label">Select Category</label>
                             <select class="form-control" id="category" name="categoryId" required>
+                                <option disabled selected>Select Category</option>
                                 @foreach ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach

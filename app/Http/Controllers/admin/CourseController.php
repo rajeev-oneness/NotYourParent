@@ -64,17 +64,6 @@ class CourseController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -82,7 +71,9 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $course = Course::find($id);
+        return view('admin.course.edit',compact('course','categories'));
     }
 
     /**
@@ -94,7 +85,30 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'price' => 'required',
+            'duration' => 'required',
+            'categoryId' => 'required'
+        ]);
+        if($request->hasFile('image')) {
+            $fileName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads/'), $fileName);
+            $image ='uploads/'.$fileName;
+            Course::where('id', $id)->update([
+                'image' => $image,
+            ]);
+        }
+        Course::where('id', $id)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'duration' => $request->duration,
+            'categoryId' => $request->categoryId
+        ]);
+        return redirect()->route('admin.course.index');
     }
 
     /**
@@ -105,6 +119,7 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Course::where('id', $id)->delete();
+        return redirect()->route('admin.course.index');
     }
 }

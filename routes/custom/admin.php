@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CourseController;
@@ -29,7 +30,7 @@ Route::get('dashboard',function(){
         Route::get('/delete/{id}',[ArticleController::class, 'destroy'])->name('admin.article.delete');
     });
     Route::group(['prefix' => 'category'], function() {
-        // here goes the article routes
+        // here goes the category routes
         Route::get('/',[CategoryController::class, 'index'])->name('admin.category.index');
         Route::get('/add',[CategoryController::class, 'create'])->name('admin.category.add');
         Route::post('/store',[CategoryController::class, 'store'])->name('admin.category.store');
@@ -38,13 +39,19 @@ Route::get('dashboard',function(){
         Route::get('/delete/{id}',[CategoryController::class, 'destroy'])->name('admin.category.delete');
     });
     Route::group(['prefix' => 'course'], function() {
-        // here goes the article routes
+        // here goes the course routes
         Route::get('/',[CourseController::class, 'index'])->name('admin.course.index');
         Route::get('/add',[CourseController::class, 'create'])->name('admin.course.add');
         Route::post('/store',[CourseController::class, 'store'])->name('admin.course.store');
         Route::get('/edit/{id}',[CourseController::class, 'edit'])->name('admin.course.edit');
         Route::put('/update/{id}',[CourseController::class, 'update'])->name('admin.course.update');
         Route::get('/delete/{id}',[CourseController::class, 'destroy'])->name('admin.course.delete');
+    });
+    Route::group(['prefix' => 'contact-us'], function() {
+        // here goes the contact-us routes
+        Route::get('/',[AdminController::class, 'contactUs'])->name('admin.contactUs.index');
+        Route::get('/edit/{id}',[AdminController::class, 'editContactUs'])->name('admin.contactUs.edit');
+        Route::put('/update/{id}',[AdminController::class, 'updateContactUs'])->name('admin.contactUs.update');
     });
 ?>
 
