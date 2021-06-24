@@ -52,5 +52,6 @@
             </div>
         </div>
     </div>
+    <img class="hand" src="{{asset('front/images/hand.png')}}" alt="">
 </section>
 @endsection

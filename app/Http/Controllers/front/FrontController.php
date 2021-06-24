@@ -102,6 +102,14 @@ class FrontController extends Controller
         return view('front.how-it-works');
     }
     
+    public function categories(Request $req)
+    {
+        if(!empty($req->category)) {
+            //
+        }
+        return view('front.categories');
+    }
+
     public function knowledgeBank(Request $req)
     {
         if(!empty($req->detailId)) {
