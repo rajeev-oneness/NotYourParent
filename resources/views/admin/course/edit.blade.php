@@ -1,5 +1,13 @@
 @extends('admin.layouts.master')
 @section('title','Edit Course')
+@section('css')
+<style>
+    .form-group.required .control-label:after {
+    content:"*";
+    color:red;
+ }
+</style>
+@endsection
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -51,13 +59,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('css')
-<style>
-    .form-group.required .control-label:after {
-    content:"*";
-    color:red;
- }
-</style>
 @endsection

@@ -40,7 +40,7 @@ class ArticleController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required',
+            'description' => 'required|string',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $fileName = time().'.'.$request->image->extension();
@@ -78,7 +78,7 @@ class ArticleController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required',
+            'description' => 'required|string',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if($request->hasFile('image')) {
