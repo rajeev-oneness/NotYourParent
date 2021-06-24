@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav flex-column">
                     <li class="nav-divider"> Menu </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link active" href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                     </li>
@@ -35,12 +35,12 @@
                         <!-- Main Section -->
                         <li class="nav-divider">Main</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
+                            <a class="nav-link" href="{{route('admin.article.index')}}"><i class="fa fa-fw fa-user-circle"></i>Articles</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Products</a>
                         </li>
-                        
+
                         <!-- Report Section -->
                         <li class="nav-divider">Report</li>
                         <li class="nav-item">
@@ -70,14 +70,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">How it works</a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </li>
                     <!-- Admin Sidebar End -->
                     <!-- Supplier Sidebar -->
                     @elseif(Auth::user()->user_type == 2)
-                        
+
                         {{-- here goes teacher sidebar menu --}}
 
                     @elseif(Auth::user()->user_type == 3)
