@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -15,7 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::with('author')->get();
         return view('admin.article.index', compact('articles'));
     }
 
@@ -26,7 +27,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.article.add');
     }
 
     /**
@@ -37,18 +38,21 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $fileName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/'), $fileName);
+        $image ='uploads/'.$fileName;
+        $article = new Article();
+        $article->image = $image;
+        $article->title = $request->title;
+        $article->description = $request->description;
+        $article->posted_by = Auth::user()->id;
+        $article->save();
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -59,7 +63,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('admin.article.edit',compact('article'));
     }
 
     /**
@@ -71,7 +76,24 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        if($request->hasFile('image')) {
+            $fileName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads/'), $fileName);
+            $image ='uploads/'.$fileName;
+            Article::where('id', $id)->update([
+                'image' => $image,
+            ]);
+        }
+        Article::where('id', $id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -82,6 +104,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::where('id', $id)->delete();
+        return redirect()->route('admin.article.index');
     }
 }

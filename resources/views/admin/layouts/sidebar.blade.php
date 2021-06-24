@@ -11,7 +11,7 @@
                     <li class="nav-divider"> Menu </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                        <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                     </li>
 
                     <li class="nav-item">
@@ -35,10 +35,13 @@
                         <!-- Main Section -->
                         <li class="nav-divider">Main</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.article.index')}}"><i class="fa fa-fw fa-user-circle"></i>Articles</a>
+                            <a class="nav-link {{ Request::segment(2) === 'article' ? 'active' : null }}" href="{{route('admin.article.index')}}"><i class="fa fa-fw fa-user-circle"></i>Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Products</a>
+                            <a class="nav-link {{ Request::segment(2) === 'category' ? 'active' : null }}" href="{{route('admin.category.index')}}"><i class="fa fa-fw fa-user-circle"></i>Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Courses</a>
                         </li>
 
                         <!-- Report Section -->

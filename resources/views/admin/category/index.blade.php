@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
-@section('title','Articles')
+@section('title','Categories')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Articles
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.article.add')}}">
+                    <h5 class="mb-0">Categories
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.category.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -20,20 +20,16 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Posted by</th>
+                                    <th>name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($articles as $article)
+                            @foreach ($categories as $category)
                             <tbody>
                                 <tr>
-                                    <td>{{$article->id}}</td>
-                                    <td><img src="{{asset($article->image)}}" width="60" /></td>
-                                    <td>{{$article->title}}</td>
-                                    <td>{{$article->author->name}}</td>
-                                    <td><a href="{{route('admin.article.edit',['id' => $article->id])}}">Edit</a> | <a href="{{route('admin.article.delete',['id' => $article->id])}}" class="text-danger">Delete</a></td>
+                                    <td>{{$category->id}}</td>
+                                    <td>{{$category->name}}</td>
+                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="{{route('admin.category.delete',['id' => $category->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
                             </tbody>
                             @endforeach
