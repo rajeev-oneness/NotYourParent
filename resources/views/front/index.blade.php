@@ -114,7 +114,7 @@
                             <img src="{{asset($course->image)}}">
                             <div class="mentor_course_overlay">
                                 <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">{{substr($course->name, 0, 7)}}</sub>{{substr($course->name, 7,11)}} </h4>
-                                <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,12)}}</h3>
+                                <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3>
                                 <ul>
                                     <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> {{$course->duration}} minutes</li>
                                     <li class="mentor_price">{{$course->price}}$ <span>Only</span></li>
@@ -134,7 +134,7 @@
                             <p>{{$course->description}}</p>
                             <ul>
                                 <li><a href="javascript:void(0);">Consult Now</a></li>
-                                <li><a href="javascript:void(0);">Visit Profile</a></li>
+                                <li><a href="{{route('front.experts', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                             </ul>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                                 <h4 class="white proxima_exbold">{{$testimonial->teacherDetails->name}}</h4>
                                 <h5 class="text-uppercase white proxima_exbold">MUSIC TRICKS</h5>
                                 <img src="{{asset('front/images/reviews_star.png')}}">
-                                <a class="secondary_btn green_btn" href="javascript:void(0);">More Classes</a>
+                                <a class="secondary_btn green_btn" href="{{route('front.experts', ['expertId' => $testimonial->teacherDetails->id])}}">More Classes</a>
                             </div>
                         </div>
                         <div class="class_teacher_img_wrap position-relative align-self-center">

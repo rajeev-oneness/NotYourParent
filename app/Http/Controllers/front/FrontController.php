@@ -54,6 +54,7 @@ class FrontController extends Controller
         $req->validate([
             'page' => 'required|min:0|numeric',
             'search' => 'nullable|string',
+            'categoryId' => 'nullable|numeric|min:1',
             'topic' => 'nullable|numeric|min:1',
             'available' => 'nullable|string',
             'seniority' => 'nullable|numeric|min:1',
@@ -64,6 +65,9 @@ class FrontController extends Controller
         $course = Course::select('*', 'courses.id AS course_id', 'courses.name AS course_name', 'courses.image AS course_img', 'courses.description AS course_desc');
         if(!empty($req->search)) {
             $course = $course->where('name', 'like', '%'.$req->search.'%');
+        }
+        if(!empty($req->categoryId)) {
+            // $course = $course->where('categoryId', $req->categoryId);
         }
         if(!empty($req->expert)) {
             $name = $req->expert;
@@ -87,8 +91,14 @@ class FrontController extends Controller
 
     public function experts(Request $req)
     {
-        // $data = $req->all();
-        return view('front.experts');
+        // $data = (object)[];
+        if(!empty($req->expertId)) {
+            $teacher = User::find($req->expertId);
+            $topics = TeacherTopic::where('teacherId', $req->expertId)->get();
+            $testimonials = Testimonial::where('teacherId', $req->expertId)->get();
+        }
+        // dd($data);
+        return view('front.experts', compact('teacher', 'topics', 'testimonials'));
     }
     
     public function signUp(Request $req)
@@ -104,10 +114,8 @@ class FrontController extends Controller
     
     public function categories(Request $req)
     {
-        if(!empty($req->category)) {
-            //
-        }
-        return view('front.categories');
+        $categories = Category::get();
+        return view('front.categories', compact('categories'));
     }
 
     public function knowledgeBank(Request $req)
