@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CourseController extends Controller
 {
@@ -94,6 +95,8 @@ class CourseController extends Controller
             'categoryId' => 'required'
         ]);
         if($request->hasFile('image')) {
+            $oldImage = public_path(Course::find($id)->image);
+            File::delete($oldImage);
             $fileName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/'), $fileName);
             $image ='uploads/'.$fileName;
@@ -119,7 +122,9 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::where('id', $id)->delete();
+        $course = Course::where('id', $id)->first();
+        // File::delete(public_path($course->image));
+        $course->delete();
         return redirect()->route('admin.course.index');
     }
 }
