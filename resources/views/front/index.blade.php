@@ -255,7 +255,7 @@
                         <span class="article_date proxima_bold">{{date('d M,Y', strtotime($article->created_at))}}</span>
                         <h3 class="proxima_exbold"><a class="d-block" href="#">{{$article->title}}</a></h3>
                         <p class="darkgray">{{$article->description}}</p>
-                        <a href="javascript:void(0);" class="secondary_btn darkblue_btn">Read More</a>
+                        <a href="{{route('front.articles', ['articleId' => $article->id])}}" class="secondary_btn darkblue_btn">Read More</a>
                     </div>
                 </div>
             </div>
