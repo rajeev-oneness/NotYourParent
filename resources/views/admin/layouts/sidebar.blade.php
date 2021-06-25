@@ -26,7 +26,7 @@
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
+                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Teachers</a>
                         </li>
 
                         <li class="nav-item">
@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Courses</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) === 'topic' ? 'active' : null }}" href="{{route('admin.topic.index')}}"><i class="fa fa-fw fa-user-circle"></i>Topics</a>
+                        </li>
 
                         <!-- Report Section -->
                         <li class="nav-divider">Report</li>
@@ -52,13 +55,10 @@
                         <!-- Crud Operation Section -->
                         <li class="nav-divider">Features</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Blogs</a>
+                            <a class="nav-link {{ Request::segment(2) === 'testimonial' ? 'active' : null }}" href="{{route('admin.testimonial.index')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Faq</a>
+                            <a class="nav-link {{ Request::segment(2) === 'faq' ? 'active' : null }}" href="{{route('admin.faq.index')}}"><i class="fa fa-fw fa-user-circle"></i>Faq</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Settings </a>

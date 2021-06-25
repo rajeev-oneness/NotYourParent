@@ -19,7 +19,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Image</th>
                                     <th>Category</th>
                                     <th>Name</th>
@@ -29,10 +29,10 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($courses as $course)
+                            @foreach ($courses as $key => $course)
                             <tbody>
                                 <tr>
-                                    <td>{{$course->id}}</td>
+                                    <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($course->image)}}" width="60" /></td>
                                     <td>{{$course->categoryDetail->name}}</td>
                                     <td>{{$course->name}}</td>
