@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
-@section('title','Categories')
+@section('title','FAQs')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Categories
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.category.add')}}">
+                    <h5 class="mb-0">FAQs
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.faq.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -20,16 +20,18 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>name</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($categories as $key => $category)
+                            @foreach ($faqs as $key => $faq)
                             <tbody>
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td>{{$category->name}}</td>
-                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="{{route('admin.category.delete',['id' => $category->id])}}" class="text-danger">Delete</a></td>
+                                    <td>{{$faq->title}}</td>
+                                    <td>{{$faq->description}}</td>
+                                    <td><a href="{{route('admin.faq.edit',['id' => $faq->id])}}">Edit</a> | <a href="{{route('admin.faq.delete',['id' => $faq->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
                             </tbody>
                             @endforeach

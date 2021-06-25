@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -29,6 +30,8 @@ class AdminController extends Controller
             'address' => 'required'
         ]);
         if($request->hasFile('image')) {
+            $oldImage = public_path(contactUs::find($id)->image);
+            File::delete($oldImage);
             $fileName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/'), $fileName);
             $image ='uploads/'.$fileName;

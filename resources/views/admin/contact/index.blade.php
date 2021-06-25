@@ -16,6 +16,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Phone no</th>

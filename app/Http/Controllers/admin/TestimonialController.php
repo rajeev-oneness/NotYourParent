@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Testimonial;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 
-class CourseController extends Controller
+class TestimonialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('categoryDetail','teacherDetail')->get();
-        return view('admin.course.index', compact('courses'));
+        $testimonials = Testimonial::with('teacherDetails')->get();
+        return view('admin.testimonial.index', compact('testimonials'));
     }
 
     /**
@@ -29,8 +28,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.course.add', compact('categories'));
+        $teachers = User::where('user_type', 2)->get();
+        // dd($teachers);
+        return view('admin.testimonial.add', compact('teachers'));
     }
 
     /**
@@ -43,25 +43,23 @@ class CourseController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required',
+            'designation' => 'required',
+            'title' => 'required',
+            'quote' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required',
-            'duration' => 'required',
-            'categoryId' => 'required'
         ]);
         $fileName = time().'.'.$request->image->extension();
         $request->image->move(public_path('uploads/'), $fileName);
         $image ='uploads/'.$fileName;
-        $course = new Course();
-        $course->categoryId = $request->categoryId;
-        $course->image = $image;
-        $course->name = $request->name;
-        $course->description = $request->description;
-        $course->duration = $request->duration;
-        $course->price = $request->price;
-        $course->teacherId = Auth::user()->id;
-        $course->save();
-        return redirect()->route('admin.course.index');
+        $testimonial = new Testimonial();
+        $testimonial->teacherId = $request->teacherId;
+        $testimonial->image = $image;
+        $testimonial->name = $request->name;
+        $testimonial->designation = $request->designation;
+        $testimonial->title = $request->title;
+        $testimonial->quote = $request->quote;
+        $testimonial->save();
+        return redirect()->route('admin.testimonial.index');
     }
 
     /**
@@ -72,9 +70,9 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
-        $course = Course::find($id);
-        return view('admin.course.edit',compact('course','categories'));
+        $teachers = User::where('user_type', 2)->get();
+        $testimonial = Testimonial::find($id);
+        return view('admin.testimonial.edit',compact('testimonial','teachers'));
     }
 
     /**
@@ -88,30 +86,29 @@ class CourseController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'required',
+            'designation' => 'required',
+            'title' => 'required',
+            'quote' => 'required',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required',
-            'duration' => 'required',
-            'categoryId' => 'required'
         ]);
         if($request->hasFile('image')) {
-            $oldImage = public_path(Course::find($id)->image);
+            $oldImage = public_path(Testimonial::find($id)->image);
             File::delete($oldImage);
             $fileName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/'), $fileName);
             $image ='uploads/'.$fileName;
-            Course::where('id', $id)->update([
+            Testimonial::where('id', $id)->update([
                 'image' => $image,
             ]);
         }
-        Course::where('id', $id)->update([
+        Testimonial::where('id', $id)->update([
             'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'duration' => $request->duration,
-            'categoryId' => $request->categoryId
+            'designation' => $request->designation,
+            'title' => $request->title,
+            'quote' => $request->quote,
+            'teacherId' => $request->teacherId
         ]);
-        return redirect()->route('admin.course.index');
+        return redirect()->route('admin.testimonial.index');
     }
 
     /**
@@ -122,9 +119,9 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        $course = Course::where('id', $id)->first();
-        // File::delete(public_path($course->image));
-        $course->delete();
-        return redirect()->route('admin.course.index');
+        $testimonial = Testimonial::where('id', $id)->first();
+        // File::delete(public_path($testimonial->image));
+        $testimonial->delete();
+        return redirect()->route('admin.testimonial.index');
     }
 }

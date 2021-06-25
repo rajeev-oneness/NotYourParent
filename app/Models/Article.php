@@ -10,6 +10,10 @@ class Article extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $fillable = [
+        'title','description','image',
+    ];
+
     public function author()
     {
         return $this->hasOne('App\Models\User', 'id', 'posted_by');

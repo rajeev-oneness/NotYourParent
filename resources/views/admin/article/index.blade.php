@@ -19,7 +19,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Posted by</th>

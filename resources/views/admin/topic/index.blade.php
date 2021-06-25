@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
-@section('title','Categories')
+@section('title','Topics')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Categories
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.category.add')}}">
+                    <h5 class="mb-0">Topics
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.topic.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -24,12 +24,12 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($categories as $key => $category)
+                            @foreach ($topics as $key => $topic)
                             <tbody>
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td>{{$category->name}}</td>
-                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="{{route('admin.category.delete',['id' => $category->id])}}" class="text-danger">Delete</a></td>
+                                    <td>{{$topic->name}}</td>
+                                    <td><a href="{{route('admin.topic.edit',['id' => $topic->id])}}">Edit</a> | <a href="{{route('admin.topic.delete',['id' => $topic->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
                             </tbody>
                             @endforeach

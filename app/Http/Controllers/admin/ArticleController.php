@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ArticleController extends Controller
 {
@@ -76,20 +77,23 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $article = Article::find($id);
         $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if($request->hasFile('image')) {
+            $oldImage = public_path($article->image);
+            File::delete($oldImage);
             $fileName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/'), $fileName);
             $image ='uploads/'.$fileName;
-            Article::where('id', $id)->update([
+            $article->update([
                 'image' => $image,
             ]);
         }
-        Article::where('id', $id)->update([
+        $article->update([
             'title' => $request->title,
             'description' => $request->description,
         ]);
