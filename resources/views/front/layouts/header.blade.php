@@ -1,4 +1,4 @@
-<header class="{{(request()->routeIs('front.experts.*') || request()->routeIs('front.experts') || request()->routeIs('front.how-it-works') || request()->routeIs('front.knowledge-bank'))?'experts_header':'main_header'}}">
+<header class="{{(request()->routeIs('front.experts.*') || request()->routeIs('front.experts') || request()->routeIs('front.how-it-works') || request()->routeIs('front.knowledge-bank') || request()->routeIs('front.articles'))?'experts_header':'main_header'}}">
     <div class="container">
         <div class="header_top position-relative">
             <div class="row no-gutters justify-content-center">

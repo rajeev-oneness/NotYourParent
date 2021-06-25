@@ -2116,6 +2116,83 @@ video{
 }
 
 /*====================
+	Articles
+=====================*/
+#article{
+	padding: 0;
+}
+article{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.article_left img{
+	width: 100%;
+}
+.article_left, .article_right{
+	width: 48%;
+}
+.tags{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	padding-top: 20px;
+}
+.tags p{
+	margin: 0;
+}
+.photo-tag{
+	display: inline-block;
+	padding: 8px 15px;
+	background-color: #b3bbbe;
+	color: #fff;
+	margin-left: 20px;
+}
+.about_writer{
+	width: 60%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
+	padding: 20px;
+	border: 1px solid #dfdfdf;
+}
+.writer-img{
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+}
+.writer-img img{
+	width: 100%;
+	transform: scale(1.5);
+}
+.writer-text{
+	width: 75%;
+}
+.writer-text ul{
+	display: flex;
+}
+.writer-text p{
+	margin-top: 0px;
+	font-size: 13px;
+	color: #818181;
+	margin-bottom: 2px;
+}
+.writer-text ul li a{
+	padding: 0 15px 0 0;
+	color: #818181;
+}
+
+.more_articles{
+	padding: 80px 0;
+	background-color: #edf4f7;
+}
+
+/*====================
 	Footer
 =====================*/
 .main_footer {
@@ -2661,6 +2738,13 @@ video{
 }
 
 @media screen and (max-width:767px){
+	.article_left, .article_right{
+		width: 100%;
+		margin-top: 50px;
+	}
+	.about_writer{
+		width: 100%;
+	}
 
 	.recent_article_section{
 		padding-top: 80px;

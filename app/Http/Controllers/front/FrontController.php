@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;use App\Models\Category;
 use App\Models\Course;use App\Models\Testimonial;
-use App\Models\Article;use App\Models\Topic;
-use App\Models\TeacherTopic;
+use App\Models\Article;use App\Models\ArticleTag;
+use App\Models\Topic;use App\Models\TeacherTopic;
 
 class FrontController extends Controller
 {
@@ -124,5 +124,17 @@ class FrontController extends Controller
             return view('front.knowledge-bank-details');
         }
         return view('front.knowledge-bank');
+    }
+    
+    public function articles(Request $req)
+    {
+        if(!empty($req->articleId)) {
+            $articleTags = ArticleTag::where('articleId', $req->articleId)->get();
+            $article = Article::find($req->articleId);
+            $randomArticles = Article::inRandomOrder()->limit(5)->get();
+            // dd($randomArticles);
+            return view('front.articles', compact('article', 'articleTags', 'randomArticles'));
+        }
+        // return view('front.articles');
     }
 }

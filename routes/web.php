@@ -22,6 +22,7 @@ Route::get('/categories', 'front\FrontController@categories')->name('front.categ
 Route::get('/knowledge-bank', 'front\FrontController@knowledgeBank')->name('front.knowledge-bank');
 Route::get('/directory', 'front\FrontController@directory')->name('front.directory');
 Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
+Route::get('/articles', 'front\FrontController@articles')->name('front.articles');
 Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
 
 //ajax calls
