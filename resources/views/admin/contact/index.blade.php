@@ -16,7 +16,6 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Phone no</th>
@@ -27,7 +26,6 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$contactUs->id}}</td>
                                     <td><img src="{{asset($contactUs->image)}}" width="60" /></td>
                                     <td>{{$contactUs->name}}</td>
                                     <td>{{$contactUs->phone}}</td>

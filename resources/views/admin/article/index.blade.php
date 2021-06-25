@@ -26,10 +26,10 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($articles as $article)
+                            @foreach ($articles as $key => $article)
                             <tbody>
                                 <tr>
-                                    <td>{{$article->id}}</td>
+                                    <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($article->image)}}" width="60" /></td>
                                     <td>{{$article->title}}</td>
                                     <td>{{$article->author->name}}</td>

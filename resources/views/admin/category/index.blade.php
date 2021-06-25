@@ -24,10 +24,10 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($categories as $category)
+                            @foreach ($categories as $key => $category)
                             <tbody>
                                 <tr>
-                                    <td>{{$category->id}}</td>
+                                    <td>{{$key + 1}}</td>
                                     <td>{{$category->name}}</td>
                                     <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="{{route('admin.category.delete',['id' => $category->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
