@@ -73,7 +73,6 @@ class AdminController extends Controller
         $request->validate([
             'commission' => 'required | numeric',
         ]);
-        // $commission = DB::table('masters')->where('id', $id)->first();
         DB::table('masters')->where('id', $id)->update([
             'commission' => $request->commission,
             ]);
