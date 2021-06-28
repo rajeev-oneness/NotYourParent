@@ -76,4 +76,35 @@ class Controller extends BaseController
         $newPoint->save();
         return $newPoint;
     }
+
+    // function storeTeacherSlot(Request $req){
+    //     $req->validate([
+
+    //     ]);
+    //     $currentTimeZone = 'UTC';
+    //     $datetime = changeToIst($req->datetime,$currentTimeZone);
+    //     $save = new Object();
+    //     $save->datetime = $datetime;
+    //     $save->userId = 1;
+    //     $save->status = 1;
+    //     $save->save();
+    // }
+
+    // public function returnData(Request $req)
+    // {
+    //     $currentTimeZone = 'UTC';
+    //     $data = Object::first();
+    //     $data->datetime = chageToDesireTimeZone($data->dateTime,$currentTimeZone);
+    // }
+
+    // function changeToIst($datetime,$timezone)
+    // {
+    //     $timezone to Ist;
+    // }
+
+    // public function chageToDesireTimeZone($datetime,$timezone)
+    // {
+    //     Ist to $timezone;
+    // }
+
 }

@@ -32,9 +32,22 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
 		<script src="{{asset('front/js/owl.carousel.min.js')}}"></script>
 		<script src="{{asset('front/js/main.js')}}"></script>
+		<script src="{{asset('design/js/sweetalert.min.js')}}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
+		<script>
+			//sweetalert
+			@if(Session::has('Success'))
+				swal('Success','{{Session::get('Success')}}', 'success');
+			@elseif(Session::has('Errors'))
+				swal('Error','{{Session::get('Errors')}}', 'error');
+			@endif
+
+			//local timezone
+			console.log(moment.tz.guess());
+    	</script>
         @yield('script')
 	</body>
 </html>
