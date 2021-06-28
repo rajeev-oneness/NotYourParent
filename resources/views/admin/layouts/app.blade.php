@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
@@ -38,11 +39,11 @@
             swal('Error','{{Session::get('error')}}');
         @endif
 
-        function isNumberKey(evt){  
-            if(evt.charCode >= 48 && evt.charCode <= 57){  
-                return true;  
-            }  
-            return false;  
+        function isNumberKey(evt){
+            if(evt.charCode >= 48 && evt.charCode <= 57){
+                return true;
+            }
+            return false;
         }
     </script>
     @yield('script')

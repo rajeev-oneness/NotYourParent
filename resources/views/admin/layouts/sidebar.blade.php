@@ -26,11 +26,10 @@
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Teachers</a>
+                            <a class="nav-link {{ Request::segment(2) === 'teacher' ? 'active' : null }}" href="{{route('admin.teacher.index')}}"><i class="fa fa-fw fa-user-circle"></i>Teachers</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Users</a>
+                            <a class="nav-link {{ Request::segment(2) === 'user' ? 'active' : null }}" href="{{route('admin.user.index')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                         </li>
                         <!-- Main Section -->
                         <li class="nav-divider">Main</li>

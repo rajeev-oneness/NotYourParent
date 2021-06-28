@@ -18,4 +18,7 @@ class Article extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'posted_by');
     }
+    // public function tags (){
+    //     return $this->belongsToMany(Tag::class);
+    // }
 }

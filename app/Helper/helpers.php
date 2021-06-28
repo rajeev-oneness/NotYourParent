@@ -1,5 +1,5 @@
-<?php 
-	
+<?php
+
 	function successResponse($msg='',$data=[],$status=200)
 	{
 		return response()->json(['error'=>false,'status'=>$status,'message'=>$msg,'data'=>$data]);
@@ -33,7 +33,7 @@
     {
         return Str::words($value, $words, $end);
     }
-    
+
 	function generateUniqueAlphaNumeric($length = 7)
     {
     	$random_string = '';

@@ -26,8 +26,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($articles as $key => $article)
                             <tbody>
+                                @foreach ($articles as $key => $article)
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($article->image)}}" width="60" /></td>
@@ -35,8 +35,8 @@
                                     <td>{{$article->author->name}}</td>
                                     <td><a href="{{route('admin.article.edit',['id' => $article->id])}}">Edit</a> | <a href="{{route('admin.article.delete',['id' => $article->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
                         </table>
                     </div>
                 </div>

@@ -5,8 +5,10 @@ use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CourseController;
 use App\Http\Controllers\admin\FaqController;
+use App\Http\Controllers\admin\TeacherController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\TopicController;
+use App\Http\Controllers\admin\UserController;
 
 Route::get('dashboard',function(){
 		return view('admin.dashboard');
@@ -31,6 +33,7 @@ Route::get('dashboard',function(){
         Route::get('/edit/{id}',[ArticleController::class, 'edit'])->name('admin.article.edit');
         Route::put('/update/{id}',[ArticleController::class, 'update'])->name('admin.article.update');
         Route::get('/delete/{id}',[ArticleController::class, 'destroy'])->name('admin.article.delete');
+        Route::post('/tag',[ArticleController::class, 'tagStore'])->name('admin.tag.store');
     });
     Route::group(['prefix' => 'category'], function() {
         // here goes the category routes
@@ -82,6 +85,26 @@ Route::get('dashboard',function(){
         Route::get('/edit/{id}',[TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
         Route::put('/update/{id}',[TestimonialController::class, 'update'])->name('admin.testimonial.update');
         Route::get('/delete/{id}',[TestimonialController::class, 'destroy'])->name('admin.testimonial.delete');
+    });
+    Route::group(['prefix' => 'teacher'], function() {
+        // here goes the teacher routes
+        Route::get('/',[TeacherController::class, 'getAllTeachers'])->name('admin.teacher.index');
+        Route::get('/add',[TeacherController::class, 'addNewTeacher'])->name('admin.teacher.add');
+        Route::post('/store',[TeacherController::class, 'saveTeacher'])->name('admin.teacher.store');
+        Route::get('/edit/{id}',[TeacherController::class, 'editTeacher'])->name('admin.teacher.edit');
+        Route::put('/update/{id}',[TeacherController::class, 'updateTeacher'])->name('admin.teacher.update');
+        Route::get('/delete/{id}',[TeacherController::class, 'deleteTeacher'])->name('admin.teacher.delete');
+        Route::post('/updateStatus',[TeacherController::class, 'updateStatus'])->name('admin.teacher.updateStatus');
+    });
+    Route::group(['prefix' => 'user'], function() {
+        // here goes the user routes
+        Route::get('/',[UserController::class, 'getAllUsers'])->name('admin.user.index');
+        Route::get('/add',[UserController::class, 'addNewUser'])->name('admin.user.add');
+        Route::post('/store',[UserController::class, 'saveUser'])->name('admin.user.store');
+        Route::get('/edit/{id}',[UserController::class, 'editUser'])->name('admin.user.edit');
+        Route::put('/update/{id}',[UserController::class, 'updateUser'])->name('admin.user.update');
+        Route::get('/delete/{id}',[UserController::class, 'deleteUser'])->name('admin.user.delete');
+        Route::post('/updateStatus',[UserController::class, 'updateStatus'])->name('admin.user.updateStatus');
     });
 ?>
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Not Your Parent - @yield('title')</title>
     <link rel="icon" href="{{asset('forntEnd/images/logo.png')}}" type="image/gif" sizes="any">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.min.css')}}">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('design/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     @yield('css')
 </head>
 <body>
@@ -34,6 +36,7 @@
     <script src="{{asset('design/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -45,10 +48,10 @@
         @endif
 
         function isNumberKey(evt){
-            if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){  
-                return true;  
-            }  
-            return false;  
+            if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){
+                return true;
+            }
+            return false;
         }
     </script>
     @yield('script')

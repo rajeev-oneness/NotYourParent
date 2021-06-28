@@ -5,8 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 
 class ArticleController extends Controller
 {
@@ -18,6 +20,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::with('author')->get();
+        // dd($articles);
         return view('admin.article.index', compact('articles'));
     }
 
@@ -28,7 +31,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.article.add');
+        $tags = Tag::all();
+        return view('admin.article.add', compact('tags'));
     }
 
     /**
@@ -52,7 +56,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->description = $request->description;
         $article->posted_by = Auth::user()->id;
-        $article->save();
+        $article->tags()->sync(request('tags'));
         return redirect()->route('admin.article.index');
     }
 
@@ -110,5 +114,15 @@ class ArticleController extends Controller
     {
         Article::where('id', $id)->delete();
         return redirect()->route('admin.article.index');
+    }
+    public function tagStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|unique:tags'
+        ]);
+        $tag = new Tag();
+        $tag->name = $request->name;
+        $tag->save();
+        return Redirect::back()->with('message','New Tag create Successful !');
     }
 }
