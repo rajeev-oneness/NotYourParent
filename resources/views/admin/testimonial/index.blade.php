@@ -29,8 +29,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($testimonials as $key => $testimonial)
                             <tbody>
+                                @foreach ($testimonials as $key => $testimonial)
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($testimonial->image)}}" width="60" /></td>
@@ -41,8 +41,8 @@
                                     <td>{{$testimonial->quote}}</td>
                                     <td><a href="{{route('admin.testimonial.edit',['id' => $testimonial->id])}}">Edit</a> | <a href="{{route('admin.testimonial.delete',['id' => $testimonial->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
                         </table>
                     </div>
                 </div>

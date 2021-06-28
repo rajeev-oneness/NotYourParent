@@ -24,15 +24,15 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($topics as $key => $topic)
                             <tbody>
+                                @foreach ($topics as $key => $topic)
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>{{$topic->name}}</td>
                                     <td><a href="{{route('admin.topic.edit',['id' => $topic->id])}}">Edit</a> | <a href="{{route('admin.topic.delete',['id' => $topic->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
                         </table>
                     </div>
                 </div>

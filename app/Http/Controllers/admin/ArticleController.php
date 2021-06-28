@@ -56,7 +56,8 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->description = $request->description;
         $article->posted_by = Auth::user()->id;
-        $article->tags()->sync(request('tags'));
+        // $article->tags()->sync(request('tags'));
+        $article->save();
         return redirect()->route('admin.article.index');
     }
 

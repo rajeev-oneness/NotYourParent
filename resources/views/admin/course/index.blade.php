@@ -29,8 +29,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($courses as $key => $course)
                             <tbody>
+                                @foreach ($courses as $key => $course)
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($course->image)}}" width="60" /></td>
@@ -41,8 +41,8 @@
                                     <td>{{$course->price}}</td>
                                     <td><a href="{{route('admin.course.edit',['id' => $course->id])}}">Edit</a> | <a href="{{route('admin.course.delete',['id' => $course->id])}}" class="text-danger">Delete</a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
                         </table>
                     </div>
                 </div>
