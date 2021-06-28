@@ -34,6 +34,8 @@
     <script src="{{asset('design/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -50,7 +52,11 @@
             }  
             return false;  
         }
+
+        //local timezone
+        console.log(moment.tz.guess());
     </script>
+    
     @yield('script')
 </body>
 </html>

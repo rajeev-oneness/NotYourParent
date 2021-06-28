@@ -53,5 +53,38 @@
     	return $totalPoint;
     }
 
+	function getCommission()
+	{
+		if(session()->has('commission')){
+			return session()->get('commission');
+		}else{
+			$master = \App\Models\Master::first();
+			session('commission',$master->commission);
+			return $master->commission;
+		}
+	}
 
+	// Function to change any datetime to Indian Standard Time
+	function changeToIst($datetime)
+	{
+		$localDateTime = new DateTime($datetime);
+		$localDateTime->setTimezone(new DateTimeZone('Asia/Calcutta'));
+		$changedDateTime = (object)[];
+		$changedDateTime->date = $localDateTime->format("Y-m-d");
+		$changedDateTime->time = $localDateTime->format("H:i:s");
+		return $changedDateTime;
+		// dd($changedDateTime);
+	}
+
+	// Function to change any datetime to Users Local Time
+	function changeToLocalTime($datetime, $timezone)
+	{
+		$istDateTime = new DateTime($datetime);
+		$istDateTime->setTimezone(new DateTimeZone($timezone));
+		$changedDateTime = (object)[];
+		$changedDateTime->date = $istDateTime->format("Y-m-d");
+		$changedDateTime->time = $istDateTime->format("H:i:s");
+		return $changedDateTime;
+		// dd($changedDateTime);
+	}
  ?>

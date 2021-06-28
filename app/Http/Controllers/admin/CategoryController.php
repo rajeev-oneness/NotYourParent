@@ -13,9 +13,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
         $categories = Category::all();
+        // $categories = Category::first();
+        // changeToLocalTime($categories->created_at, 'Australia/ACT');
         return view('admin.category.index', compact('categories'));
     }
 
