@@ -36,9 +36,8 @@
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($teacher->image)}}" width="60" /></td>
                                     <td>{{$teacher->name}}</td>
-                                    {{-- <td>{{$teacher->email}}</td>
-                                    <td>{{$teacher->mobile}}</td> --}}
-                                    {{-- <td>{{$teacher->status}}</td> --}}
+                                     <td>{{$teacher->email}}</td>
+                                    {{-- <td>{{$teacher->mobile}}</td> --}}
                                     <td>
                                         <input id="toggle-block" type="checkbox"  data-toggle="toggle" data-size="sm" name="status" class="checkbox btn-radius" data-teacher_id="{{ $teacher->id }}" {{ $teacher->status == 1 ? 'checked' : '' }}>
                                     </td>
