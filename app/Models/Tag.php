@@ -9,9 +9,4 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Tag extends Model
 {
     use HasFactory,SoftDeletes;
-
-    // public function articles()
-    // {
-    //     return $this->belongsToMany(Article::class,'article_tags');
-    // }
 }

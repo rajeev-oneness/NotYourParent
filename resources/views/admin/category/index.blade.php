@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>{{$category->name}}</td>
-                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="{{route('admin.category.delete',['id' => $category->id])}}" class="text-danger">Delete</a></td>
+                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="#" data-id="{{$category->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -47,6 +47,22 @@
     $(document).ready(function() {
         $('#example4').DataTable();
     });
+    $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = "category/delete/";
+        const id = $(this).data('id');
+        swal({
+            title: 'Are you sure?',
+            text: 'This record will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+            if (value) {
+                swal("Deleted!", "Successful!", "success");
+                window.location.href = url + id;
+                }
+            });
+        });
 </script>
 @stop
 @endsection

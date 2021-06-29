@@ -26,7 +26,7 @@ class TeacherController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'mobile' => 'required|numeric|digits:10',
+            'mobile' => 'numeric|digits:10',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $teacher = new User();
@@ -70,7 +70,7 @@ class TeacherController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required',
-            'mobile' => 'required|numeric|digits:10',
+            'mobile' => 'numeric|digits:10',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $teacher->user_type = 2;

@@ -13,10 +13,6 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
-                    </li>
                     @if(Auth::user()->user_type != 1)
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
@@ -86,6 +82,7 @@
                         {{-- here goes teacher sidebar menu --}}
 
                     @elseif(Auth::user()->user_type == 3)
+                        {{-- here goes user sidebar menu --}}
                     @endif
                 </ul>
             </div>
