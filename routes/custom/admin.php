@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route,Auth;
-use App\Http\Controllers\Admin;
 
 Route::get('dashboard',function(){
 		return view('admin.dashboard');
