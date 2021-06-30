@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+
+namespace App\Http\Controllers;
+use App\Http\Controllers\front\FrontController;
+use Illuminate\Support\Facades\Route,Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/directory-ajax-call', 'front\FrontController@directorySearch')->name('directory.search.ajax');
+// Route::post('/directory-ajax-call', 'front\FrontController@directorySearch')->name('directory.search.ajax');
+Route::post('/directory-ajax-call', [FrontController::class,'directorySearch'])->name('directory.search.ajax');
