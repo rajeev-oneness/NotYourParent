@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Stripe;use Session;use App\Model\StripeTransaction;
+use App\Models\Course;
 
 class StripePaymentController extends Controller
 {
     public function stripeView(Request $req)
 	{
+        $course = Course::find($req->courseId);
 		$data = [
             'redirectUrl' => '', //redirect URL will be here
-            'price' => 100, // price wil be here
+            'price' => calculatePrice($course->price) // price wil be here
         ];
         return view('stripe.index',compact('data'));
 	}

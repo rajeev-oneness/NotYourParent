@@ -117,7 +117,7 @@
                                 <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3>
                                 <ul>
                                     <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> {{$course->duration}} minutes</li>
-                                    <li class="mentor_price">{{$course->price}}$ <span>Only</span></li>
+                                    <li class="mentor_price" id="slot_modal" data-mentor="{{$course->teacherDetail->id}}" data-course="{{$course->id}}" data-toggle="modal" data-target="#exampleModal">{{$course->price}}$ <span>Only</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -154,6 +154,27 @@
         <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">
     </div>
 </section>
+
+<!-- Calendar Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choose Slot</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @include('front.calendar')
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Book Slot</button>
+        </div>
+      </div>
+    </div>
+</div>
 <!-- mentors_section -->
 
 <section class="review_section">
@@ -270,5 +291,46 @@
 @endsection
 
 @section('script')
-
+{{-- <script>
+    let d = new Date();
+    month = ['Jan','Feb','March','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    thisWeek = d.getDay();
+    thisMonth = d.getMonth();
+    thisYear = d.getFullYear();
+    function daysInMonth (month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+    days = daysInMonth(thisMonth, thisYear);
+    $('.weeks').empty();
+    $('.dates').empty();
+    totalWeek = thisWeek+6;
+    for (let index = thisWeek; index <= totalWeek; index++) {
+        weekDay = '<div class="days">'+week[index]+'</div>';
+        if(totalWeek > 6) {
+            // weekDay = '<div class="days">'+week[totalWeek-index]+'</div>';
+        }
+        $('.weeks').append(weekDay);
+    }
+    for (let index = 0; index < 35; index++) {
+        dates = '<div class="date-boxes">'+(index+1)+'</div>';
+        if(index >= days) {
+            dates = '<div class="date-boxes inactive">'+((index-days)+1)+'</div>';
+        }
+        $('.dates').append(dates);
+    }
+    
+    console.log(month[thisMonth-1]);
+    console.log(days);
+</script> --}}
+<script>
+    let d = new Date();
+    thisWeek = d.getDay();
+    thisMonth = d.getMonth();
+    thisYear = d.getFullYear();
+    $("#slot_modal").click(function() {
+        mentorId = $(this).data('mentor');
+        courseId = $(this).data('course');
+    })
+</script>
 @endsection

@@ -13,6 +13,7 @@ class FrontController extends Controller
 {
     public function index(Request $req)
     {
+        // generateSlot(4, 7, '10:00:00', '19:00:00', 'Asia/Calcutta');
         $data = (object)[];
         $data->categories = Category::get();
         $data->testimonials = Testimonial::limit(5)->get();

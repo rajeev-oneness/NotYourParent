@@ -53,6 +53,14 @@
     	return $totalPoint;
     }
 
+	//calculate the total price with commission
+	function calculatePrice($price)
+	{
+		$commission = getCommission();
+		$totalPrice = $price+($price*($commission/100));
+		return $totalPrice;
+	}
+
 	function getCommission()
 	{
 		if(session()->has('commission')){
@@ -65,15 +73,14 @@
 	}
 
 	// Function to change any datetime to Indian Standard Time
-	function changeToIst($datetime)
+	function changeToIst($datetime, $timezone)
 	{
 		$localDateTime = new DateTime($datetime);
-		$localDateTime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-		$changedDateTime = (object)[];
-		$changedDateTime->date = $localDateTime->format("Y-m-d");
-		$changedDateTime->time = $localDateTime->format("H:i:s");
+		if($timezone != 'Asia/Calcutta') {
+			$localDateTime->setTimezone(new DateTimeZone($timezone));
+		}
+		$changedDateTime = $localDateTime->format("Y-m-d H:i:s");
 		return $changedDateTime;
-		// dd($changedDateTime);
 	}
 
 	// Function to change any datetime to Users Local Time
@@ -81,10 +88,58 @@
 	{
 		$istDateTime = new DateTime($datetime);
 		$istDateTime->setTimezone(new DateTimeZone($timezone));
-		$changedDateTime = (object)[];
-		$changedDateTime->date = $istDateTime->format("Y-m-d");
-		$changedDateTime->time = $istDateTime->format("H:i:s");
+		$changedDateTime = $istDateTime->format("Y-m-d H:i:s");
 		return $changedDateTime;
 		// dd($changedDateTime);
+	}
+
+	//slot generating (4, 2, '23:00:00', '02:00:00', 'Asia/Calcutta');
+	function generateSlot($teacherId, $days, $fromTime, $toTime, $timezone)
+	{
+		$slots = (object)[];
+		for ($i=0; $i < $days; $i++) {
+			$currentDate = date('Y-m-d',strtotime('+'.$i.'days'));
+			if($fromTime > $toTime){
+				$from = date('Y-m-d H:i:s',strtotime($currentDate.' '.$fromTime));
+				$to = date('Y-m-d H:i:s',strtotime($currentDate.' '.$toTime . ' +1 day'));
+			}else{
+				$from = date('Y-m-d H:i:s',strtotime($currentDate.' '.$fromTime));
+				$to = date('Y-m-d H:i:s',strtotime($currentDate.' '.$toTime));
+			}
+			$j = 0;
+			$from = changeToIst($from, $timezone);
+			$to = changeToIst($to, $timezone);
+			while ($from < $to) {
+				if($j == 0) {
+					$from = date('Y-m-d H:i:s',strtotime($from.' +0 minutes'));
+				} else {
+					$from = date('Y-m-d H:i:s',strtotime($from.' +20 minutes'));
+				}
+				$slotDateTime = explode(' ', $from);
+				$slotFind = App\Models\Slot::where('teacherId', $teacherId)->where('date', $slotDateTime[0])->where('time', $slotDateTime[1])->first();
+				
+				if (empty($slotFind)) {
+					$slot = new App\Models\Slot;
+					$slot->teacherId = $teacherId;
+					$slot->date = $slotDateTime[0];
+					$slot->time = $slotDateTime[1];
+					$slot->save();
+					$slots->error = false;
+					$slots->message = 'Slot created successfully';
+					$slots->slot[$i][$j] = $slot;
+				} else {
+					$slots->error = true;
+					$slots->message = 'Can not store duplicate slot';
+					$slots->slot = '';
+				}
+				// echo '<pre>';
+				// print_r($slotDateTime);
+				// print_r($slots);
+				$j++;
+			}
+		}
+		return $slots;
+		// dd($slots);
+		// exit;
 	}
  ?>

@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 // Stripe Payment Route
+Route::get('payment/card-detils', 'StripePaymentController@stripeView')->name('payement.page');
 Route::post('stripe/payment/form_submit','StripePaymentController@stripePostForm_Submit')->name('stripe.payment.form_submit');
 Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentController@thankyouStripePayment')->name('payment.successfull.thankyou');
 
