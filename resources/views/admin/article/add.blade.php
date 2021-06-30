@@ -92,8 +92,12 @@
 <script src="{{ asset('design/vendor/select2/js/select2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
+        $('.js-example-basic-multiple').select2();
+
+        $('form').submit(function(){
+            $(this).children('button[type=submit]').prop('disabled', true);
+        });
+    });
 
 </script>
 @endsection

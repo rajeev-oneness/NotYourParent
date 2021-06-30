@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
@@ -54,5 +55,27 @@ class AdminController extends Controller
             'youtube' => $request->youtube
         ]);
         return redirect()->route('admin.contactUs.index');
+    }
+
+    public function getCommission()
+    {
+        $commissions = DB::table('masters')->get();
+        return view('admin.commission.index', compact('commissions'));
+    }
+    public function editCommission($id)
+    {
+        $commission = DB::table('masters')->where('id', $id)->first();
+        // dd($commission);
+        return view('admin.commission.edit', compact('commission'));
+    }
+    public function updateCommission(Request $request, $id)
+    {
+        $request->validate([
+            'commission' => 'required | numeric',
+        ]);
+        DB::table('masters')->where('id', $id)->update([
+            'commission' => $request->commission,
+            ]);
+        return redirect()->route('admin.commission.index');
     }
 }

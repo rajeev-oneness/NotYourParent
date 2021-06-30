@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\ArticleTag;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -56,8 +57,13 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->description = $request->description;
         $article->posted_by = Auth::user()->id;
-        // $article->tags()->sync(request('tags'));
         $article->save();
+        foreach ($request->tags as $tagItem) {
+            $articleTag = new ArticleTag();
+            $articleTag->tagId = $tagItem;
+            $articleTag->articleId = $article->id;
+            $articleTag->save();
+        }
         return redirect()->route('admin.article.index');
     }
 

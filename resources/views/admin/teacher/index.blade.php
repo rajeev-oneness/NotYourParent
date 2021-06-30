@@ -25,7 +25,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Mobile</th>
+                                    {{-- <th>Mobile</th> --}}
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -36,13 +36,12 @@
                                     <td>{{$key + 1}}</td>
                                     <td><img src="{{asset($teacher->image)}}" width="60" /></td>
                                     <td>{{$teacher->name}}</td>
-                                    <td>{{$teacher->email}}</td>
-                                    <td>{{$teacher->mobile}}</td>
-                                    {{-- <td>{{$teacher->status}}</td> --}}
+                                     <td>{{$teacher->email}}</td>
+                                    {{-- <td>{{$teacher->mobile}}</td> --}}
                                     <td>
                                         <input id="toggle-block" type="checkbox"  data-toggle="toggle" data-size="sm" name="status" class="checkbox btn-radius" data-teacher_id="{{ $teacher->id }}" {{ $teacher->status == 1 ? 'checked' : '' }}>
                                     </td>
-                                    <td><a href="{{route('admin.teacher.edit',['id' => $teacher->id])}}">Edit</a> | <a href="{{route('admin.teacher.delete',['id' => $teacher->id])}}" class="text-danger">Delete</a></td>
+                                    <td><a href="{{route('admin.teacher.edit',['id' => $teacher->id])}}">Edit</a> | <a href="#" data-id="{{$teacher->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -61,7 +60,7 @@
         $('#example4').DataTable();
     });
 
-
+    //change status
     $('input[id="toggle-block"]').change(function() {
             var teacher_id = $(this).data('teacher_id');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -81,6 +80,23 @@
                   swal("Success!", response.message, "success");
                 }
               });
+        });
+        //confirm delete
+        $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = "teacher/delete/";
+        const id = $(this).data('id');
+        swal({
+            title: 'Are you sure?',
+            text: 'This record will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+            if (value) {
+                swal("Deleted!", "Successful!", "success");
+                window.location.href = url + id;
+                }
+            });
         });
 </script>
 @stop

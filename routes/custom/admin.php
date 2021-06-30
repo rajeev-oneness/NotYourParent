@@ -106,5 +106,9 @@ Route::get('dashboard',function(){
         Route::get('/delete/{id}',[UserController::class, 'deleteUser'])->name('admin.user.delete');
         Route::post('/updateStatus',[UserController::class, 'updateStatus'])->name('admin.user.updateStatus');
     });
+    Route::get('/commission',[AdminController::class, 'getCommission'])->name('admin.commission.index');
+    Route::get('/commission/edit/{id}',[AdminController::class, 'editCommission'])->name('admin.commission.edit');
+    Route::put('commission/update/{id}',[AdminController::class, 'updateCommission'])->name('admin.commission.update');
+
 ?>
 
