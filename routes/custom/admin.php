@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Route,Auth;
+
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\CategoryController;
