@@ -1,12 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-Route::get('/',function(){
-return view('welcome');
-});
-Route::post('welcome',function(){
-return 'welcom';
-})->name('post.welcome');
+namespace App\Http\Controllers;
+use App\Http\Controllers\front\FrontController;
+use Illuminate\Support\Facades\Route,Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,38 +16,45 @@ return 'welcom';
 */
 
 // front side routes
-//Route::get('/', 'front\FrontController@index')->name('front.home');
-Route::get('/about-us', 'front\FrontController@index')->name('front.about-us');
-Route::get('/resources', 'front\FrontController@resources')->name('front.resources');
-Route::get('/how-it-works', 'front\FrontController@howItWorks')->name('front.how-it-works');
-Route::get('/categories', 'front\FrontController@categories')->name('front.categories');
-Route::get('/knowledge-bank', 'front\FrontController@knowledgeBank')->name('front.knowledge-bank');
-Route::get('/directory', 'front\FrontController@directory')->name('front.directory');
-Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
-Route::get('/articles', 'front\FrontController@articles')->name('front.articles');
-Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
+
+Route::get('/', [FrontController::class,'index'])->name('front.home');
+Route::get('/about-us', [FrontController::class,'index'])->name('front.about-us');
+Route::get('/resources', [FrontController::class,'resources'])->name('front.resources');
+Route::get('/how-it-works', [FrontController::class,'howItWorks'])->name('front.how-it-works');
+Route::get('/categories', [FrontController::class,'categories'])->name('front.categories');
+Route::get('/knowledge-bank', [FrontController::class,'knowledgeBank'])->name('front.knowledge-bank');
+Route::get('/directory', [FrontController::class,'directory'])->name('front.directory');
+Route::get('/experts', [FrontController::class,'experts'])->name('front.experts');
+Route::get('/articles', [FrontController::class,'articles'])->name('front.articles');
+Route::get('/sign-up', [FrontController::class,'signUp'])->name('front.sign-up');
 
 
 
 // auth routes
 Auth::routes(['logout'=>false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::any('logout','HomeController@logout')->name('logout');
+Route::get('/home', [HomeController::class,'index'])->name('home');
+Route::any('logout', [HomeController::class,'logout'])->name('logout');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
-	Route::get('user/profile','HomeController@userProfile')->name('user.profile');
-	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
+	Route::get('user/profile', [HomeController::class,'userProfile'])->name('user.profile');
+
+	Route::post('user/profile', [HomeController::class,'userProfileSave'])->name('user.profile.save');
+	
 	// Route::get('user/change/password','HomeController@changePassword')->name('user.changepassword');
-	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
-	Route::get('user/points','HomeController@userPoints')->name('user.points');
+	Route::post('user/change/password', [HomeController::class,'updateUserPassword'])->name('user.changepassword.save');
+	
+	Route::get('user/points', [HomeController::class,'userPoints'])->name('user.points');
+
 });
 
 // Stripe Payment Route
-Route::get('payment/card-detils', 'StripePaymentController@stripeView')->name('payement.page');
-Route::post('stripe/payment/form_submit','StripePaymentController@stripePostForm_Submit')->name('stripe.payment.form_submit');
-Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentController@thankyouStripePayment')->name('payment.successfull.thankyou');
+Route::get('payment/card-detils', [StripePaymentController::class,'stripeView'])->name('payement.page');
+
+Route::post('/stripe/payment/form_submit', [StripePaymentController::class,'stripePostForm_Submit'])->name('stripe.payment.form_submit');
+
+Route::get('payment/successfull/thankyou/{stripeTransactionId}', [StripePaymentController::class,'thankyouStripePayment'])->name('payment.successfull.thankyou');
 
 Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
 	require 'custom/admin.php';
