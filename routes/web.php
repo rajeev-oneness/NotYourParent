@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\Front\FrontController;
 use Illuminate\Support\Facades\Route,Auth;
 
 /*

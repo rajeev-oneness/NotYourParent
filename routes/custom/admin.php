@@ -2,16 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route,Auth;
-
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\ArticleController;
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\CourseController;
-use App\Http\Controllers\admin\FaqController;
-use App\Http\Controllers\admin\TeacherController;
-use App\Http\Controllers\admin\TestimonialController;
-use App\Http\Controllers\admin\TopicController;
-use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Admin;
 
 Route::get('dashboard',function(){
 		return view('admin.dashboard');
