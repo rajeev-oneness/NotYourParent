@@ -25,8 +25,6 @@ Route::get('/experts', 'front\FrontController@experts')->name('front.experts');
 Route::get('/articles', 'front\FrontController@articles')->name('front.articles');
 Route::get('/sign-up', 'front\FrontController@signUp')->name('front.sign-up');
 
-//ajax calls
-Route::post('/directory-ajax-call', 'front\FrontController@directorySearch')->name('directory.search.ajax');
 
 
 // auth routes

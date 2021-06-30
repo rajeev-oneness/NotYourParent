@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     function getCourses() {
         // getting parameters
-        let params = {_token:'{{csrf_token()}}',page:page};
+        let params = {page:page};
         @foreach($request as $key => $req)
             params['{{$key}}'] = '{{$req}}';
         @endforeach
