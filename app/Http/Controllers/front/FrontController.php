@@ -88,6 +88,12 @@ class FrontController extends Controller
         $total = $course->count();
         $course = $course->with('teacherDetail')->limit(9)->offset($offset)->get();
         // dd($course);
+        $data = [
+            'data' => $course,
+            'total' => $total,
+            'requests'=> $reqs,
+        ];
+        return successResponse('Course Data',$data);
         return response()->json(['error' => false, 'message' => 'Course Data', 'data' => $course, 'total' => $total, 'requests' => $reqs]);
     }
 
