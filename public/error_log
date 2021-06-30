@@ -1,0 +1,9 @@
+[30-Jun-2021 16:42:43 Asia/Calcutta] PHP Warning:  Uncaught ErrorException: require(custom/admin.php): failed to open stream: No such file or directory in /home/demo9dtx/public_html/dev/NotYourParent/routes/web.php:60
+Stack trace:
+#0 /home/demo9dtx/public_html/dev/NotYourParent/routes/web.php(60): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require(custom/...', '/home/demo9dtx/...', 60, Array)
+#1 /home/demo9dtx/public_html/dev/NotYourParent/routes/web.php(60): require()
+#2 /home/demo9dtx/public_html/dev/NotYourParent/vendor/laravel/framework/src/Illuminate/Routing/Router.php(423): Illuminate\Routing\RouteFileRegistrar->App\Http\Controllers\{closure}(Object(Illuminate\Routing\Router))
+#3 /home/demo9dtx/public_html/dev/NotYourParent/vendor/laravel/framework/src/Illuminate/Routing/Router.php(382): Illuminate\Routing\Router->loadRoutes(Object(Closure))
+#4 /home/demo9dtx/public_html/dev/NotYourParent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(261): Illuminate\Routing\Router->group(Array, Object(Closure))
+#5 /home/demo9 in /home/demo9dtx/public_html/dev/NotYourParent/routes/web.php on line 60
+[30-Jun-2021 16:42:43 Asia/Calcutta] PHP Fatal error:  Illuminate\Routing\RouteFileRegistrar::App\Http\Controllers\{closure}(): Failed opening required 'custom/admin.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/demo9dtx/public_html/dev/NotYourParent/routes/web.php on line 60
