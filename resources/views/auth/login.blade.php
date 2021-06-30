@@ -28,7 +28,8 @@
                 </div>
                 <div class="login_form">
                     <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                        {{-- @csrf --}}
+                        {{csrf_field()}}
                         <div class="email-address">
                             <div class="label-text">
                                 <img src="{{asset('front/images/mail.png')}}" alt="">

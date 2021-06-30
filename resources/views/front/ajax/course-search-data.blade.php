@@ -23,7 +23,6 @@ $(document).ready(function() {
             data: params,
             success:function(data) {
                 console.log(data);
-                // let data = Json.parse(data);
                 count = '<span class="text-uppercase proxima_exbold">'+data.total+' SESSIONS</span> Available Now';
                 $("#count_section").html(count);
                 courses = '';
