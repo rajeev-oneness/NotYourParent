@@ -1,13 +1,13 @@
 @extends('layouts.dashboard.master')
-@section('title','FAQs')
+@section('title','My Courses')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">FAQs
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.faq.add')}}">
+                    <h5 class="mb-0">My Courses
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.course.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -20,18 +20,26 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
+                                    <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Teacher</th>
+                                    <th>Duration (Minutes)</th>
+                                    <th>Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($faqs as $key => $faq)
+                                @foreach ($courses as $key => $course)
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td>{{$faq->title}}</td>
-                                    <td>{{$faq->description}}</td>
-                                    <td><a href="{{route('admin.faq.edit',['id' => $faq->id])}}">Edit</a> | <a href="#" data-id="{{$faq->id}}" class="text-danger delete-confirm">Delete</a></td>
+                                    <td><img src="{{asset($course->image)}}" width="60" /></td>
+                                    <td>{{$course->categoryDetail->name}}</td>
+                                    <td>{{$course->name}}</td>
+                                    <td>{{$course->teacherDetail->name}}</td>
+                                    <td>{{$course->duration}}</td>
+                                    <td>{{$course->price}}</td>
+                                    <td><a href="{{route('admin.course.edit',['id' => $course->id])}}">Edit</a> | <a href="#" data-id="{{$course->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -51,7 +59,7 @@
     });
     $('.delete-confirm').on('click', function (event) {
         event.preventDefault();
-        const url = "faq/delete/";
+        const url = "course/delete/";
         const id = $(this).data('id');
         swal({
             title: 'Are you sure?',

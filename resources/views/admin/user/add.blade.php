@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.dashboard.master')
 @section('title','Add User')
 @section('css')
 <style>

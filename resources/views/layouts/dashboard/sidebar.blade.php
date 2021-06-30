@@ -11,7 +11,7 @@
                     <li class="nav-divider"> Menu </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                        <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                     </li>
                     @if(Auth::user()->user_type != 1)
                         <li class="nav-item">
@@ -80,6 +80,12 @@
                     @elseif(Auth::user()->user_type == 2)
 
                         {{-- here goes teacher sidebar menu --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>My Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) === 'my-slot' ? 'active' : null }}" href="{{ route('teacher.my-slot.index') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
+                        </li>
 
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}

@@ -5,7 +5,7 @@
 
     Route::get('dashboard',function(){
 		return view('admin.dashboard');
-	})->name('dashboard');
+	})->name('admin.dashboard');
 
     Route::group(['prefix' => 'article'], function() {
         Route::get('/',[ArticleController::class, 'index'])->name('admin.article.index');

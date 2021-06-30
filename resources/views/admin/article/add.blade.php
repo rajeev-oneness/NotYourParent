@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.dashboard.master')
 @section('title','Add Article')
 @section('css')
     <link rel="stylesheet" href="{{ asset('design/vendor/select2/css/select2.css') }}">
