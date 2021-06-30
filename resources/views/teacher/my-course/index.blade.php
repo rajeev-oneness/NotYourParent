@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">My Courses
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.course.add')}}">
+                        <a class="headerbuttonforAdd addBlogCategory" href="#">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
