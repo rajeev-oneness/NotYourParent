@@ -4,10 +4,10 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;use App\Models\Category;
-use App\Models\Course;use App\Models\Testimonial;
-use App\Models\Article;use App\Models\ArticleTag;
-use App\Models\Topic;use App\Models\TeacherTopic;
+use App\Models\User,App\Models\Category;
+use App\Models\Course,App\Models\Testimonial;
+use App\Models\Article,App\Models\ArticleTag;
+use App\Models\Topic,App\Models\TeacherTopic;
 
 class FrontController extends Controller
 {

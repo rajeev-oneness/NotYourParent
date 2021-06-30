@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\ajax;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Course;
+use Illuminate\Http\Request,App\Models\Course;
 
 class AjaxCallController extends Controller
 {

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactUs;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request,DB;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
