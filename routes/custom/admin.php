@@ -12,7 +12,7 @@ use App\Http\Controllers\admin\UserController;
 
 Route::get('dashboard',function(){
 		return view('admin.dashboard');
-	})->name('home');
+	})->name('admin.dashboard');
 
 	// EXAMPLE OF PROPER ROUTING:
 	// Route::group(['prefix' => 'article'], function() {
