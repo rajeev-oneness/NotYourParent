@@ -5,7 +5,7 @@
 
     Route::get('dashboard',function(){
 		return view('admin.dashboard');
-	})->name('home');
+	})->name('dashboard');
 
     Route::group(['prefix' => 'article'], function() {
         Route::get('/',[ArticleController::class, 'index'])->name('admin.article.index');
@@ -92,4 +92,3 @@
     Route::put('commission/update/{id}',[AdminController::class, 'updateCommission'])->name('admin.commission.update');
 
 ?>
-
