@@ -19,11 +19,12 @@ $(document).ready(function() {
         $.ajax({
             url: "{{route('directory.search.ajax')}}",
             type: "POST",
+            dataType:'JSON',
             data: params,
             success:function(data) {
                 console.log(data);
-                let newdata = data.data;
-                count = '<span class="text-uppercase proxima_exbold">'+newdata.total+' SESSIONS</span> Available Now';
+                // let data = Json.parse(data);
+                count = '<span class="text-uppercase proxima_exbold">'+data.total+' SESSIONS</span> Available Now';
                 $("#count_section").html(count);
                 courses = '';
                 
