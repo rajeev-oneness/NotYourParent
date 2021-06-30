@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route,Auth;
 |
 */
 
+// auth routes
+Auth::routes(['logout'=>false]);
+
+Route::get('/home', [HomeController::class,'index'])->name('home');
+Route::any('logout', [HomeController::class,'logout'])->name('logout');
+
 // front side routes
 
 Route::get('/', [FrontController::class,'index'])->name('front.home');
@@ -27,14 +33,6 @@ Route::get('/directory', [FrontController::class,'directory'])->name('front.dire
 Route::get('/experts', [FrontController::class,'experts'])->name('front.experts');
 Route::get('/articles', [FrontController::class,'articles'])->name('front.articles');
 Route::get('/sign-up', [FrontController::class,'signUp'])->name('front.sign-up');
-
-
-
-// auth routes
-Auth::routes(['logout'=>false]);
-
-Route::get('/home', [HomeController::class,'index'])->name('home');
-Route::any('logout', [HomeController::class,'logout'])->name('logout');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
