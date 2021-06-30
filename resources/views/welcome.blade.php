@@ -128,5 +128,13 @@
                 </div>
             </div>
         </div>
+
+        <form action="{{route('post.welcome')}}" method="post">
+            @csrf
+            <input type="text" name="name">
+            <input type="submit">
+        </form>
     </body>
+
+
 </html>

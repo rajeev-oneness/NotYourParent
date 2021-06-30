@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::get('/',function(){
+return view('welcome');
+});
+Route::post('welcome',function(){
+return 'welcom';
+})->name('post.welcome');
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // front side routes
-Route::get('/', 'front\FrontController@index')->name('front.home');
+//Route::get('/', 'front\FrontController@index')->name('front.home');
 Route::get('/about-us', 'front\FrontController@index')->name('front.about-us');
 Route::get('/resources', 'front\FrontController@resources')->name('front.resources');
 Route::get('/how-it-works', 'front\FrontController@howItWorks')->name('front.how-it-works');
