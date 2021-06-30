@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Illuminate\Support\Facades\Route,Auth;
+use Illuminate\Support\Facades\Route;
 
-Route::get('dashboard',function(){
+    Route::get('dashboard',function(){
 		return view('admin.dashboard');
 	})->name('home');
 
