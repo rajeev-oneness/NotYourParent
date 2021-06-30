@@ -61,7 +61,8 @@ class FrontController extends Controller
             'seniority' => 'nullable|numeric|min:1',
             'expert' => 'nullable|string',
         ]);
-        $reqs = $req->except('_token');
+        // $reqs = $req->except('_token');
+        $reqs = $req->all();
         $offset = $req->page * 9;
         $course = Course::select('*', 'courses.id AS course_id', 'courses.name AS course_name', 'courses.image AS course_img', 'courses.description AS course_desc');
         if(!empty($req->search)) {
