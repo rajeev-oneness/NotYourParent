@@ -21,7 +21,7 @@ $(document).ready(function() {
             type: "POST",
             data: params,
             success:function(data) {
-                console.log(data.data);
+                console.log(data);
                 count = '<span class="text-uppercase proxima_exbold">'+data.total+' SESSIONS</span> Available Now';
                 $("#count_section").html(count);
                 courses = '';
