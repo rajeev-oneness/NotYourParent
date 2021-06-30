@@ -56,9 +56,9 @@ Route::post('/stripe/payment/form_submit', [StripePaymentController::class,'stri
 
 Route::get('payment/successfull/thankyou/{stripeTransactionId}', [StripePaymentController::class,'thankyouStripePayment'])->name('payment.successfull.thankyou');
 
-Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
-	require 'custom/admin.php';
-});
+// Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
+// 	require 'custom/admin.php';
+// });
 
 Route::group(['prefix'=>'teacher','middleware'=>'teacher'],function(){
 	require 'custom/teacher.php';
