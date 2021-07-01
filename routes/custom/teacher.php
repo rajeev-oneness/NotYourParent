@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\teacher\MyCourseControler;
-use App\Http\Controllers\teacher\TeacherController;
+    namespace App\Http\Controllers\teacher;
+    use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard',function(){
 		return view('teacher.dashboard');
