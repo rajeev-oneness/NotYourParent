@@ -14,7 +14,7 @@ class TeacherController extends Controller
     {
         $teacher_id = Auth::user()->id;
         $mySlots = Slot::where('teacherId',$teacher_id)->get();
-        return view('teacher.my-slot.index', compact('mySlots'));
+        return view('teacher.my-slot.index', compact('mySlots','teacher_id'));
     }
     public function create(Request $request)
     {
@@ -40,5 +40,20 @@ class TeacherController extends Controller
                ];
         }
         return $eventsResponse;
+    }
+    public function updateSlot(Request $request, $id)
+    {
+        $slot = Slot::find($id);
+        $slot->date = Carbon::createFromFormat('m/d/Y', $request->date)->format('Y-m-d');
+        $slot->time = Carbon::createFromFormat('g:i a', $request->time)->format('H:i:s');
+        $slot->note = $request->note;
+        $slot->save();
+        return response()->json($slot);
+    }
+    public function deleteSlot($id)
+    {
+        $slot = Slot::find($id);
+        $slot->delete();
+        return redirect()->route('teacher.my-slot.index');
     }
 }
