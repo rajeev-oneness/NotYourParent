@@ -80,6 +80,11 @@
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/',[UserController::class, 'getAllUsers'])->name('admin.user.index');
+
+        Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
+		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
+		Route::post('/manage',[CrudController::class,'manageUser'])->name('admin.user.manageUser');
+
         Route::get('/add',[UserController::class, 'addNewUser'])->name('admin.user.add');
         Route::post('/store',[UserController::class, 'saveUser'])->name('admin.user.store');
         Route::get('/edit/{id}',[UserController::class, 'editUser'])->name('admin.user.edit');
@@ -87,6 +92,8 @@
         Route::get('/delete/{id}',[UserController::class, 'deleteUser'])->name('admin.user.delete');
         Route::post('/updateStatus',[UserController::class, 'updateStatus'])->name('admin.user.updateStatus');
     });
+    Route::get('referred_to/user/{userId}',[UserController::class,'getReferredToList'])->name('admin.referral.referred_to');
+	Route::get('user/points/{userId}',[UserController::class,'getUserPoints'])->name('admin.user.points');
     Route::get('/commission',[AdminController::class, 'getCommission'])->name('admin.commission.index');
     Route::get('/commission/edit/{id}',[AdminController::class, 'editCommission'])->name('admin.commission.edit');
     Route::put('commission/update/{id}',[AdminController::class, 'updateCommission'])->name('admin.commission.update');

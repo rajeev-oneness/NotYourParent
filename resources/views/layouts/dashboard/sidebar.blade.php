@@ -15,15 +15,12 @@
                     </li>
                     @if(Auth::user()->user_type != 1)
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
+                            <a class="nav-link" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
                         </li>
                     @endif
 
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'teacher' ? 'active' : null }}" href="{{route('admin.teacher.index')}}"><i class="fa fa-fw fa-user-circle"></i>Teachers</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'user' ? 'active' : null }}" href="{{route('admin.user.index')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                         </li>
@@ -43,10 +40,8 @@
                         </li>
 
                         <!-- Report Section -->
-                        <li class="nav-divider">Report</li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'contact-us' ? 'active' : null }}" href="{{route('admin.contactUs.index')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
-                        </li>
+                        {{-- <li class="nav-divider">Report</li> --}}
+
                         <!-- Crud Operation Section -->
                         <li class="nav-divider">Features</li>
                         <li class="nav-item">
@@ -62,6 +57,9 @@
                             <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Settings </a>
                             <div id="submenu-6" class="collapse submenu">
                                 <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ Request::segment(2) === 'contact-us' ? 'active' : null }}" href="{{route('admin.contactUs.index')}}">Contact us</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">About us</a>
                                     </li>
@@ -80,11 +78,14 @@
                     @elseif(Auth::user()->user_type == 2)
 
                         {{-- here goes teacher sidebar menu --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>My Courses</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'my-slot' ? 'active' : null }}" href="{{ route('teacher.my-slot.index') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>Slot List</a>
                         </li>
 
                     @elseif(Auth::user()->user_type == 3)

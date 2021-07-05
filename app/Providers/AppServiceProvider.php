@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $tablefind = \Schema::hasTable('contact_us');
         if($tablefind){
-            $contact = ContactUs::where('type',0)->first();
+            $contact = ContactUs::where('id',1)->where('type',1)->first();
         }else{
             $contact = (object)[];
 

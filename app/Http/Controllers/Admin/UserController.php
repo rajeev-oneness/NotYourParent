@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\User,App\Models\UserType;
+use Illuminate\Http\Request,DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,8 +12,90 @@ class UserController extends Controller
 {
     public function getAllUsers()
     {
-        $users = User::where('user_type', 3)->get();
+        $users = User::select('*')->where('user_type','!=',1);
+        $users = $users->orderBy('users.id','desc')->get();
         return view('admin.user.index', compact('users'));
+    }
+
+    public function manageUser(Request $req)
+    {
+        $rules = [
+            'userId' => 'required|min:1|numeric',
+            'action' => 'required|in:block,unblock,delete',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $user = User::find($req->userId);
+            if($user){
+                if($req->action == 'block'){
+                    $user->status = 0;$user->save();
+                }elseif($req->action == 'unblock'){
+                    $user->status = 1;$user->save();
+                }elseif($req->action == 'delete'){
+                    $user->delete();
+                }
+                return successResponse('status Updated Success',$user);
+            }
+            return errorResponse('Invalid User Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    public function createUser(Request $req)
+    {
+        $userType = UserType::orderBy('id','desc')->get();
+        return view('admin.user.create',compact('userType'));
+    }
+
+    public function saveUseoldr(Request $req)
+    {
+        $req->validate([
+            'user_type' => 'required|min:1|numeric',
+            'image' => '',
+            'name' => 'required|max:255|string',
+            'email' => 'required|email|unique:users',
+            'mobile' => 'required|digits:10|numeric',
+            'referral' => 'string|nullable|exists:referrals,code',
+        ]);
+        DB::beginTransaction();
+        try {
+            $random = randomGenerator();
+            $user = new User();
+            $user->user_type = $req->user_type;
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->mobile = $req->mobile;
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $image->move('upload/users/image/',$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = url('upload/users/image/'.$random.'.'.$image->getClientOriginalExtension());
+                $user->image = $imageurl;
+            }
+            $user->password = Hash::make($random);
+            $user->save();
+            $this->setReferralCode($user,$req->referral);
+            DB::commit();
+            // sendMail();
+            return redirect(route('admin.users'))->with('Success','User Added SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['email'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+    }
+
+    /****************************** Referral List ******************************/
+    public function getReferredToList(Request $req,$userId)
+    {
+        $user = User::findorFail($userId);
+        return view('admin.referral.referred_to',compact('user'));
+    }
+
+/****************************** User List ******************************/
+    public function getUserPoints(Request $req,$userId)
+    {
+        $user = User::findorFail($userId);
+        return view('auth.user.point_info',compact('user'));
     }
 
     public function addNewUser(){

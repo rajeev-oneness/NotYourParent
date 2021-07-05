@@ -11,9 +11,10 @@ class AdminController extends Controller
 {
     public function contactUs()
     {
-        $contactUs = ContactUs::first();
-        return view('admin.contact.index', compact('contactUs'));
+        $contactUs = ContactUs::where('type',1)->first();
+        return view('admin.contact.index',compact('contactUs'));
     }
+
     public function editContactUs($id)
     {
         $contactUs = ContactUs::find($id);

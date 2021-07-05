@@ -1,6 +1,7 @@
 @extends('layouts.dashboard.master')
 @section('title','My Slots')
 @section('css')
+<link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
 <link rel="stylesheet" href="{{asset('design/vendor/datepicker/tempusdominus-bootstrap-4.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.css" />
     <style>
@@ -125,6 +126,7 @@
 
 
 @section('script')
+<script src="{{asset('design/vendor/full-calendar/js/fullcalendar.js')}}"></script>
 <script src="{{asset('design/vendor/datepicker/tempusdominus-bootstrap-4.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js" ></script>
 <script type="text/javascript">
