@@ -82,10 +82,7 @@
                             <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>My Courses</a>
                         </li> --}}
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'my-slot' ? 'active' : null }}" href="{{ route('teacher.my-slot.index') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>Slot List</a>
+                            <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
                         </li>
 
                     @elseif(Auth::user()->user_type == 3)

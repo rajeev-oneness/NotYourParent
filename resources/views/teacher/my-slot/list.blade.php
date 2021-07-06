@@ -86,10 +86,10 @@
                     list:     'list'
                     },
                 dayClick  : function(info){
-                    if (moment().format('YYYY-MM-DD') === info.format('YYYY-MM-DD') || info.isAfter(moment())) {
-                        // This allows today and future date
+                        console.log(info);
                         $('#exampleModal').modal('toggle');
                         let date = moment(info).format("YYYY-MM-DD");
+                        console.log(date);
                         $("input[name*='date']").val(date);
                         $.ajax({
                             url: 'single/' + date,
@@ -97,18 +97,22 @@
                                 $('#my-table').empty();
                                 let row = '';
                                 console.log(result);
+                                if (result.length > 0) {
+
                                 result.forEach(function(item){
                                     console.log(item);
-                                    row += '<tr><td><input type="date" name="date[]" value="'+ item.date + '" disabled class="date"></td><td><input type="time" class="time" name="time[]" value="'+ item.time + '"></td>';
+                                    row += '<tr data-id="'+ item.id +'"><td><input type="date" name="date[]" value="'+ item.date + '" disabled class="date"></td><td><input type="time" class="time" name="time[]" value="'+ item.time + '"></td>';
                                     row += '<td><input type="note" class="note" name="note[]" value="'+ item.note + '"></td>'
-                                    row += '<td><a href="javascript:void(0)" class="actionbtn remove"><i class="fas fa-times"></i></a></td></tr>';
+                                    row += '<td><a href="javascript:void(0)" class="text-danger actionbtn remove"><i class="fas fa-times"></i></a></td></tr>';
                                     row+= '<br>';
                                 })
-                                row += '<tr><td><input type="date" name="date[]" value="'+date+'" disabled class="date"></td><td><input type="time"  name="time[]" value="" class="time"></td><td><input type="text" name="note[]" value="" class="note"></td><td><a href="javascript:void(0)" class="actionbtn addNew"><span class="text-success"><i class="fas fa-plus"></i></span></a></td></tr>';
+                                } else {
+
+                                row += '<tr data-id=""><td><input type="date" name="date[]" value="'+date+'" disabled class="date"></td><td><input type="time"  name="time[]" value="" class="time"></td><td><input type="text" name="note[]" value="" class="note"></td><td><a href="javascript:void(0)" class="actionbtn addNew"><span class="text-success"><i class="fas fa-plus"></i></span></a></td></tr>';
+                                }
                                 $('#my-table').append(row);
                             }
                         });
-                    }
                 },
                 events : [
                     @foreach($mySlots as $slot)
@@ -120,27 +124,30 @@
                 ],
             });
             $(document).on('click','.addNew',function(){
-                let today = new Date();
-                today = moment(today).format("YYYY-MM-DD");
-                console.log(today);
-                let row = '<tr><td><input type="date" name="date[]" class="date" value="" disabled></td><td><input type="time" name="time[]" class="time" value=""></td>';
-                row += '<td><input type="note" name="note[]" class="note" value=""></td>'
-                row += '<td><a href="javascript:void(0)" class="actionbtn addNew"><i class="fas fa-plus"></i></a></td></tr>';
-                $('#my-table tr:last').after(row);
-                $("input[name*='date']").val(today);
+                let lastRow = $("#my-table tr:last");
+                let cloneRow = lastRow.clone();
+                lastRow.after(cloneRow);
             });
             $(document).on('click','.remove',function(){
-			    $(this).closest('tr').remove();
+                var whichtr = $(this).closest("tr");
+                let id = whichtr.attr('data-id');
+                console.log(id);
+                swal({
+                    title: 'Are you sure?',
+                    text: 'This record will be permanantly deleted!',
+                    icon: 'warning',
+                    buttons: ["Cancel", "Yes!"],
+                    }).then(function(value) {
+                    if (value) {
+                        whichtr.remove();
+                        swal("Deleted!", "Successful!", "success");
+                        window.location.href = SITEURL +"/teacher/my-slot/delete/" + id;
+                        }
+                    });
 		    });
             //slot-booking
-            /*
-            billtoemail = $('input[name='billToEmail[]']:checked").map(function () {
-                return this.value;
-            }).get();
-            */
             $('.add-slot').on('click', function (event) {
                 event.preventDefault();
-                // let url = "add/";
                 let date = $("input[name='date[]']").map(function () {
                                 return this.value;
                             }).get();
@@ -154,11 +161,8 @@
                             }).get();
                 console.log(note);
                 $.ajax({
-                    headers:{
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
                     type:'POST',
-                    url:SITEURL + '/teacher/my-slot/add',
+                    url:SITEURL + '/teacher/my-slot/update/' + date[0],
                     data:{date:date, time: time, note: note},
                     success:function(data){
                         $('#exampleModal').modal('toggle');
@@ -167,24 +171,8 @@
                     }
                 });
             });
-
-            //confirm delete
-            $('#delete-btn').on('click', function (event) {
-                event.preventDefault();
-                let url = "my-slot/delete/";
-                let id = $('#delete-btn').attr('data-id');
-                swal({
-                    title: 'Are you sure?',
-                    text: 'This record will be permanantly deleted!',
-                    icon: 'warning',
-                    buttons: ["Cancel", "Yes!"],
-                    }).then(function(value) {
-                    if (value) {
-                        swal("Deleted!", "Successful!", "success");
-                        window.location.href = url + id;
-                        }
-                    });
-                });
+            //last-column of the row
+            $("#my-table tr:last-child td:last-child")
             // disable on submit
             $('form').submit(function(){
                 $(this).children('button[type=submit]').prop('disabled', true);

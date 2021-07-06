@@ -21,11 +21,10 @@ Route::get('dashboard',function(){
         Route::get('/list',[TeacherController::class, 'allSlots'])->name('teacher.my-slots.list');
         Route::get('/slotlist',[TeacherController::class, 'slotList'])->name('teacher.my-slots.slotList');
         Route::get('/',[TeacherController::class, 'index'])->name('teacher.my-slot.index');
-        Route::post('/add',[TeacherController::class, 'create'])->name('teacher.my-slot.add');
         Route::get('/single/{date}', [TeacherController::class,'getSingle'])->name('teacher.my-slot.single');
         // Route::post('/store',[CourseController::class, 'store'])->name('teacher.my-course.store');
         // Route::get('/edit/{id}',[CourseController::class, 'edit'])->name('teacher.my-course.edit');
-        Route::post('/update/{id}',[TeacherController::class, 'updateSlot'])->name('teacher.my-slot.update');
+        Route::post('/update/{date}',[TeacherController::class, 'updateSlot'])->name('teacher.my-slot.update');
         Route::get('/delete/{id}',[TeacherController::class, 'deleteSlot'])->name('teacher.my-slot.delete');
     });
 
