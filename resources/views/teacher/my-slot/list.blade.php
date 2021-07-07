@@ -171,7 +171,7 @@
                     }
                 });
             });
-            //last-column of the row
+            //last-column of the last row
             $("#my-table tr:last-child td:last-child")
             // disable on submit
             $('form').submit(function(){
