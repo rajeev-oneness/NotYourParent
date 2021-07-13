@@ -93,14 +93,14 @@ class FrontController extends Controller
 
     public function experts(Request $req)
     {
-        // $data = (object)[];
         if(!empty($req->expertId)) {
             $teacher = User::find($req->expertId);
             $topics = TeacherTopic::where('teacherId', $req->expertId)->get();
             $testimonials = Testimonial::where('teacherId', $req->expertId)->get();
+            return view('front.experts', compact('teacher', 'topics', 'testimonials'));
         }
         // dd($data);
-        return view('front.experts', compact('teacher', 'topics', 'testimonials'));
+        
     }
     
     public function signUp(Request $req)
