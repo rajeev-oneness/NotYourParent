@@ -23,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::post('/directory-ajax-call', 'front\FrontController@directorySearch')->name('directory.search.ajax');
 Route::post('/directory-ajax-call', [FrontController::class,'directorySearch'])->name('directory.search.ajax');
+Route::post('/get-slot-by-date', [FrontController::class,'getSlotByDate'])->name('get.slot.by.date');

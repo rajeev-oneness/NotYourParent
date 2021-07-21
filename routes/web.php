@@ -33,6 +33,7 @@ Route::get('/directory', [FrontController::class,'directory'])->name('front.dire
 Route::get('/experts', [FrontController::class,'experts'])->name('front.experts');
 Route::get('/articles', [FrontController::class,'articles'])->name('front.articles');
 Route::get('/sign-up', [FrontController::class,'signUp'])->name('front.sign-up');
+Route::get('/singleDate/{expertId}/{date}', [FrontController::class,'getSingleDate'])->name('front.my-slot.single');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){

@@ -14,4 +14,5 @@ class TeacherTopic extends Model
     {
         return $this->belongsTo('App\Models\Topic', 'topicId', 'id');
     }
+    
 }

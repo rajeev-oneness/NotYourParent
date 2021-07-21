@@ -26,66 +26,31 @@
             <h6 class="darkblue text-uppercase proxima_bold">Regular sessions</h6>
 
             <div class="calender">
-                <div class="calender_left">
+                <input type="hidden" id="expId" value="{{ $expId }}">
+                <div class="calender_left"  id="calender">
                     <div class="calender_heading">
-                        <h4 class="proxima_exbold black">May <span class="green">2021</span></h4>
+                        <h4 class="proxima_exbold black">{{ date('M',strtotime($currentDate)) }} <span class="green">{{ date('Y',strtotime($currentDate)) }}</span></h4>
                         <ul>
-                            <li><a href="#"><img src="{{asset('front/images/blue-arrow-left.png')}}" alt=""></a></li>
-                            <li><a href="#"><img src="{{asset('front/images/blue-arrow-right.png')}}" alt=""></a></li>
+                            <li><a href="{{route('front.experts', ['expertId' => $teacher,'currentDate' => date('Y-m-d', strtotime('-1 month', strtotime($currentDate)))])}}"><img src="{{asset('front/images/blue-arrow-left.png')}}" alt=""></a></li>
+                            <li><a href="{{route('front.experts', ['expertId' => $teacher,'currentDate' => date('Y-m-d', strtotime('+1 month', strtotime($currentDate)))])}}"><img src="{{asset('front/images/blue-arrow-right.png')}}" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="calendar-table">
                         <div class="weeks">
-                            <div class="days">S</div>
-                            <div class="days">M</div>
-                            <div class="days">T</div>
-                            <div class="days">W</div>
-                            <div class="days">T</div>
-                            <div class="days">F</div>
-                            <div class="days">S</div>
+                            @for($days = 0; $days < 7; $days++)
+                                <div class="days">{{date('D',strtotime($currentDate.'+'.$days.' day'))}}</div>
+                            @endfor 
                         </div>
                         <div class="dates">
-                            <div class="date-boxes inactive">29</div>
-                            <div class="date-boxes inactive">30</div>
-                            <div class="date-boxes inactive">31</div>
-                            <div class="date-boxes">01</div>
-                            <div class="date-boxes">02</div>
-                            <div class="date-boxes">03</div>
-                            <div class="date-boxes">04</div>
-                            <div class="date-boxes">05</div>
-                            <div class="date-boxes">06</div>
-                            <div class="date-boxes">07</div>
-                            <div class="date-boxes">08</div>
-                            <div class="date-boxes">09</div>
-                            <div class="date-boxes">10</div>
-                            <div class="date-boxes">11</div>
-                            <div class="date-boxes">12</div>
-                            <div class="date-boxes">13</div>
-                            <div class="date-boxes">14</div>
-                            <div class="date-boxes">15</div>
-                            <div class="date-boxes">16</div>
-                            <div class="date-boxes">17</div>
-                            <div class="date-boxes">18</div>
-                            <div class="date-boxes">19</div>
-                            <div class="date-boxes">20</div>
-                            <div class="date-boxes">21</div>
-                            <div class="date-boxes">22</div>
-                            <div class="date-boxes">23</div>
-                            <div class="date-boxes">24</div>
-                            <div class="date-boxes">25</div>
-                            <div class="date-boxes">26</div>
-                            <div class="date-boxes">27</div>
-                            <div class="date-boxes">28</div>
-                            <div class="date-boxes">29</div>
-                            <div class="date-boxes">30</div>
-                            <div class="date-boxes inactive">01</div>
-                            <div class="date-boxes inactive">02</div>
+                            @for($days=1;$days <= getDays(date('m',strtotime($currentDate)),date('Y',strtotime($currentDate))); $days++ )
+                                <div class="date-boxes @if(date('Y-m-d',strtotime(date('Y',strtotime($currentDate)).'-'.date('m',strtotime($currentDate)).'-'.$days)) < date('Y-m-d')){{('inactive')}}@endif" id="{{ date('Y-m',strtotime($currentDate)).'-'.$days }}" onclick="dayClick(this.id)">{{ $days }}</div>
+                            @endfor
                         </div>
                     </div>
                 </div>
-                <div class="calender_right">
-                    <h5 class="white">WEDNESDAY MAY 15<sup>th</sup></h5>
-                    <ul class="times">
+                <div class="calender_right" id="calender_right" >
+                    <h5 class="white">SLOT</h5>
+                    {{-- <ul class="times">
                         <li>7:00am - 7:15am</li>
                         <li>7:30am - 7:45am</li>
                         <li>8:15am - 8:30am</li>
@@ -93,7 +58,7 @@
                         <li>9:45am - 10:00am</li>
                         <li>4:00pm - 4:15pm</li>
                         <li>4:45pm - 5:00pm</li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>
@@ -126,207 +91,47 @@
             <p class="darkgray proxima_light">Greater Pittsburgh's Expert Basement Waterproofing & Foundation Repair
                 Contractor</p>
         </div>
-
+        {{--  --}}
         <div class="row">
+            @foreach ($courses as $course)
+            {{-- foreach ($reviews as $review) --}}
             <div class="col-lg-4 col-md-6">
                 <div class="mentor_course">
                     <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-1.jpg')}}">
+                        <img src="{{asset($course->image)}}">
                         <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
+                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">{{substr($course->name, 0, 7)}}</sub>
+                                {{substr($course->name, 7,11)}}</h4>
+                            <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3>
                             <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
+                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> {{$course->duration}} minutes</li>
+                                <li class="mentor_price">{{ $course->price }}$ <span>Only</span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="mentor_course_content">
                         <div class="mentor_course_review">
                             <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
+                                <img src="{{asset($course->teacherDetail->image)}}">
                             </div>
                             <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
+                                <h5>{{$course->teacherDetail->name}}</h5>
+                                <h6>{{$course->teacherDetail->short_description}}</h6>
                             </div>
                         </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
+                        <p></p>
                         <ul>
+                            {{-- <li><a href="{{url()->current()}}">Consult Now</a></li> --}}
                             <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
+                            <li><a href="{{route('front.experts', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-2.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-3.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-3.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-1.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="mentor_course">
-                    <div class="mentor_course_img">
-                        <img src="{{asset('front/images/mentor-img-2.jpg')}}">
-                        <div class="mentor_course_overlay">
-                            <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">Let’s</sub>
-                                Learn some</h4>
-                            <h3 class="green proxima_exbold text-uppercase">Lorem Ipsum</h3>
-                            <ul>
-                                <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> 15 minutes</li>
-                                <li class="mentor_price">30$ <span>Only</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mentor_course_content">
-                        <div class="mentor_course_review">
-                            <div class="mentor_course_review_img">
-                                <img src="{{asset('front/images/testimonial-image-female.jpg')}}">
-                            </div>
-                            <div class="mentor_course_review_name">
-                                <h5>Yasmain Marlly</h5>
-                                <h6>Fashion Expert</h6>
-                            </div>
-                        </div>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum.Ipsum is simply dummy text of the printing.</p>
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
-                            <li><a href="javascript:void(0);">Visit Profile</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
+        {{-- --}}
+        
         <div class="explore_all text-center">
             <a href="javascript:void(0);" class="parimary_btn green_btn">explore all</a>
         </div>
@@ -398,5 +203,31 @@
 @endsection
 
 @section('script')
-    
+<script>
+    function dayClick(selectedDate) {
+        const expId = $("#expId").val();
+        $.ajax({
+            url: "{{ route('get.slot.by.date') }}",
+            type: "POST",
+            data: { _token: "{{ csrf_token() }}", date: selectedDate, expertId: expId },
+            success:function(data) {
+                $("#calender_right").empty();
+                console.log(data.data);
+                let calendarRight = '';
+                calendarRight += '<h5 class="white">'+data.date+'</sup></h5><ul class="times">';
+                if(data.data.length > 0) {
+                    $.each(data.data, function(i, val) {
+                        calendarRight += '<li>'+val.time+'</li>';
+                        // $('#calender_right').show();
+                    })
+                } else {
+                    calendarRight += '<li>No Slots!</li>';
+                    $('#calender_right').show();
+                }
+                calendarRight += '</ul>';
+                $("#calender_right").append(calendarRight);
+            }
+        })
+    }
+</script>
 @endsection

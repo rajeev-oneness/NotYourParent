@@ -10,6 +10,11 @@
 		return response()->json(['error'=>true,'status'=>$status,'message'=>$msg,'data'=>$data]);
 	}
 
+	function getDays($month,$year){
+		$days = cal_days_in_month(CAL_GREGORIAN,$month,$year);
+		return $days;
+	}
+
 	function emptyCheck($string,$date=false)
 	{
 		if($date){

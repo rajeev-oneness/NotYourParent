@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\front;
 
-use App\Http\Controllers\Controller;
+use App\Models\Slot;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\User,App\Models\Category;
-use App\Models\Course,App\Models\Testimonial;
 use App\Models\Article,App\Models\ArticleTag;
+use App\Models\Course,App\Models\Testimonial;
 use App\Models\Topic,App\Models\TeacherTopic;
 
 class FrontController extends Controller
@@ -93,16 +95,32 @@ class FrontController extends Controller
 
     public function experts(Request $req)
     {
+        $currentDate = date('Y-m-d');
+        if(!empty($req->currentDate)){
+            $currentDate = date('Y-m-d',strtotime($req->currentDate));
+        }
         if(!empty($req->expertId)) {
+            $expId = $req->expertId;
             $teacher = User::find($req->expertId);
+            // dd( $teacher);
             $topics = TeacherTopic::where('teacherId', $req->expertId)->get();
             $testimonials = Testimonial::where('teacherId', $req->expertId)->get();
-            return view('front.experts', compact('teacher', 'topics', 'testimonials'));
+            // dd($testimonials);
+            $courses = Course::where('teacherId', $req->expertId)->limit(9)->get();
+            $reviews = Review::where('teacherId', $req->expertId)->get();
+            // dd($reviews);
+            return view('front.experts', compact('expId', 'teacher', 'topics', 'testimonials','courses','reviews','currentDate'));
         }
         // dd($data);
         
     }
     
+    public function getSingleDate($expertId,$date)
+    {
+        $slots = Slot::where(['date', $date, 'expertId', $expertId])->get();
+        dd($slots);
+        return $slots;
+    }
     public function signUp(Request $req)
     {
         $data = $req->all();
@@ -138,5 +156,13 @@ class FrontController extends Controller
             return view('front.articles', compact('article', 'articleTags', 'randomArticles'));
         }
         // return view('front.articles');
+    }
+
+    public function getSlotByDate(Request $req) {
+        $slot = Slot::where('teacherId', $req->expertId)->where('date', $req->date)->get();
+        // dd($slot);
+        $date = date('D M d', strtotime($req->date));
+        
+        return response()->json(['data' => $slot, 'date' => $date]);
     }
 }
