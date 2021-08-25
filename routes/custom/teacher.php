@@ -28,4 +28,8 @@ Route::get('dashboard',function(){
         Route::get('/delete/{id}',[TeacherController::class, 'deleteSlot'])->name('teacher.my-slot.delete');
     });
 
+    Route::group(['prefix' => 'chat'],function() {
+        Route::get('/', [TeacherController::class, 'chatIndex'])->name('teacher.chat.index');
+    });
+
 ?>
