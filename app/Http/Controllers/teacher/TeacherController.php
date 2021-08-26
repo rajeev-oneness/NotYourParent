@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Conversation;
+use App\Models\Message;
 use App\Models\ChatTxn;
 
 class TeacherController extends Controller
@@ -51,6 +52,7 @@ class TeacherController extends Controller
         return redirect()->route('teacher.my-slots.slotList');
     }
 
+    // chat script
     public function chatIndex() {
         $user = auth::user();
         $user_id = $user->id;
@@ -60,6 +62,55 @@ class TeacherController extends Controller
                 ->select('users.name', 'conversations.id')
                 ->get();
 
-        return view('teacher.chat.index', compact('data'));
+        $user = User::where('user_type', 3)->orderBy('name')->get();
+
+        return view('teacher.chat.index', compact('data', 'user'));
+    }
+
+    public function single($id) {
+        $message = Message::get();
+        dd($message);
+        // return view('teacher.chat.index', compact('message'));
+    }
+
+    public function create(Request $req) {
+        $req->validate([
+            'conversation_id' => 'required',
+            'message' => 'required',
+        ]);
+
+        $message = new Message();
+        $message->from_id = Auth::user()->id;
+        $message->message = $req->message;
+        $message->conversation_id = $req->conversation_id;
+        $message->save();
+        return redirect()->back()->with('success', 'message sent');
+    }
+
+    public function new(Request $req) {
+        $user_id = Auth::user()->id;
+        $req->validate([
+            'student_id' => 'required'
+        ]);
+
+        $convo_chk_count = Conversation::where([
+                        ['message_from', $user_id],
+                        ['message_to', $req->student_id]
+                    ])
+                    ->orWhere([
+                        ['message_to', $user_id],
+                        ['message_from', $req->student_id]
+                    ])
+                    ->count();
+
+        if ($convo_chk_count == 0) {
+            $conversation = new Conversation;
+            $conversation->message_from = $user_id;
+            $conversation->message_to = $req->student_id;
+            $conversation->save();
+            return redirect()->back();
+        } else {
+            return redirect()->route('teacher.chat.index');
+        }
     }
 }
