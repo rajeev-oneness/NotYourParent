@@ -11,9 +11,9 @@
                             <i class="fa fa-plus" aria-hidden="true"></i>Add User
                         </a> --}}
 
-                        <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">All</a>
+                        <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-light active">All</a>
                         <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-light active">Students</a>
-                        <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-light active">Teachers</a>
+                        <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-primary">Teachers</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>

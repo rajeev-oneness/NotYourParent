@@ -60,7 +60,7 @@
 									<img src="{{asset('front/images/testimonial-image-female.jpg')}}">
 								</div>
 								<div class="mentor_course_review_name">
-									<h5>Yasmain Marlly</h5>
+									<h5>{{ $category->name }}</h5>
 									<h6>Fashion Expert</h6>
 								</div>
 							</div>

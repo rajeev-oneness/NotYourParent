@@ -17,6 +17,16 @@ class UserController extends Controller
         return view('admin.user.index', compact('users'));
     }
 
+    public function getAllStudents() {
+        $users = User::where('user_type', 3)->get();
+        return view('admin.user.students', compact('users'));
+    }
+
+    public function getAllTeachers() {
+        $users = User::where('user_type', 2)->get();
+        return view('admin.user.teachers', compact('users'));
+    }
+
     public function manageUser(Request $req)
     {
         $rules = [

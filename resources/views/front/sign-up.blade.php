@@ -15,11 +15,11 @@
 			<div class="col-md-5 col-sm-12 align-self-center">
 				<div class="resource_banner_content">
 					<h1 class="text-uppercase darkblue proxima_bold">BECOME A <br><span
-							class="proxima_black golden">MENTOR</span></h1>
+							class="proxima_black golden">{{ $data['userType'] == 3 ? 'STUDENT' : 'MENTOR' }}</span></h1>
 					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
 						been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
 						galley acof type and scrambled it to make a type specimen book.</p>
-					<a href="#" class="green_btn parimary_btn">Free visit</a>
+					<a href="#join-now" class="green_btn parimary_btn">Join now</a>
 				</div>
 			</div>
 
@@ -35,12 +35,12 @@
 
 
 <!-- sign_up_form_section -->
-<section class="main_sign_up">
+<section class="main_sign_up" id="join-now">
 	<div class="container">
 		<div class="sign_up_form">
 			<!--left form card-->
 			<div class="form-container">
-				<h4>MENTOR ONLINE WITH</h4>
+				<h4>{{ $data['userType'] == 3 ? 'STUDENT' : 'MENTOR' }} ONLINE WITH</h4>
 				<h3>NOT YOUR PARENT</h3>
 				<form method="POST" action="{{ route('register') }}">
 					@csrf
@@ -55,16 +55,16 @@
 					@error('name')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
-					<input class="email" type="text" name="name" placeholder="Full Name" value="{{old('name')}}" required>
+					<input class="email" type="text" name="name" placeholder="Full Name" value="{{old('name')}}">
 					@error('email')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
-					<input class="email" type="email" name="email" placeholder="Email Address"  value="{{old('email')}}" required>
+					<input class="email" type="email" name="email" placeholder="Email Address"  value="{{old('email')}}" >
 					@error('password')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
-					<input class="pass" type="password" name="password" placeholder="Password" required>
-					<input class="cpass" type="password" name="password_confirmation" placeholder="Confirm Password" required>
+					<input class="pass" type="password" name="password" placeholder="Password">
+					<input class="cpass" type="password" name="password_confirmation" placeholder="Confirm Password">
 					<div class="agreement">
 						<input class="check" type="checkbox" required>
 						<p>I agree that my submitted data is being collected and stored.</p>
@@ -81,7 +81,7 @@
 				<span class="darkblue">Let's </span><br>
 				Sign Up <span class="darkblue">&</span><br>
 			</h2>
-			<h2 class="h2">Become A<span class="golden"> PART</span></h2>
+			<h2 class="h2">Become A<span class="golden"> {{ $data['userType'] == 2 ? 'Mentor' : 'Student' }} </span></h2>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, ab sunt eveniet laudantium optio,
 				ipsa itaque, quos non ipsum quas repellat! Esse debitis adipisci assumenda dicta, mollitia,
 				molestiae.</p>

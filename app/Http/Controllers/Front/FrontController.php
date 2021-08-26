@@ -124,7 +124,11 @@ class FrontController extends Controller
     public function signUp(Request $req)
     {
         $data = $req->all();
-        return view('front.sign-up', compact('data'));
+        $categories = Category::get();
+        return view('front.sign-up', compact('data', 'categories'));
+    }
+    public function login() {
+        return view('front.login');
     }
 
     public function howItWorks(Request $req)

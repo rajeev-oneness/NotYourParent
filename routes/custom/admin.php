@@ -80,6 +80,8 @@
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/',[UserController::class, 'getAllUsers'])->name('admin.user.index');
+        Route::get('/students',[UserController::class, 'getAllStudents'])->name('admin.user.students');
+        Route::get('/teachers',[UserController::class, 'getAllTeachers'])->name('admin.user.teachers');
 
         Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
 		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
