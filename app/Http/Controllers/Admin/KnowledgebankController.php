@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Knowledgebank;
+use App\Models\Knowledgebankcategory;
 
 class KnowledgebankController extends Controller
 {
@@ -14,7 +16,9 @@ class KnowledgebankController extends Controller
      */
     public function index()
     {
-        //
+        $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
+        // $knowledgebank = Knowledgebank::get();
+        return view('admin.knowledgebank.index', compact('knowledgebank'));
     }
 
     /**
@@ -24,7 +28,8 @@ class KnowledgebankController extends Controller
      */
     public function create()
     {
-        //
+        $knowledgebankcategory = Knowledgebankcategory::all();
+        return view('admin.knowledgebank.add', compact('knowledgebankcategory'));
     }
 
     /**
@@ -35,7 +40,21 @@ class KnowledgebankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category' => 'required',
+            'title' => 'required|string|min:2|max:255',
+            'subtitle' => 'required|string|min:2',
+            'description' => 'required|string|min:2'
+        ]);
+
+        $knowledgebank = new Knowledgebank();
+        $knowledgebank->category = $request->category;
+        $knowledgebank->title = $request->title;
+        $knowledgebank->subtitle = $request->subtitle;
+        $knowledgebank->description = $request->description;
+
+        $knowledgebank->save();
+        return redirect()->route('admin.knowledgebank.index');
     }
 
     /**
@@ -57,7 +76,9 @@ class KnowledgebankController extends Controller
      */
     public function edit($id)
     {
-        //
+        $knowledgebank = Knowledgebank::find($id);
+        $knowledgebankcategory = Knowledgebankcategory::all();
+        return view('admin.knowledgebank.edit', compact('knowledgebank', 'knowledgebankcategory'));
     }
 
     /**
@@ -69,7 +90,21 @@ class KnowledgebankController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'category' => 'required',
+            'title' => 'required|string|min:2|max:255',
+            'subtitle' => 'required|string|min:2',
+            'description' => 'required|string|min:2'
+        ]);
+
+        Knowledgebank::where('id', $id)->update([
+            'category' => $request->category,
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('admin.knowledgebank.index');
     }
 
     /**
@@ -80,6 +115,7 @@ class KnowledgebankController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Knowledgebank::where('id', $id)->delete();
+        return redirect()->route('admin.knowledgebank.index');
     }
 }

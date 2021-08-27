@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{route('front.about-us')}}" class="parimary_btn darkblue_btn">Know More</a>
+                    <a href="{{route('front.sign-up',['userType' => 3])}}#join-now" class="parimary_btn darkblue_btn">Get started</a>
                 </div>
             </div>
         </div>

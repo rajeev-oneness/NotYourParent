@@ -28,6 +28,7 @@ Route::get('/about-us', [FrontController::class,'index'])->name('front.about-us'
 Route::get('/resources', [FrontController::class,'resources'])->name('front.resources');
 Route::get('/how-it-works', [FrontController::class,'howItWorks'])->name('front.how-it-works');
 Route::get('/categories', [FrontController::class,'categories'])->name('front.categories');
+Route::get('/categories/course', [FrontController::class,'categories'])->name('front.categories.course');
 Route::get('/knowledge-bank', [FrontController::class,'knowledgeBank'])->name('front.knowledge-bank');
 Route::get('/directory', [FrontController::class,'directory'])->name('front.directory');
 Route::get('/experts', [FrontController::class,'experts'])->name('front.experts');

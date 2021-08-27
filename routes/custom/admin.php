@@ -26,6 +26,15 @@
         Route::get('/delete/{id}',[CategoryController::class, 'destroy'])->name('admin.category.delete');
     });
 
+    Route::group(['prefix' => 'knowledgebank'], function() {
+        Route::get('/',[KnowledgebankController::class, 'index'])->name('admin.knowledgebank.index');
+        Route::get('/add',[KnowledgebankController::class, 'create'])->name('admin.knowledgebank.add');
+        Route::post('/store',[KnowledgebankController::class, 'store'])->name('admin.knowledgebank.store');
+        Route::get('/edit/{id}',[KnowledgebankController::class, 'edit'])->name('admin.knowledgebank.edit');
+        Route::put('/update/{id}',[KnowledgebankController::class, 'update'])->name('admin.knowledgebank.update');
+        Route::get('/delete/{id}',[KnowledgebankController::class, 'destroy'])->name('admin.knowledgebank.delete');
+    });
+
     Route::group(['prefix' => 'course'], function() {
         Route::get('/',[CourseController::class, 'index'])->name('admin.course.index');
         Route::get('/add',[CourseController::class, 'create'])->name('admin.course.add');

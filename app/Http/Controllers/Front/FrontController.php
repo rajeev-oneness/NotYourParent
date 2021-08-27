@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User,App\Models\Category;
 use App\Models\Article,App\Models\ArticleTag;
 use App\Models\Course,App\Models\Testimonial;
+use App\Models\Knowledgebank;
 use App\Models\Topic,App\Models\TeacherTopic;
+use App\Models\Faq;
 
 class FrontController extends Controller
 {
@@ -28,7 +30,8 @@ class FrontController extends Controller
             $data->courses[] = Course::where('categoryId', $id)->get();
         }
         if(request()->routeIs('front.about-us')) {
-            return view('front.about-us', compact('data'));
+            $faq_data = Faq::all();
+            return view('front.about-us', compact('data', 'faq_data'));
         }
         if(request()->routeIs('front.home')) {
             return view('front.index', compact('data'));
@@ -147,7 +150,8 @@ class FrontController extends Controller
         if(!empty($req->detailId)) {
             return view('front.knowledge-bank-details');
         }
-        return view('front.knowledge-bank');
+        $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->get();
+        return view('front.knowledge-bank', compact('knowledgebank'));
     }
     
     public function articles(Request $req)

@@ -19,17 +19,18 @@
         </div>
 
         <div class="row">
-            @for ($i = 1; $i <= 6; $i++)
+            {{-- @for ($i = 1; $i <= 6; $i++) --}}
+            @foreach($knowledgebank as $item)
             <div class="col-lg-4 col-md-6">
                 <div class="darkblue clearfix knowledge_bank_cards">
-                    <div class="white new text-uppercase text-center">new</div>
-                    <h3 class="proxima_bold">Lorem Ipsum Dolor</h3>
-                    <h6 class="proxima_bold">Morbi consequat semper nunc mollis accumsun enim</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, sint debitis eius odit voluptatem amet mollitia?</p>
-                    <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $i])}}">Read More</a>
+                    <div class="white new text-uppercase text-center">{{ $item->name }}</div>
+                    <h3 class="proxima_bold">{{ $item->title }}</h3>
+                    <h6 class="proxima_bold">{{ $item->subtitle }}</h6>
+                    <p>{{ $item->description }}</p>
+                    {{-- <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $i])}}">Read More</a> --}}
                 </div>
             </div>
-            @endfor
+            @endforeach
         </div>
 
         <div class="how_ite_works_plane">

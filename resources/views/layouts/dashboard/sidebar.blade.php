@@ -33,6 +33,9 @@
                             <a class="nav-link {{ Request::segment(2) === 'category' ? 'active' : null }}" href="{{route('admin.category.index')}}"><i class="fa fa-fw fa-user-circle"></i>Categories</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) === 'knowledgebank' ? 'active' : null }}" href="{{route('admin.knowledgebank.index')}}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Courses</a>
                         </li>
                         <li class="nav-item">
