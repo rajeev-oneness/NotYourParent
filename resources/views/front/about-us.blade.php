@@ -163,8 +163,8 @@
                         <div class="class_teacher_img_wrap position-relative align-self-center">
                             <div class="class_teacher_img">
                                 <img src="{{asset($testimonial->teacherDetails->image)}}">
-                            </div>							
-                        </div>							
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endforeach
