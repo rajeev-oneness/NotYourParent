@@ -38,7 +38,10 @@
                                     <td>
                                         {{$item->description}}
                                     </td>
-                                    <td><a href="{{route('admin.knowledgebank.edit', ['id' => $item->id])}}">Edit</a> | <a href="#" data-id="{{$item->id}}" class="text-danger delete-confirm">Delete</a></td>
+                                    <td>
+                                        <a class="badge badge-success rounded-0" href="{{route('admin.knowledgebank.edit', ['id' => $item->id])}}">Edit</a>
+                                        <a class="badge badge-danger rounded-0" href="#" data-id="{{$item->id}}" class="text-danger delete-confirm">Delete</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
