@@ -148,9 +148,11 @@ class FrontController extends Controller
     public function knowledgeBank(Request $req)
     {
         if(!empty($req->detailId)) {
-            return view('front.knowledge-bank-details');
+            $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->where('knowledgebanks.id', $req->detailId)->first();
+            $knowledgebankAll = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
+            return view('front.knowledge-bank-details', compact('knowledgebank', 'knowledgebankAll'));
         }
-        $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->get();
+        $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
         return view('front.knowledge-bank', compact('knowledgebank'));
     }
     

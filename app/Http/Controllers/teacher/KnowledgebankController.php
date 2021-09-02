@@ -17,7 +17,6 @@ class KnowledgebankController extends Controller
     public function index()
     {
         $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
-        // $knowledgebank = Knowledgebank::get();
         return view('admin.knowledgebank.index', compact('knowledgebank'));
     }
 

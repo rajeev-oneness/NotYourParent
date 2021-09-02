@@ -36,4 +36,11 @@ Route::group(['prefix' => 'chat'], function() {
     Route::post('/new', [TeacherController::class, 'new'])->name('teacher.chat.new');
 });
 
-?>
+Route::group(['prefix' => 'knowledgebank'], function() {
+    Route::get('/',[TeacherController::class, 'knowledgeBankIndex'])->name('teacher.knowledgebank.index');
+    Route::get('/add',[TeacherController::class, 'knowledgeBankCreate'])->name('teacher.knowledgebank.add');
+    Route::post('/store',[TeacherController::class, 'knowledgeBankStore'])->name('teacher.knowledgebank.store');
+    Route::get('/edit/{id}',[TeacherController::class, 'knowledgeBankEdit'])->name('teacher.knowledgebank.edit');
+    Route::put('/update/{id}',[TeacherController::class, 'knowledgeBankUpdate'])->name('teacher.knowledgebank.update');
+    Route::get('/delete/{id}',[TeacherController::class, 'knowledgeBankDestroy'])->name('teacher.knowledgebank.delete');
+});

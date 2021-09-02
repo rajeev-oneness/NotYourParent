@@ -15,7 +15,7 @@
 			<div class="col-md-5 col-sm-12 align-self-center">
 				<div class="resource_banner_content">
 					<h1 class="text-uppercase darkblue proxima_bold">BECOME A <br><span
-							class="proxima_black golden">{{ $data['userType'] == 3 ? 'STUDENT' : 'MENTOR' }}</span></h1>
+							class="proxima_black golden">{{ $data['userType'] == 3 ? 'STUDENT' : 'EXPERT' }}</span></h1>
 					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
 						been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
 						galley acof type and scrambled it to make a type specimen book.</p>
@@ -40,7 +40,7 @@
 		<div class="sign_up_form">
 			<!--left form card-->
 			<div class="form-container">
-				<h4>{{ $data['userType'] == 3 ? 'STUDENT' : 'MENTOR' }} ONLINE WITH</h4>
+				<h4>{{ $data['userType'] == 3 ? 'STUDENT' : 'EXPERT' }} ONLINE WITH</h4>
 				<h3>NOT YOUR PARENT</h3>
 				<form method="POST" action="{{ route('register') }}">
 					@csrf
@@ -81,7 +81,7 @@
 				<span class="darkblue">Let's </span><br>
 				Sign Up <span class="darkblue">&</span><br>
 			</h2>
-			<h2 class="h2">Become A<span class="golden"> {{ $data['userType'] == 2 ? 'Mentor' : 'Student' }} </span></h2>
+			<h2 class="h2">Become <span class="golden"> {{ $data['userType'] == 2 ? 'An EXPERT' : 'A Student' }} </span></h2>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, ab sunt eveniet laudantium optio,
 				ipsa itaque, quos non ipsum quas repellat! Esse debitis adipisci assumenda dicta, mollitia,
 				molestiae.</p>
@@ -96,7 +96,7 @@
 <section class="mentors_section">
 	<div class="container">
 		<div class="section_heading how_it_wrok_heading text-center">
-			<h2 class="proxima_black text-uppercase white">WHAT OTHER MENTORS SAY</h2>
+			<h2 class="proxima_black text-uppercase white">WHAT OTHER EXPERTS SAY</h2>
 			<p class="white proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting
 				industry.</p>
 		</div>

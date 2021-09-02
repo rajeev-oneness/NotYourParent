@@ -58,6 +58,12 @@ class HomeController extends Controller
             'dob' => 'nullable|date_format:Y-m-d|before:'.date('Y-m-d'),
             'marital' => 'nullable|string|in:Single,Married,Divorced',
             'aniversary' => 'nullable|date_format:Y-m-d|before:'.date('Y-m-d'),
+            'short_description' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'linkedin_url' => 'nullable|url',
+            'fb_url' => 'nullable|url',
+            'twitter_url' => 'nullable|url',
+            'instagram_url' => 'nullable|url',
         ]);
         $user = Auth::user();
         $user->name = $req->name;
@@ -74,6 +80,12 @@ class HomeController extends Controller
         $user->dob = emptyCheck($req->dob,true);
         $user->marital = emptyCheck($req->marital);
         $user->aniversary = emptyCheck($req->aniversary,true);
+        $user->short_description = emptyCheck($req->short_description);
+        $user->bio = emptyCheck($req->bio);
+        $user->linkedin_url = emptyCheck($req->linkedin_url);
+        $user->fb_url = emptyCheck($req->fb_url);
+        $user->twitter_url = emptyCheck($req->twitter_url);
+        $user->instagram_url = emptyCheck($req->instagram_url);
         $user->save();
         return back()->with('Success','Profile updated successFully');
     }

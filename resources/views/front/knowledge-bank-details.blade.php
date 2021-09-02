@@ -14,23 +14,13 @@
     <div class="container position-relative">
         <div class="knowledge_bank_details">
             <div class="detail_text">
-                <h1 class="text-uppercase darkblue proxima_exbold">Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit.</h1>
-                <h6 class="text-uppercase golden proxima_bold">Free for first time subscriptions</h6>
-                <p class="darkgray">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                    of type and scrambled it to make a type specimen book.
-                </p>
-                <p class="darkgray">
-                    Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
-                    nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan
-                    ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat
-                    consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-                    per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit
-                    amet a augue. But also the leap into electronic typesetting, remaining essentially.
-                </p>
+                <h1 class="text-uppercase darkblue proxima_exbold">{{$knowledgebank->title}}</h1>
+                <h6 class="text-uppercase golden proxima_bold">{{$knowledgebank->name}}</h6>
+                <p class="darkgray">{{$knowledgebank->subtitle}}</p>
+                <hr>
+                <p class="darkgray">{{$knowledgebank->description}}</p>
             </div>
-            <div class="bullets">
+            {{-- <div class="bullets">
                 <h5 class="black proxima_exbold">Who is this for?</h5>
                 <ul class="darkblue proxima_exbold">
                     <li>It's a long established fact that a reader will be distracted</li>
@@ -57,15 +47,28 @@
             </div>
             <video controls>
                 <source src="{{asset('front/video/video.mp4')}}">
-            </video>
+            </video> --}}
         </div>
         <div class="section_heading how_it_wrok_heading text-center">
             <h2 class="proxima_black text-uppercase darkblue">More like this</h2>
-            <p class="proxima_light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore suscipit
-                officia necessitatibus saepe! dolores voluptates praesentium.</p>
+            <p class="proxima_light">More knowledge bank realted to this</p>
         </div>
 
         <div class="row">
+            @foreach($knowledgebankAll as $item)
+            <div class="col-lg-4 col-md-6">
+                <div class="darkblue clearfix knowledge_bank_cards">
+                    <div class="white new text-uppercase text-center">{{ $item->name }}</div>
+                    <h3 class="proxima_bold">{{ words($item->title, 7) }}</h3>
+                    <h6 class="proxima_bold">{{ $item->subtitle }}</h6>
+                    <p>{{ words($item->description, 20) }}</p>
+                    <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $item->id])}}">Read More</a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        {{-- <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="darkblue clearfix knowledge_bank_cards">
                     <div class="white new text-uppercase text-center">new</div>
@@ -97,7 +100,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
 
         <div class="how_ite_works_plane">
             <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">

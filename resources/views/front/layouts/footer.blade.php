@@ -40,7 +40,7 @@
         </div>
 
         <div class="copyright_text text-center">
-            <p class="mb-0 proxima_light">Copyright 2021 Notyourperent. | All Rights Reserved</p>
+            <p class="mb-0 proxima_light">Copyright 2021 Notyourparent. | All Rights Reserved</p>
         </div>
     </div>
     <span class="footer_green_plane"><img class="img-fluid" src="{{asset('front/images/green-plane-footer.png')}}"></span>

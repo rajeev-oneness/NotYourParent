@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\ChatTxn;
+use App\Models\Knowledgebank;
+use App\Models\Knowledgebankcategory;
 
 class TeacherController extends Controller
 {
@@ -112,5 +114,63 @@ class TeacherController extends Controller
         } else {
             return redirect()->route('teacher.chat.index');
         }
+    }
+
+    public function knowledgeBankIndex()
+    {
+        $teacher_id = Auth::user()->id;
+        $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->where('knowledgebanks.created_by', $teacher_id)->get();
+        return view('teacher.knowledgebank.index', compact('knowledgebank'));
+    }
+    public function knowledgeBankCreate()
+    {
+        $knowledgebankcategory = Knowledgebankcategory::all();
+        return view('teacher.knowledgebank.add', compact('knowledgebankcategory'));
+    }
+    public function knowledgeBankStore(Request $request)
+    {
+        $request->validate([
+            'category' => 'required',
+            'title' => 'required|string|min:2|max:255',
+            'subtitle' => 'required|string|min:2',
+            'description' => 'required|string|min:2'
+        ]);
+        $teacher_id = Auth::user()->id;
+        $knowledgebank = new Knowledgebank();
+        $knowledgebank->category = $request->category;
+        $knowledgebank->title = $request->title;
+        $knowledgebank->subtitle = $request->subtitle;
+        $knowledgebank->description = $request->description;
+        $knowledgebank->created_by = $teacher_id;
+
+        $knowledgebank->save();
+        return redirect()->route('teacher.knowledgebank.index');
+    }
+    public function knowledgeBankEdit($id)
+    {
+        $knowledgebank = Knowledgebank::find($id);
+        $knowledgebankcategory = Knowledgebankcategory::all();
+        return view('teacher.knowledgebank.edit', compact('knowledgebank', 'knowledgebankcategory'));
+    }
+    public function knowledgeBankUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|min:2|max:255',
+            'subtitle' => 'required|string|min:2',
+            'description' => 'required|string|min:2'
+        ]);
+
+        Knowledgebank::where('id', $id)->update([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('teacher.knowledgebank.index');
+    }
+    public function knowledgeBankDestroy($id)
+    {
+        Knowledgebank::where('id', $id)->delete();
+        return redirect()->route('teacher.knowledgebank.index');
     }
 }

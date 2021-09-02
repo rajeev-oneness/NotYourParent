@@ -64,7 +64,8 @@
         </div>
         <div class="featured_experts_right">
             <div class="img-container">
-                <img src="{{asset('front/images/testimonial-image-female.jpg')}}" alt="">
+                <img src="{{$teacher->image}}" alt="">
+                {{-- <img src="{{asset('front/images/testimonial-image-female.jpg')}}" alt=""> --}}
             </div>
             <div class="footer_social">
                 <ul>
@@ -218,6 +219,7 @@
                 if(data.data.length > 0) {
                     $.each(data.data, function(i, val) {
                         calendarRight += '<li>'+val.time+'</li>';
+                        calendarRight += '<li>'+val.note+'</li>';
                         // $('#calender_right').show();
                     })
                 } else {

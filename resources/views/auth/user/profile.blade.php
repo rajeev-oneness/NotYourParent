@@ -1,5 +1,9 @@
-@extends('layouts.master')
-@section('title','Profile')
+{{-- @extends('layouts.master')
+@section('title','Profile') --}}
+
+@extends('layouts.dashboard.master')
+@section('title','Chat')
+
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -12,7 +16,17 @@
                 <div class="card-body">
                     <form method="post" action="{{route('user.profile.save')}}" enctype="multipart/form-data">
                         @csrf
-                        <img src="{{$user->image}}" height="200" width="200">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{$user->image}}" height="200" width="200" class="rounded-circle img-thumbnail">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <p class="font-weight-bold mb-0">Member since</p>
+                                <p class="text-muted">{{$user->created_at->diffForHumans()}}</p>
+                                <p class="font-weight-bold mb-0">Last Profile update</p>
+                                <p class="text-muted">{{$user->updated_at->diffForHumans()}}</p>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="image" class="col-form-label">Image:</label>
@@ -80,6 +94,45 @@
                                 <label for="aniversary" class="col-form-label">Anniversary:</label>
                                 <input type="date" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}">
                                 @error('aniversary')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="short_description" class="col-form-label">Short description:</label>
+                                <input type="text" name="short_description" class="form-control @error('short_description') is-invalid @enderror" placeholder="Short description" value="{{(old('short_description') ? old('short_description') : $user->short_description)}}">
+                                @error('short_description')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="bio" class="col-form-label">Bio:</label>
+                                <input type="text" name="bio" class="form-control @error('bio') is-invalid @enderror" placeholder="Bio" value="{{(old('bio') ? old('bio') : $user->bio)}}">
+                                @error('bio')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="fb_url" class="col-form-label">Facebook URL:</label>
+                                <input type="text" name="fb_url" class="form-control @error('fb_url') is-invalid @enderror" placeholder="Facebook URL" value="{{(old('fb_url') ? old('fb_url') : $user->short_description)}}">
+                                @error('fb_url')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="twitter_url" class="col-form-label">Twitter URL:</label>
+                                <input type="text" name="twitter_url" class="form-control @error('twitter_url') is-invalid @enderror" placeholder="Twitter URL" value="{{(old('twitter_url') ? old('twitter_url') : $user->twitter_url)}}">
+                                @error('twitter_url')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="linkedin_url" class="col-form-label">Linkedin URL:</label>
+                                <input type="text" name="linkedin_url" class="form-control @error('linkedin_url') is-invalid @enderror" placeholder="Linkedin URL" value="{{(old('linkedin_url') ? old('linkedin_url') : $user->linkedin_url)}}">
+                                @error('linkedin_url')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="instagram_url" class="col-form-label">Instagram URL:</label>
+                                <input type="text" name="instagram_url" class="form-control @error('instagram_url') is-invalid @enderror" placeholder="Instagram URL" value="{{(old('instagram_url') ? old('instagram_url') : $user->instagram_url)}}">
+                                @error('instagram_url')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                         </div>
 

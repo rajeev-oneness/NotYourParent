@@ -91,6 +91,12 @@
                             <a class="nav-link {{ (request()->is('teacher/chat*')) ? 'active' : '' }}" href="{{ route('teacher.chat.index') }}"><i class="fa fa-fw fa-user-circle"></i>Chat</a>
                             {{-- <a class="nav-link {{ Request::segment(3) === 'chat' ? 'active' : null }}" href="{{ route('teacher.chat.index') }}"><i class="fa fa-fw fa-user-circle"></i>Chat</a> --}}
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('teacher/knowledgebank*')) ? 'active' : '' }}" href="{{ route('teacher.knowledgebank.index') }}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
+                        </li>
 
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}

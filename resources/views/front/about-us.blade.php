@@ -20,7 +20,7 @@
 <section class="mentors_section about_mentors_section">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase darkblue">Mentors for you</h2>
+            <h2 class="proxima_black text-uppercase darkblue">Experts for you</h2>
             <p class="darkgray proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
         </div>
 
@@ -73,7 +73,7 @@
         </div>
 
         <div class="text-center view_all_mentor">
-            <a href="javascript:void(0);" class="green_btn parimary_btn">View Available Mentors</a>
+            <a href="javascript:void(0);" class="green_btn parimary_btn">View Available Experts</a>
         </div>
     </div>
     <div class="mentors_section_plane">

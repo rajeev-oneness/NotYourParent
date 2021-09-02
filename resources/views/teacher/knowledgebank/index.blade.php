@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Knowledge Bank
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.knowledgebank.add')}}">
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('teacher.knowledgebank.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -39,8 +39,7 @@
                                         {{$item->description}}
                                     </td>
                                     <td>
-                                        <a href="{{route('admin.knowledgebank.edit', ['id' => $item->id])}}">Edit</a> | 
-                                        {{-- <a class="badge badge-danger rounded-0" href="javascript: void(0)" data-id="{{$item->id}}" class="text-danger delete-confirm">Delete</a> --}}
+                                        <a href="{{route('teacher.knowledgebank.edit', ['id' => $item->id])}}">Edit</a>
                                         <a href="javascript: void(0)" data-id="{{$item->id}}" class="text-danger delete-confirm">Delete</a>
                                     </td>
                                 </tr>

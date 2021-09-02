@@ -94,7 +94,7 @@
 <section class="mentors_section">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase white">Choose the best Mentors for you</h2>
+            <h2 class="proxima_black text-uppercase white">Choose the best Experts for you</h2>
             <p class="white proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
         </div>
 
@@ -147,7 +147,7 @@
         </div>
 
         <div class="text-center view_all_mentor">
-            <a href="javascript:void(0);" class="green_btn parimary_btn">View Available Mentors</a>
+            <a href="javascript:void(0);" class="green_btn parimary_btn">View Available Experts</a>
         </div>
     </div>
     <div class="mentors_section_plane">
@@ -244,9 +244,9 @@
             </div>
             <div class="col-lg-4 align-self-center">
                 <div class="become_member_content">
-                    <h2 class="darkblue text-uppercase">Let’s <b class="proxima_exbold">Become a</b> <span class="green proxima_exbold">Mentor</span></h2>
+                    <h2 class="darkblue text-uppercase">Let’s <b class="proxima_exbold">Become a</b> <span class="green proxima_exbold">EXPERT</span></h2>
                     <p class="darkgray proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                    <a href="{{route('front.sign-up',['userType' => 2])}}" class="parimary_btn darkblue_btn">Start Mentoring Today</a>
+                    <a href="{{route('front.sign-up',['userType' => 2])}}" class="parimary_btn darkblue_btn">Start Today</a>
                 </div>
             </div>
         </div>

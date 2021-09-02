@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Front\FrontController;
-use Illuminate\Support\Facades\Route,Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +42,10 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile', [HomeController::class,'userProfile'])->name('user.profile');
 
 	Route::post('user/profile', [HomeController::class,'userProfileSave'])->name('user.profile.save');
-	
+
 	// Route::get('user/change/password','HomeController@changePassword')->name('user.changepassword');
 	Route::post('user/change/password', [HomeController::class,'updateUserPassword'])->name('user.changepassword.save');
-	
+
 	Route::get('user/points', [HomeController::class,'userPoints'])->name('user.points');
 
 });
