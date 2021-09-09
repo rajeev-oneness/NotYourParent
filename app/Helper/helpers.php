@@ -39,6 +39,24 @@
         return Str::words($value, $words, $end);
     }
 
+	function explodeCust($value, $position = 0)
+    {
+		$str = explode(' ', $value);
+		return $str[$position];
+    }
+
+	function custom_review(float $value) {
+		if ($value <= 5.00 && $value >= 4.00) {
+			return 'success';
+		} elseif ($value <= 3.99 && $value >= 3.00) {
+			return 'primary';
+		} elseif ($value <= 2.99 && $value >= 2.00) {
+			return 'warning';
+		} else {
+			return 'danger';
+		}
+	}
+
 	function generateUniqueAlphaNumeric($length = 7)
     {
     	$random_string = '';

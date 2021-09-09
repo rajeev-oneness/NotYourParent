@@ -1,19 +1,19 @@
 @extends('layouts.dashboard.master')
-@section('title','Add Course')
+@section('title','Add Case study')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Course
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.course.index')}}">
+                    <h5 class="mb-0">Add Case study
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('teacher.my-course.index')}}">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.course.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teacher.my-course.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group required">
                             <label for="category" class="control-label">Select Category</label>

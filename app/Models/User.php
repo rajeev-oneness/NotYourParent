@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,SoftDeletes,HasApiTokens;
+    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -46,21 +46,26 @@ class User extends Authenticatable
 
     public function referred_through()
     {
-        return $this->belongsTo('App\Models\User','referred_by','id');
+        return $this->belongsTo('App\Models\User', 'referred_by', 'id');
     }
 
     public function referred_to()
     {
-        return $this->hasMany('App\Models\User','referred_by','id');
+        return $this->hasMany('App\Models\User', 'referred_by', 'id');
     }
 
     public function user_points()
     {
-        return $this->hasMany('App\Models\UserPoints','userId','id');
+        return $this->hasMany('App\Models\UserPoints', 'userId', 'id');
     }
 
     public function role()
     {
-        return $this->belongsTo('App\Models\UserType','user_type','id');
+        return $this->belongsTo('App\Models\UserType', 'user_type', 'id');
+    }
+
+    public function user_availability()
+    {
+        return $this->belongsTo('App\Models\UserAvailability', 'availability', 'id');
     }
 }

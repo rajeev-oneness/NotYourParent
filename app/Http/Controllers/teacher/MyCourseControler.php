@@ -31,7 +31,7 @@ class MyCourseControler extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.course.add', compact('categories'));
+        return view('teacher.my-course.add', compact('categories'));
     }
 
     /**
@@ -62,7 +62,7 @@ class MyCourseControler extends Controller
         $course->price = $request->price;
         $course->teacherId = Auth::user()->id;
         $course->save();
-        return redirect()->route('admin.course.index');
+        return redirect()->route('teacher.my-course.index');
     }
 
     /**
@@ -75,7 +75,7 @@ class MyCourseControler extends Controller
     {
         $categories = Category::all();
         $course = Course::find($id);
-        return view('admin.course.edit',compact('course','categories'));
+        return view('teacher.my-course.edit',compact('course','categories'));
     }
 
     /**
@@ -112,7 +112,7 @@ class MyCourseControler extends Controller
             'duration' => $request->duration,
             'categoryId' => $request->categoryId
         ]);
-        return redirect()->route('admin.course.index');
+        return redirect()->route('teacher.my-course.index');
     }
 
     /**
@@ -126,6 +126,6 @@ class MyCourseControler extends Controller
         $course = Course::where('id', $id)->first();
         // File::delete(public_path($course->image));
         $course->delete();
-        return redirect()->route('admin.course.index');
+        return redirect()->route('teacher.my-course.index');
     }
 }

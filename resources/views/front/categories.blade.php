@@ -18,11 +18,14 @@
 				<button class="darkblue proxima_bold dropdown-toggle banner_search_field" type="button" data-toggle="dropdown">All Categories</button>
 				<ul class="dropdown-menu custom_dropdown_menu">
 				  @foreach ($categories as $category)
-					  <li><a href="{{route('directory.search.ajax', ['categoryId' => $category->id])}}">{{$category->name}}</a></li>
+					  <li><a href="{{ route('front.categories.course', ["id" => $category->id]) }}">{{$category->name}}</a></li>
+					  {{-- <li><a href="{{route('directory.search.ajax', ['categoryId' => $category->id])}}">{{$category->name}}</a></li> --}}
 				  @endforeach
 				</ul>
-				<input class="banner_search_btn parimary_btn green_btn" type="button" value="Join Live Classes" name="">
-				<input class="banner_search_btn parimary_btn darkblue_btn" type="button" value="Free Visit" name="">
+				{{-- <input class="banner_search_btn parimary_btn green_btn" type="button" value="Join Live Classes" name="">
+				<input class="banner_search_btn parimary_btn darkblue_btn" type="button" value="Free Visit" name=""> --}}
+				<a href="{{route('front.courses')}}#courses-tab" class="banner_search_btn parimary_btn green_btn">Join Live Classes</a>
+				<a href="{{route('front.experts')}}#experts-tab" class="banner_search_btn parimary_btn darkblue_btn">Free Visit</a>
 			  </div>
 
 		</div>
@@ -43,7 +46,7 @@
 			@foreach($categories as $category)
 			<div class="col-lg-4 col-md-6">
 				<div class="mentor_course">
-					<a href="{{ route('front.categories.course') }}" class="d-block">
+					<a href="{{ route('front.categories.course', ["id" => $category->id]) }}" class="d-block">
 					{{-- <a href="{{ route('front.categories.', $category->id) }}" class="d-block"> --}}
 						<div class="mentor_course_content">
 							<div class="mentor_course_review">

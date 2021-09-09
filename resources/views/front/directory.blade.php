@@ -11,7 +11,7 @@
 <section class="inner_banner_section resource_banner directory_banner" style="background-image: url({{asset('front/images/directory-banner.jpg')}});">
     <div class="container">					
         <div class="resource_banner_content directory_banner_content">
-            <h1 class="text-uppercase darkblue proxima_bold text-center">Find an <span class="proxima_black golden">Expart</span></h1>
+            <h1 class="text-uppercase darkblue proxima_bold text-center">Find an <span class="proxima_black golden">Expert</span></h1>
             <div class="expart_search_wrap">
                 <form action="{{route('front.directory')}}">
                     <div class="expart_search_top">

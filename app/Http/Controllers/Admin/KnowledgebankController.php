@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Knowledgebank;
 use App\Models\Knowledgebankcategory;
+use Illuminate\Support\Facades\Auth;
 
 class KnowledgebankController extends Controller
 {
@@ -46,12 +47,13 @@ class KnowledgebankController extends Controller
             'subtitle' => 'required|string|min:2',
             'description' => 'required|string|min:2'
         ]);
-
+        $user_id = Auth::user()->id;
         $knowledgebank = new Knowledgebank();
         $knowledgebank->category = $request->category;
         $knowledgebank->title = $request->title;
         $knowledgebank->subtitle = $request->subtitle;
         $knowledgebank->description = $request->description;
+        $knowledgebank->created_by = $user_id;
 
         $knowledgebank->save();
         return redirect()->route('admin.knowledgebank.index');

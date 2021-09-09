@@ -9,15 +9,16 @@
 
 @section('content')
 <section class="banner_section" style="background-image: url({{asset('front/images/banner.png')}});">
-    <div class="container">					
-        <div class="banner_content">
+    <div class="container">
+        <div class="banner_content" id="search-experts">
             <h3 class="text-uppercase black">Not Only <span class="proxima_black green">Your Parent</span></h3>
             <h1 class="text-uppercase proxima_bold">ALSO WE CAN <br><strong class="proxima_black">HELP YOU<span>!</span></strong></h1>
             <p>Lorem ipsum dolor sit amet, <span>consectetur adipiscing</span> elit. Proin at risus. <span>Sed nec congue</span> quam. Nulla sed tristique turpis. </p>
             <div class="banner_search_box">
-                <form action="{{route('front.directory')}}">
+                <form action="{{route('front.directory')}}" autocomplete="off">
                     <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search">
                     <input class="banner_search_btn parimary_btn green_btn" type="submit" value="Search Now" name="">
+                    <a href="{{route('front.experts')}}#experts-tab" class="banner_search_btn parimary_btn darkblue_btn">View all Experts</a>
                 </form>
             </div>
         </div>
@@ -36,47 +37,28 @@
         <div class="row">
             <div class="col-lg-6 align-self-center">
                 <div class="how_it_work_img">
-                    <img src="{{asset('front/images/how-it-work.png')}}">
+                    <img src="{{asset($how_it_works_main->image)}}">
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
                 <div class="how_it_work_content">
-                    <h2 class="proxima_black green"><strong class="darkblue">Learn A</strong><br>Skillset <sub class="darkblue">In</sub><br><span class="black"><b class="golden">10</b> Minutes</span></h2>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+                    <h2 class="proxima_black green"><strong class="darkblue">{{explodeCust($how_it_works_main->heading, 0).' '.explodeCust($how_it_works_main->heading, 1)}}</strong><br>{{explodeCust($how_it_works_main->heading, 2)}} <sub class="darkblue">{{explodeCust($how_it_works_main->heading, 3)}}</sub><br><span class="black"><b class="golden">{{explodeCust($how_it_works_main->heading, 4)}}</b> {{explodeCust($how_it_works_main->heading, 5)}}</span></h2>
+                    {{-- <h2 class="proxima_black green"><strong class="darkblue">{{$how_it_works_main->heading}}</strong></h2> --}}
+                    <p>{{$how_it_works_main->description}}</p>
                     <div class="our_process_wrap">
                         <div class="row">
+                            @foreach($how_it_works_child as $item)
                             <div class="col-3">
-                                <div class="our_process_item">
-                                    <div class="our_process_img">
-                                        <img src="{{asset('front/images/sign_up.png')}}">
+                                <a href="{{$item->link}}" class="d-block">
+                                    <div class="our_process_item">
+                                        <div class="our_process_img">
+                                            <img src="{{asset($item->image)}}">
+                                        </div>
+                                        <h4 class="text-uppercase proxima_exbold black">{{$item->heading}}</h4>
                                     </div>
-                                    <h4 class="text-uppercase proxima_exbold black">Sign Up</h4>
-                                </div>
+                                </a>
                             </div>
-                            <div class="col-3">
-                                <div class="our_process_item">
-                                    <div class="our_process_img">
-                                        <img src="{{asset('front/images/search_expart.png')}}">
-                                    </div>
-                                    <h4 class="text-uppercase proxima_exbold black">Search Expert</h4>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="our_process_item">
-                                    <div class="our_process_img">
-                                        <img src="{{asset('front/images/join-class.png')}}">
-                                    </div>
-                                    <h4 class="text-uppercase proxima_exbold black">Join a Class</h4>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="our_process_item">
-                                    <div class="our_process_img">
-                                        <img src="{{asset('front/images/learn_enjoy.png')}}">
-                                    </div>
-                                    <h4 class="text-uppercase proxima_exbold black">Learn & Enjoy</h4>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <a href="{{route('front.about-us')}}" class="parimary_btn darkblue_btn">Know More</a>
@@ -113,8 +95,9 @@
                         <div class="mentor_course_img">
                             <img src="{{asset($course->image)}}">
                             <div class="mentor_course_overlay">
-                                <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">{{substr($course->name, 0, 7)}}</sub>{{substr($course->name, 7,11)}} </h4>
-                                <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3>
+                                <h4 class="white proxima_exbold text-uppercase mb-5"><sub class="proxima_normal">{{substr($course->name, 0, 80)}}</sub></h4>
+                                {{-- <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">{{substr($course->name, 0, 7)}}</sub>{{substr($course->name, 7,11)}} </h4> --}}
+                                {{-- <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3> --}}
                                 <ul>
                                     <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> {{$course->duration}} minutes</li>
                                     <li class="mentor_price" id="slot_modal" data-mentor="{{$course->teacherDetail->id}}" data-course="{{$course->id}}" data-toggle="modal" data-target="#exampleModal">{{$course->price}}$ <span>Only</span></li>
@@ -131,15 +114,15 @@
                                     <h6>{{$course->teacherDetail->short_description}}</h6>
                                 </div>
                             </div>
-                            <p>{{$course->description}}</p>
+                            <p style="max-height: 72px;">{{words($course->description, 20)}}</p>
                             <ul>
-                                <li><a href="javascript:void(0);">Consult Now</a></li>
-                                <li><a href="{{route('front.experts', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
+                                <li><a href="{{route('front.courses.single', ['courseId' => $course->id])}}">Consult Now</a></li>
+                                <li><a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                             </ul>
                         </div>
                     </div>
                     @empty
-                    <h4 class="proxima_black text-uppercase white text-center">Sorry! No data</h4>
+                    <h4 class="proxima_black text-uppercase white text-center">No courses found !</h4>
                     @endforelse						
                 </div>	
             </div>
@@ -147,7 +130,7 @@
         </div>
 
         <div class="text-center view_all_mentor">
-            <a href="javascript:void(0);" class="green_btn parimary_btn">View Available Experts</a>
+            <a href="{{route('front.experts')}}" class="green_btn parimary_btn">View Available Experts</a>
         </div>
     </div>
     <div class="mentors_section_plane">
@@ -209,7 +192,7 @@
                                 <h4 class="white proxima_exbold">{{$testimonial->teacherDetails->name}}</h4>
                                 <h5 class="text-uppercase white proxima_exbold">MUSIC TRICKS</h5>
                                 <img src="{{asset('front/images/reviews_star.png')}}">
-                                <a class="secondary_btn green_btn" href="{{route('front.experts', ['expertId' => $testimonial->teacherDetails->id])}}">More Classes</a>
+                                <a class="secondary_btn green_btn" href="{{route('front.experts.single', ['expertId' => $testimonial->teacherDetails->id])}}">More Classes</a>
                             </div>
                         </div>
                         <div class="class_teacher_img_wrap position-relative align-self-center">
@@ -268,7 +251,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="recent_article_item">
                     <div class="recent_article_img">
-                        <a class="d-block" href="#">
+                        <a class="d-block" href="{{route('front.articles.single', ['articleId' => $article->id])}}">
                             <img src="{{asset($article->image)}}">
                         </a>
                     </div>
@@ -276,14 +259,14 @@
                         <span class="article_date proxima_bold">{{date('d M,Y', strtotime($article->created_at))}}</span>
                         <h3 class="proxima_exbold"><a class="d-block" href="#">{{$article->title}}</a></h3>
                         <p class="darkgray">{{$article->description}}</p>
-                        <a href="{{route('front.articles', ['articleId' => $article->id])}}" class="secondary_btn darkblue_btn">Read More</a>
+                        <a href="{{route('front.articles.single', ['articleId' => $article->id])}}" class="secondary_btn darkblue_btn">Read More</a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
         <div class="text-center view_all_mentor explore_all_article">
-            <a href="javascript:void(0);" class="green_btn parimary_btn">Explore All</a>
+            <a href="{{route('front.articles')}}" class="green_btn parimary_btn">Explore All</a>
         </div>
     </div>
 </section>

@@ -33,6 +33,8 @@ class Controller extends BaseController
             $user = new User();
             $user->name = $userData->name;
             $user->email = $userData->email;
+            $user->mobile = $userData->mobile;
+            $user->primary_category = $userData->primary_category;
             $user->password = Hash::make($userData->password);
             $user->user_type = $userData->user_type;
             $user->save();

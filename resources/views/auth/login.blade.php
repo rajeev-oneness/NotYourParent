@@ -45,7 +45,7 @@
                             <input type="password" name="password" id="c_pass" required>
                             <div class="eye"><img onclick="showHide(); "  src="{{asset('front/images/eye.png')}}"></div>
                         </div>
-                        <p class="darkgray">Don't have an account? <a href="{{route('front.sign-up',['userType' => 2])}}">(Sign Up As Student)</a> <a href="{{route('front.sign-up',['userType' => 3])}}">(Sign Up As Teacher)</a></p>
+                        <p class="darkgray">Don't have an account? <a href="{{route('front.sign-up',['userType' => 3])}}">(Sign Up As Student)</a> <a href="{{route('front.sign-up',['userType' => 2])}}">(Sign Up As Expert)</a></p>
                         <input class="green_btn parimary_btn proxima_bold" type="submit" value="Log In">
                     </form>
                     <p class="darkgray">Protected by reCAPTCHA Google <a href="#">Privacy Policy</a> & <a href="#">Terms of Services apply.</a></p>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\ContactUs;
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
 
         }
         view()->share('contact', $contact);
+        Paginator::useBootstrap();
     }
 }

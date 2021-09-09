@@ -60,6 +60,25 @@
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
 					<input class="email" type="email" name="email" placeholder="Email Address"  value="{{old('email')}}" >
+					@error('mobile')
+						<span class="text-danger"><small>{{$message}}</small></span>
+					@enderror
+					<input class="email" type="text" name="mobile" placeholder="Phone number"  value="{{old('mobile')}}" >
+
+					@if($data['userType'] == 2)
+						@error('primary_category')
+							<span class="text-danger"><small>{{$message}}</small></span>
+						@enderror
+						<select name="primary_category" class="email" required>
+							<option value="" selected disabled>Select primary category</option>
+							@foreach ($categories as $item)
+								<option value="{{$item->id}}">{{$item->name}}</option>
+							@endforeach
+						</select>
+					@else
+						<input type="hidden" name="primary_category" value="0">
+					@endif
+
 					@error('password')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
@@ -81,7 +100,7 @@
 				<span class="darkblue">Let's </span><br>
 				Sign Up <span class="darkblue">&</span><br>
 			</h2>
-			<h2 class="h2">Become <span class="golden"> {{ $data['userType'] == 2 ? 'An EXPERT' : 'A Student' }} </span></h2>
+			<h2 class="h2">Become <span class="golden"> {{ $data['userType'] == 2 ? 'A EXPERT' : 'A Student' }} </span></h2>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, ab sunt eveniet laudantium optio,
 				ipsa itaque, quos non ipsum quas repellat! Esse debitis adipisci assumenda dicta, mollitia,
 				molestiae.</p>
@@ -97,8 +116,7 @@
 	<div class="container">
 		<div class="section_heading how_it_wrok_heading text-center">
 			<h2 class="proxima_black text-uppercase white">WHAT OTHER EXPERTS SAY</h2>
-			<p class="white proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting
-				industry.</p>
+			<p class="white proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 		</div>
 
 		<div class="mentor_tab_content_wrap">

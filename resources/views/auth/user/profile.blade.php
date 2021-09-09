@@ -2,16 +2,21 @@
 @section('title','Profile') --}}
 
 @extends('layouts.dashboard.master')
-@section('title','Chat')
+@section('title','Settings')
 
 @section('content')
-<div class="container-fluid  dashboard-content">
+<div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Your Profile</h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
+                    <div class="row">
+                        <div class="col-6"><h5 class="mb-0">Settings</h5></div>
+                        <div class="col-6 text-right">
+                            <a href="{{route('user.address.index')}}" class="btn btn-sm btn-primary">Address</a>
+                            <a href="{{route('user.language.index')}}" class="btn btn-sm btn-primary">Language</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <form method="post" action="{{route('user.profile.save')}}" enctype="multipart/form-data">
@@ -21,6 +26,11 @@
                                 <img src="{{$user->image}}" height="200" width="200" class="rounded-circle img-thumbnail">
                             </div>
                             <div class="col-md-6 text-right">
+                                @if (!empty($user->review))
+                                    <p class="font-weight-bold mb-0">Review</p>
+                                    <span class="badge badge-{{custom_review($user->review)}} badge-pill" title="K2 review is {{$user->review}}">{{$user->review}} <i class="fa fa-star"></i> </span>
+                                    <span title="No. of ratings">({{$user->rating_count}})</span>
+                                @endif
                                 <p class="font-weight-bold mb-0">Member since</p>
                                 <p class="text-muted">{{$user->created_at->diffForHumans()}}</p>
                                 <p class="font-weight-bold mb-0">Last Profile update</p>
@@ -95,6 +105,11 @@
                                 <input type="date" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}">
                                 @error('aniversary')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="hourly_rate" class="col-form-label">Rate/ hr:</label>
+                                <input type="number" name="hourly_rate" class="form-control @error('hourly_rate') is-invalid @enderror" value="{{(old('hourly_rate') ? old('hourly_rate') : $user->hourly_rate)}}" placeholder="Enter rate only" onkeypress="return isNumberKey(event);" maxlength="10">
+                                @error('hourly_rate')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
                         </div>
 
                         <div class="row">
@@ -104,8 +119,8 @@
                                 @error('short_description')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="bio" class="col-form-label">Bio:</label>
-                                <input type="text" name="bio" class="form-control @error('bio') is-invalid @enderror" placeholder="Bio" value="{{(old('bio') ? old('bio') : $user->bio)}}">
+                                <label for="bio" class="col-form-label">Quote:</label>
+                                <input type="text" name="bio" class="form-control @error('bio') is-invalid @enderror" placeholder="Quote" value="{{(old('bio') ? old('bio') : $user->bio)}}">
                                 @error('bio')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                         </div>
@@ -142,13 +157,10 @@
                     </form>
                 </div>
             </div>
-        </div>
 
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Change Password</h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
+                    <h5 class="mb-0">Password</h5>
                 </div>
                 <div class="card-body">
                     <form method="post" action="{{route('user.changepassword.save')}}">
@@ -178,6 +190,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 

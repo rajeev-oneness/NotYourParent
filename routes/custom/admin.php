@@ -103,6 +103,17 @@
         Route::get('/delete/{id}',[UserController::class, 'deleteUser'])->name('admin.user.delete');
         Route::post('/updateStatus',[UserController::class, 'updateStatus'])->name('admin.user.updateStatus');
     });
+
+    Route::group(['prefix' => 'settings'], function() {
+        Route::get('/howItWorks',[CrudController::class, 'howToWorkIndex'])->name('admin.howItWorks.index');
+        Route::get('/howItWorks/edit/{id}',[CrudController::class, 'howToWorkEdit'])->name('admin.howitworks.edit');
+        Route::put('/howItWorks/update/{id}',[CrudController::class, 'howToWorkUpdate'])->name('admin.howItWorks.update');
+
+        Route::get('/aboutUs', [CrudController::class, 'aboutUsIndex'])->name('admin.aboutUs.index');
+        Route::get('/aboutUs/edit/{id}',[CrudController::class, 'aboutUsEdit'])->name('admin.aboutUs.edit');
+        Route::put('/aboutUs/update/{id}',[CrudController::class, 'aboutUsUpdate'])->name('admin.aboutUs.update');
+    });
+
     Route::get('referred_to/user/{userId}',[UserController::class,'getReferredToList'])->name('admin.referral.referred_to');
 	Route::get('user/points/{userId}',[UserController::class,'getUserPoints'])->name('admin.user.points');
     Route::get('/commission',[AdminController::class, 'getCommission'])->name('admin.commission.index');

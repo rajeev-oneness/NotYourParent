@@ -18,6 +18,14 @@
             <p class="proxima_light">Knowledge bank consists of IN-HOUSE & EXPERT CONTENTS to share their knowledge accordingly</p>
         </div>
 
+        <div class="row mb-5">
+            <div class="col-12 text-right">
+                <a href="{{route('front.knowledge-bank')}}" class="btn btn-sm {{ (request()->is('knowledge-bank')) ? 'btn-primary' : 'btn-outline-primary' }}">All</a>
+                <a href="{{route('front.knowledge-bank', ['content' => 'in-house'])}}" class="btn btn-sm {{ (request()->is('knowledge-bank?content=in-house')) ? 'btn-primary' : 'btn-outline-primary' }}">In-house Content</a>
+                <a href="{{route('front.knowledge-bank', ['content' => 'expert'])}}" class="btn btn-sm {{ (request()->is('knowledge-bank?content=expert')) ? 'btn-primary' : 'btn-outline-primary' }}">Expert Content</a>
+            </div>
+        </div>
+
         <div class="row">
             @foreach($knowledgebank as $item)
             <div class="col-lg-4 col-md-6">

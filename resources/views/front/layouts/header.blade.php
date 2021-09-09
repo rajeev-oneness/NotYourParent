@@ -10,7 +10,7 @@
                 <div class="header_right">
                     <ul>
                         @auth
-                            <li class="expart_btn"><a href="javascript:void(0);">{{auth()->user()->name}}</a></li>
+                            <li class="expart_btn"><a href="{{url('/home')}}">{{ucwords(auth()->user()->name)}}</a></li>
                             <li class="sign_up_btn"><a href="{{route('logout')}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Log Out</a></li>
                         @endauth
                         @guest

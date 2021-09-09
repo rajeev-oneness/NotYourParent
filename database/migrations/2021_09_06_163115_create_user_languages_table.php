@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-class CreateKnowledgebankcategoriesTable extends Migration
+class CreateUserLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,24 +14,26 @@ class CreateKnowledgebankcategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('knowledgebankcategories', function (Blueprint $table) {
+        Schema::create('user_languages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 50);
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
 
         $data = [
-            [
-                "name" => "In-house Content",
-            ],
-            [
-                "name" => "Expert Content",
-            ]
+            ['name' => 'arabic'],
+            ['name' => 'english'],
+            ['name' => 'hindi'],
+            ['name' => 'sindhi'],
+            ['name' => 'tamil'],
+            ['name' => 'spanish'],
+            ['name' => 'chinese'],
+            ['name' => 'bengali'],
         ];
 
-        DB::table('knowledgebankcategories')->insert($data);
+        DB::table('user_languages')->insert($data);
     }
 
     /**
@@ -41,6 +43,6 @@ class CreateKnowledgebankcategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knowledgebankcategories');
+        Schema::dropIfExists('user_languages');
     }
 }

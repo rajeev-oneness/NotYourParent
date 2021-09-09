@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title','Edit Course')
+@section('title','Edit Case study')
 @section('css')
 <style>
     .form-group.required .control-label:after {
@@ -14,14 +14,14 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Edit Course
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.course.index')}}">
+                    <h5 class="mb-0">Edit Case study
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('teacher.my-course.index')}}">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.course.update', ['id' => $course->id]) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teacher.my-course.update', ['id' => $course->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group required">

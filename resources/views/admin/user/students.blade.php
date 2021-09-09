@@ -13,7 +13,7 @@
 
                         <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-light active">All</a>
                         <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-primary">Students</a>
-                        <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-light active">Teachers</a>
+                        <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-light active">Experts</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
@@ -38,7 +38,7 @@
                                 @foreach($users as $user)
                                     @if($user->user_type != 1)
                                         <tr>
-                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
+                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->mobile}}</td>
