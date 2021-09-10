@@ -153,7 +153,11 @@ class FrontController extends Controller
             $coursesCount = Course::where('teacherId', $req->expertId)->count();
             $reviews = Review::where('teacherId', $req->expertId)->get();
             // dd($reviews);
-            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials', 'courses', 'reviews', 'currentDate', 'coursesCount'));
+
+            $userLanguagesKnown = UserLanguagesKnown::where('user_id', $req->expertId)
+                ->join('user_languages', 'user_languages.id', '=', 'user_languages_knowns.language_id')
+                ->get();
+            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials', 'courses', 'reviews', 'currentDate', 'coursesCount', 'userLanguagesKnown'));
         }
     }
 

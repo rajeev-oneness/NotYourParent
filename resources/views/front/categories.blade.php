@@ -26,11 +26,9 @@
 				<input class="banner_search_btn parimary_btn darkblue_btn" type="button" value="Free Visit" name=""> --}}
 				<a href="{{route('front.courses')}}" class="banner_search_btn parimary_btn green_btn">Join Live Classes</a>
 				<a href="{{route('front.experts')}}" class="banner_search_btn parimary_btn darkblue_btn">Free Visit</a>
-			  </div>
-
+			</div>
 		</div>
-		
-	<img class="puz" src="{{asset('front/images/puz.png')}}" alt="">
+		<img class="puz" src="{{asset('front/images/puz.png')}}" alt="">
 	</div>
 </section>
 <!-- banner_section -->

@@ -175,9 +175,9 @@
             </div>
         </div>
 
-        <div class="text-center">
+        {{-- <div class="text-center">
             <a href="javascript:void(0);" class="parimary_btn darkblue_btn">READ ALL REVIEWS</a>
-        </div>
+        </div> --}}
     </div>
     <span class="review_yellow_plane"><img class="img-fluid" src="{{asset('front/images/yellow-plane.png')}}"></span>
 </section>

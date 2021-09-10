@@ -32,6 +32,22 @@
                         <a href="{{ route('front.categories.course', ["id" => $category->id]) }}" class="d-block">
                         {{-- <a href="{{ route('front.categories.', $category->id) }}" class="d-block"> --}}
                             <div class="mentor_course_content">
+                                <div class="mentor_course_review">
+                                    <div class="mentor_course_review_name d-flex">
+                                        @if (!empty($category->image))
+                                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" style="height: 50px" class="mr-3">
+                                        @endif
+                                        <h5>{{ $category->name }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {{-- <div class="col-lg-3 col-md-6">
+                    <div class="mentor_course">
+                        <a href="{{ route('front.categories.course', ["id" => $category->id]) }}" class="d-block">
+                            <div class="mentor_course_content">
                                 <div class="mentor_course_review mb-0">
                                     <div class="mentor_course_review_name">
                                         <h5>{{ $category->name }}</h5>
@@ -40,7 +56,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> --}}
                 @endforeach
             </div>
         </div>

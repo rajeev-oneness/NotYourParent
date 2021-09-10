@@ -146,7 +146,7 @@
                         <p></p>
                         <ul>
                             {{-- <li><a href="{{url()->current()}}">Consult Now</a></li> --}}
-                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">View Now</a></li>
+                            <li><a href="{{route('front.courses.single', ['courseId' => $course->id])}}">View Now</a></li>
                             <li><a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                         </ul>
                     </div>
