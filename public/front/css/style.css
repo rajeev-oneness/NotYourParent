@@ -541,6 +541,8 @@ button {
 }
 .mentor_course_img img {
     width: 100%;
+    max-height: 200px;
+    object-fit: cover;
 }
 .mentor_course_img:after {
     content: "";
@@ -593,6 +595,7 @@ button {
 .mentor_course_overlay h4 sub {
     bottom: 0;
     font-size: 20px;
+    line-height: 1.3;
 }
 .mentor_course_overlay h4 {
     font-size: 25px;
@@ -645,6 +648,13 @@ button {
 .mentor_course_content p {
     color: #646f76;
     margin-bottom: 30px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 72px;
+    min-height: 72px;
 }
 .mentor_course_content ul {
     display: flex;
