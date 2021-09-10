@@ -18,9 +18,9 @@ class AddColumnsToCategoriesTable extends Migration
             $table->string('image')->after('id');
         });
 
-        DB::table('categories')->where('name', 'Music Tricks')->update(['image' => 'uploads/category/music.png']);
-        DB::table('categories')->where('name', 'Cooking Tricks')->update(['image' => 'uploads/category/cooking.png']);
-        DB::table('categories')->where('name', 'Photography')->update(['image' => 'uploads/category/camera.png']);
+        DB::table('categories')->where('name', 'Music Tricks')->update(['image' => 'defaultImages/category/music.png']);
+        DB::table('categories')->where('name', 'Cooking Tricks')->update(['image' => 'defaultImages/category/cooking.png']);
+        DB::table('categories')->where('name', 'Photography')->update(['image' => 'defaultImages/category/camera.png']);
     }
 
     /**

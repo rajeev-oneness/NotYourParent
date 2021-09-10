@@ -43,7 +43,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <a href="{{route('front.sign-up',['userType' => 3])}}#join-now" class="parimary_btn darkblue_btn">Get started</a>
+                    <a href="{{route('front.sign-up',['userType' => 3])}}" class="parimary_btn darkblue_btn">Get started</a>
                 </div>
             </div>
         </div>

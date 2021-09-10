@@ -51,8 +51,8 @@ class KnowledgebankController extends Controller
         ]);
 
         $fileName = time().'.'.strtolower($request->image->extension());
-        $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
-        $image ='uploads/knowledgebank/'.$fileName;
+        $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
+        $image ='defaultImages/knowledgebank/'.$fileName;
 
         $user_id = Auth::user()->id;
         $knowledgebank = new Knowledgebank();
@@ -115,8 +115,8 @@ class KnowledgebankController extends Controller
             File::delete($oldImage);
 
             $fileName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
-            $image ='uploads/knowledgebank/'.$fileName;
+            $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
+            $image ='defaultImages/knowledgebank/'.$fileName;
             $knowledgebank->update([
                 'image' => $image,
             ]);

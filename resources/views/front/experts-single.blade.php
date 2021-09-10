@@ -80,14 +80,26 @@
                     <li><a href="{{($teacher->instagram_url != '')?$teacher->instagram_url:'javascript:void(0);'}}"><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
-            <h6 class="darkblue text_uupercase proxima_exbold">Rate</h6>
-            <p>${{$teacher->hourly_rate}}/ hour</p>
+
+            @if (!empty($teacher->hourly_rate))
+                <h6 class="darkblue text_uupercase proxima_exbold">Rate</h6>
+                <p>${{$teacher->hourly_rate}}/ hour</p>
+            @endif
+
             <h6 class="darkblue text_uupercase proxima_exbold">Languages</h6>
             @foreach ($userLanguagesKnown as $item)
                 <button type="button" class="btn btn-sm btn-secondary">{{ucwords($item->name)}}</button>
             @endforeach
-            <h6 class="darkblue text_uupercase proxima_exbold mt-3">QUOTE</h6>
-            <p>{!!$teacher->bio!!}</p>
+
+            @if (!empty($teacher->short_description))
+                <h6 class="darkblue text_uupercase proxima_exbold mt-3">Short description</h6>
+                <p>{{$teacher->short_description}}</p>
+            @endif
+
+            @if (!empty($teacher->bio))
+                <h6 class="darkblue text_uupercase proxima_exbold mt-3">QUOTE</h6>
+                <p>{!!$teacher->bio!!}</p>
+            @endif
         </div>
     </div>
 </section>
@@ -99,7 +111,7 @@
 <section id="my_sessions">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase darkblue">My sessions (<span class="golden">{{$coursesCount}}</span>)</h2>
+            <h2 class="proxima_black text-uppercase darkblue">Case studies (<span class="golden">{{$coursesCount}}</span>)</h2>
             <p class="darkgray proxima_light">Greater Pittsburgh's Expert Basement Waterproofing & Foundation Repair
                 Contractor</p>
         </div>
@@ -134,7 +146,7 @@
                         <p></p>
                         <ul>
                             {{-- <li><a href="{{url()->current()}}">Consult Now</a></li> --}}
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
+                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">View Now</a></li>
                             <li><a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
                         </ul>
                     </div>

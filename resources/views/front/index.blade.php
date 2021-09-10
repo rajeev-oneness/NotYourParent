@@ -18,7 +18,7 @@
                 <form action="{{route('front.directory')}}" autocomplete="off">
                     <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search">
                     <input class="banner_search_btn parimary_btn green_btn" type="submit" value="Search Now" name="">
-                    <a href="{{route('front.experts')}}#experts-tab" class="banner_search_btn parimary_btn darkblue_btn">View all Experts</a>
+                    <a href="{{route('front.experts')}}" class="banner_search_btn parimary_btn darkblue_btn">View all Experts</a>
                 </form>
             </div>
         </div>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     @empty
-                        <p class="text-light">oops</p>
+                        {{-- <p class="text-light">oops</p> --}}
                     @endforelse
                 </div>
             </div>
@@ -305,7 +305,7 @@
                     </div>
                     <div class="recent_article_des">
                         <span class="article_date proxima_bold">{{date('d M,Y', strtotime($article->created_at))}}</span>
-                        <h3 class="proxima_exbold"><a class="d-block" href="#">{{$article->title}}</a></h3>
+                        <h3 class="proxima_exbold"><a class="d-block" href="{{route('front.articles.single', ['articleId' => $article->id])}}">{{$article->title}}</a></h3>
                         <p class="darkgray">{{$article->description}}</p>
                         <a href="{{route('front.articles.single', ['articleId' => $article->id])}}" class="secondary_btn darkblue_btn">Read More</a>
                     </div>

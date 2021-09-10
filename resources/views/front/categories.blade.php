@@ -24,8 +24,8 @@
 				</ul>
 				{{-- <input class="banner_search_btn parimary_btn green_btn" type="button" value="Join Live Classes" name="">
 				<input class="banner_search_btn parimary_btn darkblue_btn" type="button" value="Free Visit" name=""> --}}
-				<a href="{{route('front.courses')}}#courses-tab" class="banner_search_btn parimary_btn green_btn">Join Live Classes</a>
-				<a href="{{route('front.experts')}}#experts-tab" class="banner_search_btn parimary_btn darkblue_btn">Free Visit</a>
+				<a href="{{route('front.courses')}}" class="banner_search_btn parimary_btn green_btn">Join Live Classes</a>
+				<a href="{{route('front.experts')}}" class="banner_search_btn parimary_btn darkblue_btn">Free Visit</a>
 			  </div>
 
 		</div>

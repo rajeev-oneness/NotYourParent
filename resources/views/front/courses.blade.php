@@ -77,7 +77,7 @@
                         </div>
                         <p>{{words($item->description, 20)}}</p>
                         <ul>
-                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">Consult Now</a></li>
+                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">View Now</a></li>
                             <li><a href="{{route('front.experts.single', ['expertId' => $item->expert_id])}}">Visit Profile</a></li>
                         </ul>
                     </div>

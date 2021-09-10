@@ -138,8 +138,8 @@ class TeacherController extends Controller
             'image' => 'required|mimes:jpg, jpeg, png, gif, svg|max: 2048'
         ]);
         $fileName = time().'.'.strtolower($request->image->extension());
-        $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
-        $image ='uploads/knowledgebank/'.$fileName;
+        $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
+        $image ='defaultImages/knowledgebank/'.$fileName;
 
         $teacher_id = Auth::user()->id;
         $knowledgebank = new Knowledgebank();
@@ -176,8 +176,8 @@ class TeacherController extends Controller
             File::delete($oldImage);
 
             $fileName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
-            $image ='uploads/knowledgebank/'.$fileName;
+            $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
+            $image ='defaultImages/knowledgebank/'.$fileName;
             $knowledgebank->update([
                 'image' => $image,
             ]);
