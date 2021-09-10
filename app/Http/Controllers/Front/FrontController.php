@@ -6,11 +6,11 @@ use App\Models\Slot;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User,App\Models\Category;
-use App\Models\Article,App\Models\ArticleTag;
-use App\Models\Course,App\Models\Testimonial;
+use App\Models\User, App\Models\Category;
+use App\Models\Article, App\Models\ArticleTag;
+use App\Models\Course, App\Models\Testimonial;
 use App\Models\Knowledgebank;
-use App\Models\Topic,App\Models\TeacherTopic;
+use App\Models\Topic, App\Models\TeacherTopic;
 use App\Models\Faq;
 use App\Models\Settings;
 use App\Models\UserLanguagesKnown;
@@ -25,18 +25,21 @@ class FrontController extends Controller
         $data->testimonials = Testimonial::limit(5)->get();
         $data->articles = Article::limit(3)->get();
         $categoryId = [];
-        foreach($data->categories as $cat){
+        foreach ($data->categories as $cat) {
             $categoryId[] = $cat->id;
         }
         foreach ($categoryId as $id) {
             $data->courses[] = Course::where('categoryId', $id)->get();
         }
-        if(request()->routeIs('front.about-us')) {
+        if (request()->routeIs('front.about-us')) {
             $faq_data = Faq::all();
             $settings = Settings::where('key', 'about_us_main')->first();
             return view('front.about-us', compact('data', 'faq_data', 'settings'));
         }
-        if(request()->routeIs('front.home')) {
+        if (request()->routeIs('front.home')) {
+            if (count($categoryId) > 0) {
+                $data->experts[] = User::where('primary_category', $categoryId[0])->where('user_type', 2)->get();
+            }
             $how_it_works_main = Settings::where('key', 'how_it_works_main')->first();
             $how_it_works_child = Settings::where('key', 'how_it_works_child')->get();
             return view('front.index', compact('data', 'how_it_works_main', 'how_it_works_child'));
@@ -47,7 +50,7 @@ class FrontController extends Controller
     // {
     //     return $this->index();
     // }
-    
+
     public function resources(Request $req)
     {
         return view('front.resources');
@@ -59,7 +62,7 @@ class FrontController extends Controller
         $request = $req->all();
         return view('front.directory', compact('request', 'topics'));
     }
-    
+
     public function directorySearch(Request $req)
     {
         $req->validate([
@@ -75,25 +78,25 @@ class FrontController extends Controller
         $reqs = $req->all();
         $offset = $req->page * 9;
         $course = Course::select('*', 'courses.id AS course_id', 'courses.name AS course_name', 'courses.image AS course_img', 'courses.description AS course_desc');
-        if(!empty($req->search)) {
-            $course = $course->where('name', 'like', '%'.$req->search.'%');
+        if (!empty($req->search)) {
+            $course = $course->where('name', 'like', '%' . $req->search . '%');
         }
-        if(!empty($req->categoryId)) {
+        if (!empty($req->categoryId)) {
             // $course = $course->where('categoryId', $req->categoryId);
         }
-        if(!empty($req->expert)) {
+        if (!empty($req->expert)) {
             $name = $req->expert;
-            $course = $course->leftjoin('users','courses.teacherId','=','users.id')->where('users.name','like',"%$name%");
+            $course = $course->leftjoin('users', 'courses.teacherId', '=', 'users.id')->where('users.name', 'like', "%$name%");
         }
-        if(!empty($req->topic)) {
+        if (!empty($req->topic)) {
             $topic = $req->topic;
-            $course = $course->leftjoin('teacher_topics','courses.teacherId','=','teacher_topics.teacherId')->where('teacher_topics.topicId',$topic);
+            $course = $course->leftjoin('teacher_topics', 'courses.teacherId', '=', 'teacher_topics.teacherId')->where('teacher_topics.topicId', $topic);
         }
         // if(!empty($req->available)) {}
-        if(!empty($req->seniority)) {
+        if (!empty($req->seniority)) {
             $seniority = $req->seniority;
             $seniorityDate = date("Y-m-d", strtotime("-$seniority years"));
-            $course = $course->leftjoin('experiences','courses.teacherId','=','experiences.teacherId')->where('experiences.teaching_started', '<=', $seniorityDate);
+            $course = $course->leftjoin('experiences', 'courses.teacherId', '=', 'experiences.teacherId')->where('experiences.teaching_started', '<=', $seniorityDate);
         }
         $total = $course->count();
         $course = $course->with('teacherDetail')->limit(9)->offset($offset)->get();
@@ -110,10 +113,10 @@ class FrontController extends Controller
     public function expertsSingle(Request $req)
     {
         $currentDate = date('Y-m-d');
-        if(!empty($req->currentDate)){
-            $currentDate = date('Y-m-d',strtotime($req->currentDate));
+        if (!empty($req->currentDate)) {
+            $currentDate = date('Y-m-d', strtotime($req->currentDate));
         }
-        if(!empty($req->expertId)) {
+        if (!empty($req->expertId)) {
             $expId = $req->expertId;
             $teacher = User::find($req->expertId);
             // dd( $teacher);
@@ -125,10 +128,10 @@ class FrontController extends Controller
             $reviews = Review::where('teacherId', $req->expertId)->get();
 
             $userLanguagesKnown = UserLanguagesKnown::where('user_id', $req->expertId)
-                                ->join('user_languages', 'user_languages.id', '=', 'user_languages_knowns.language_id')
-                                ->get();
+                ->join('user_languages', 'user_languages.id', '=', 'user_languages_knowns.language_id')
+                ->get();
             // dd($reviews);
-            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials','courses','reviews','currentDate', 'coursesCount', 'userLanguagesKnown'));
+            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials', 'courses', 'reviews', 'currentDate', 'coursesCount', 'userLanguagesKnown'));
         }
         // dd($data);
     }
@@ -136,10 +139,10 @@ class FrontController extends Controller
     public function expertsDates(Request $req)
     {
         $currentDate = date('Y-m-d');
-        if(!empty($req->currentDate)){
-            $currentDate = date('Y-m-d',strtotime($req->currentDate));
+        if (!empty($req->currentDate)) {
+            $currentDate = date('Y-m-d', strtotime($req->currentDate));
         }
-        if(!empty($req->expertId)) {
+        if (!empty($req->expertId)) {
             $expId = $req->expertId;
             $teacher = User::find($req->expertId);
             // dd( $teacher);
@@ -150,11 +153,11 @@ class FrontController extends Controller
             $coursesCount = Course::where('teacherId', $req->expertId)->count();
             $reviews = Review::where('teacherId', $req->expertId)->get();
             // dd($reviews);
-            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials','courses','reviews','currentDate', 'coursesCount'));
+            return view('front.experts-single', compact('expId', 'teacher', 'topics', 'testimonials', 'courses', 'reviews', 'currentDate', 'coursesCount'));
         }
     }
 
-    public function getSingleDate($expertId,$date)
+    public function getSingleDate($expertId, $date)
     {
         $slots = Slot::where(['date', $date, 'expertId', $expertId])->get();
         dd($slots);
@@ -166,7 +169,8 @@ class FrontController extends Controller
         $categories = Category::get();
         return view('front.sign-up', compact('data', 'categories'));
     }
-    public function login() {
+    public function login()
+    {
         return view('front.login');
     }
 
@@ -185,7 +189,7 @@ class FrontController extends Controller
 
     public function knowledgeBank(Request $req)
     {
-        if(!empty($req->detailId)) {
+        if (!empty($req->detailId)) {
             $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->where('knowledgebanks.id', $req->detailId)->first();
             $knowledgebankAll = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
             return view('front.knowledge-bank-details', compact('knowledgebank', 'knowledgebankAll'));
@@ -207,7 +211,7 @@ class FrontController extends Controller
 
     public function articleSingle(Request $req)
     {
-        if(!empty($req->articleId)) {
+        if (!empty($req->articleId)) {
             $articleTags = ArticleTag::where('articleId', $req->articleId)->get();
             $article = Article::find($req->articleId);
             $randomArticles = Article::inRandomOrder()->limit(5)->get();
@@ -224,7 +228,7 @@ class FrontController extends Controller
         $data->testimonials = Testimonial::limit(5)->get();
         $data->articles = Article::orderBy('id', 'desc')->get();
         $categoryId = [];
-        foreach($data->categories as $cat){
+        foreach ($data->categories as $cat) {
             $categoryId[] = $cat->id;
         }
         foreach ($categoryId as $id) {
@@ -233,17 +237,18 @@ class FrontController extends Controller
         return view('front.articles', compact('data'));
     }
 
-    public function getSlotByDate(Request $req) {
+    public function getSlotByDate(Request $req)
+    {
         $slot = Slot::where('teacherId', $req->expertId)->where('date', $req->date)->get();
         // dd($slot);
         $date = date('D M d', strtotime($req->date));
-        
+
         return response()->json(['data' => $slot, 'date' => $date]);
     }
 
     public function coursesSingle(Request $req, $courseId)
     {
-        if(!empty($req->courseId)) {
+        if (!empty($req->courseId)) {
             $course = Course::join('categories', 'categories.id', '=', 'courses.categoryId')->select('courses.*', 'categories.name as category_name')->find($req->courseId);
             $randomCourses = Course::inRandomOrder()->limit(5)->get();
             return view('front.course-single', compact('course', 'randomCourses'));
@@ -253,10 +258,10 @@ class FrontController extends Controller
     public function courses()
     {
         $data = Course::orderBy('id', 'desc')
-                ->join('categories', 'categories.id', '=', 'courses.categoryId')
-                ->join('users', 'users.id', '=', 'courses.teacherId')
-                ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name')
-                ->paginate(6);
+            ->join('categories', 'categories.id', '=', 'courses.categoryId')
+            ->join('users', 'users.id', '=', 'courses.teacherId')
+            ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name')
+            ->paginate(6);
 
         $categories = Category::get();
         return view('front.courses', compact('data', 'categories'));
@@ -265,11 +270,11 @@ class FrontController extends Controller
     public function categoryWiseCourses($id)
     {
         $data = Course::orderBy('id', 'desc')
-                ->join('categories', 'categories.id', '=', 'courses.categoryId')
-                ->join('users', 'users.id', '=', 'courses.teacherId')
-                ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name')
-                ->where('categoryId', $id)
-                ->paginate(6);
+            ->join('categories', 'categories.id', '=', 'courses.categoryId')
+            ->join('users', 'users.id', '=', 'courses.teacherId')
+            ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name')
+            ->where('categoryId', $id)
+            ->paginate(6);
 
         $categoryName = Category::where('id', '=', $id)->select('name')->first();
         return view('front.courses-category-wise', compact('data', 'categoryName'));

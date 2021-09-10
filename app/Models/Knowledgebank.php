@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Knowledgebank extends Model
 {
     use HasFactory;
+    protected $fillable = ['category', 'title', 'subtitle', 'description', 'image'];
 }

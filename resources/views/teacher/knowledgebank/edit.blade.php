@@ -13,19 +13,17 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('teacher.knowledgebank.update', ['id' => $knowledgebank->id]) }}">
+                    <form method="POST" action="{{ route('teacher.knowledgebank.update', ['id' => $knowledgebank->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        {{-- <div class="form-group required">
-                            <label for="category" class="control-label">Category</label>
-                            <select name="category" id="category" class="form-control">
-                                @foreach ($knowledgebankcategory as $item)
-                                    <option {{ $knowledgebank->category == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category') <small class="text-danger">{{ $message }}</small> @enderror
-                        </div> --}}
                         <input type="hidden" name="category" value="2">
+                        <div class="form-group">
+                            <img src="{{asset($knowledgebank->image)}}" alt="img" class="img-thumbnail" style="height: 100px">
+                            <br>
+                            <label for="image" class="control-label">Chnage Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                            @error('image') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
                         <div class="form-group required">
                             <label for="title" class="control-label">Title</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{ $knowledgebank->title }}">
@@ -52,10 +50,10 @@
 
 @section('css')
 <style>
-    .form-group.required .control-label:after {
+.form-group.required .control-label:after {
     content:"*";
     color:red;
- }
+}
 </style>
 @endsection
 @section('script')
@@ -64,6 +62,8 @@
             $('form').submit(function(){
                 $(this).find('button[type=submit]').prop('disabled', true);
             });
+
+            CKEDITOR.replace('description');
         });
     </script>
 @endsection

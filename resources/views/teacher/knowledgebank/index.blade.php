@@ -20,6 +20,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Action</th>
@@ -30,13 +31,18 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
+                                        @if (!empty($item->image))
+                                        <img src="{{asset($item->image)}}" alt="image" style="height:100px">
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div><span class="badge badge-primary rounded-0">{{ $item->name }}</span></div>
                                         <h5>{{$item->title}}</h5>
                                         <hr>
                                         <p class="small">{{$item->subtitle}}</p>
                                     </td>
                                     <td>
-                                        {{$item->description}}
+                                        {!!$item->description!!}
                                     </td>
                                     <td>
                                         <a href="{{route('teacher.knowledgebank.edit', ['id' => $item->id])}}">Edit</a>

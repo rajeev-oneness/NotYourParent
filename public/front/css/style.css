@@ -611,7 +611,7 @@ button {
 .mentor_course_review {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 .mentor_course_review_img {
     width: 65px;
@@ -632,6 +632,7 @@ button {
     color: #000;
     line-height: 1.2;
     margin-bottom: 5px;
+    margin-top: 12px;
 }
 .mentor_course_review_name h6 {
     margin-bottom: 0;

@@ -69,7 +69,7 @@
         <div class="how_ite_works_plane">
             <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">
         </div>
-    </div>			
+    </div>
 </section>
 <!-- how_it_work_section -->
 
@@ -83,10 +83,60 @@
         <ul class="mentor_tab_menu tabs_menu">
             @foreach ($data->categories as $key => $category)
                 <li><a href="#category-{{$key+1}}" id="{{$category->id}}">{{$category->name}}</a></li>
+                {{-- <li><a href="{{route('front.home')}}?category_id={{$category->id}}">{{$category->name}}</a></li> --}}
             @endforeach
         </ul>
 
         <div class="mentor_tab_content_wrap">
+            @foreach ($data->experts as $key => $items)
+            <div class="tab_content" id="category-{{$key+1}}">
+                <div class="row">
+                    @forelse ($items as $item)
+                    <div class="col-md-4 mb-3">
+                        <div class="mentor_course">
+                            <div class="mentor_course_content">
+                                <div class="mentor_course_review">
+                                    <div class="mentor_course_review_img">
+                                        <img src="{{asset($item->image)}}">
+                                    </div>
+                                    <div class="mentor_course_review_name">
+                                        <h5 class="mb-0">{{$item->name}}</h5>
+                                        <p class="mb-0">{{$item->short_description}}</p>
+                                    </div>
+                                </div>
+                                <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">{{words($item->bio, 20)}}</p>
+        
+                                <div class="d-flex mb-2 mt-3">
+                                    <div class="availability_section">
+                                        <span class="badge badge-light badge-pill" title="Expet is {{ucwords($item->user_availability->name)}}"> <i class="fa fa-circle text-{{$item->user_availability->type}}"></i> {{ucwords($item->user_availability->name)}}</span>
+                                    </div>
+                                    <div class="rate_section">
+                                        @if (!empty($item->hourly_rate))
+                                        <span class="badge badge-light badge-pill" title="Hourly rate of Expert is ${{$item->hourly_rate}}">${{$item->hourly_rate}}/ hr</span>
+                                        @endif
+                                    </div>
+                                    <div class="rating_section">
+                                        @if (!empty($item->review))
+                                        <span class="badge badge-{{custom_review($item->review)}} badge-pill" title="K2 review is {{$item->review}}">{{$item->review}} <i class="fa fa-star"></i> </span>
+                                        @endif
+                                    </div>
+                                </div>
+        
+                                <ul class="mt-4">
+                                    <li><a href="{{route('front.experts.single', ['expertId' => $item->id])}}">Visit Profile</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                        <p class="text-light">oops</p>
+                    @endforelse
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        {{-- <div class="mentor_tab_content_wrap">
             @foreach ($data->courses as $key => $courses)
             <div class="tab_content" id="category-{{$key+1}}">
                 <div class="mentors_slider owl-carousel owl-theme">
@@ -96,8 +146,6 @@
                             <img src="{{asset($course->image)}}">
                             <div class="mentor_course_overlay">
                                 <h4 class="white proxima_exbold text-uppercase mb-5"><sub class="proxima_normal">{{substr($course->name, 0, 80)}}</sub></h4>
-                                {{-- <h4 class="white proxima_exbold text-uppercase"><sub class="proxima_normal">{{substr($course->name, 0, 7)}}</sub>{{substr($course->name, 7,11)}} </h4> --}}
-                                {{-- <h3 class="green proxima_exbold text-uppercase">{{substr($course->name, 18,14)}}</h3> --}}
                                 <ul>
                                     <li class="mentor_time"><img src="{{asset('front/images/time_icon.png')}}"> {{$course->duration}} minutes</li>
                                     <li class="mentor_price" id="slot_modal" data-mentor="{{$course->teacherDetail->id}}" data-course="{{$course->id}}" data-toggle="modal" data-target="#exampleModal">{{$course->price}}$ <span>Only</span></li>
@@ -127,7 +175,7 @@
                 </div>	
             </div>
             @endforeach
-        </div>
+        </div> --}}
 
         <div class="text-center view_all_mentor">
             <a href="{{route('front.experts')}}" class="green_btn parimary_btn">View Available Experts</a>

@@ -27,13 +27,13 @@
                                 <img src="{{asset($course->image)}}">
                             </div>
                             <div class="mentor_course_review_name">
-                                <h5>{{$course->name}}</h5>
+                                <h5 class="mb-0">{{$course->name}}</h5>
                                 <p class="mb-0">{{$course->short_description}}</p>
                             </div>
                         </div>
-                        <p class="small mb-0" style="max-height: 60px;overflow: hidden">{{words($course->bio, 20)}}</p>
+                        <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">{{words($course->bio, 20)}}</p>
 
-                        <div class="d-flex mb-2">
+                        <div class="d-flex mb-2 mt-3">
                             <div class="availability_section">
                                 <span class="badge badge-light badge-pill" title="Expet is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
                             </div>
@@ -49,8 +49,8 @@
                             </div>
                         </div>
 
-                        <ul>
-                            <li><a href="javascript:void(0);">Consult Now</a></li>
+                        <ul class="mt-4">
+                            {{-- <li><a href="javascript:void(0);">Consult Now</a></li> --}}
                             <li><a href="{{route('front.experts.single', ['expertId' => $course->id])}}">Visit Profile</a></li>
                         </ul>
                     </div>

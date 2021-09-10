@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    public function expertLists()
+    {
+        return $this->hasMany('App\Model\User', 'primary_category', 'id');
+    }
 }

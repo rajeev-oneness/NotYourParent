@@ -13,17 +13,13 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('teacher.knowledgebank.store') }}">
+                    <form method="POST" action="{{ route('teacher.knowledgebank.store') }}" enctype="multipart/form-data">
                         @csrf
-                        {{-- <div class="form-group required">
-                            <label for="category" class="control-label">Category</label>
-                            <select name="category" id="category" class="form-control">
-                                @foreach ($knowledgebankcategory as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category') <small class="text-danger">{{ $message }}</small> @enderror
-                        </div> --}}
+                        <div class="form-group required">
+                            <label for="image" class="control-label">Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                            @error('image') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
                         <input type="hidden" name="category" value="2">
                         <div class="form-group required">
                             <label for="title" class="control-label">Title</label>
@@ -51,10 +47,10 @@
 
 @section('css')
 <style>
-    .form-group.required .control-label:after {
+.form-group.required .control-label:after {
     content:"*";
     color:red;
- }
+}
 </style>
 @endsection
 @section('script')
@@ -63,6 +59,8 @@
             $('form').submit(function(){
                 $(this).find('button[type=submit]').prop('disabled', true);
             });
+
+            CKEDITOR.replace('description');
         });
     </script>
 @endsection

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 use App\Models\User;
 use App\Models\Conversation;
@@ -133,10 +134,16 @@ class TeacherController extends Controller
             'category' => 'required',
             'title' => 'required|string|min:2|max:255',
             'subtitle' => 'required|string|min:2',
-            'description' => 'required|string|min:2'
+            'description' => 'required|string|min:2',
+            'image' => 'required|mimes:jpg, jpeg, png, gif, svg|max: 2048'
         ]);
+        $fileName = time().'.'.strtolower($request->image->extension());
+        $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
+        $image ='uploads/knowledgebank/'.$fileName;
+
         $teacher_id = Auth::user()->id;
         $knowledgebank = new Knowledgebank();
+        $knowledgebank->image = $image;
         $knowledgebank->category = $request->category;
         $knowledgebank->title = $request->title;
         $knowledgebank->subtitle = $request->subtitle;
@@ -154,16 +161,33 @@ class TeacherController extends Controller
     }
     public function knowledgeBankUpdate(Request $request, $id)
     {
+        $knowledgebank = Knowledgebank::find($id);
+
         $request->validate([
-            'title' => 'required|string|min:2|max:255',
-            'subtitle' => 'required|string|min:2',
-            'description' => 'required|string|min:2'
+            'category' => 'required',
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        Knowledgebank::where('id', $id)->update([
+        if($request->hasFile('image')) {
+            $oldImage = public_path($knowledgebank->image);
+            File::delete($oldImage);
+
+            $fileName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads/knowledgebank/'), $fileName);
+            $image ='uploads/knowledgebank/'.$fileName;
+            $knowledgebank->update([
+                'image' => $image,
+            ]);
+        }
+
+        $knowledgebank->update([
+            'category' => $request->category,
             'title' => $request->title,
             'subtitle' => $request->subtitle,
-            'description' => $request->description
+            'description' => $request->description,
         ]);
 
         return redirect()->route('teacher.knowledgebank.index');
