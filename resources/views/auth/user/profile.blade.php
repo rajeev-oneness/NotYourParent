@@ -114,7 +114,7 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="short_description" class="col-form-label">Short description:</label>
+                                <label for="short_description" class="col-form-label">Short description (3 to 4 words):</label>
                                 <input type="text" name="short_description" class="form-control @error('short_description') is-invalid @enderror" placeholder="Short description" value="{{(old('short_description') ? old('short_description') : $user->short_description)}}">
                                 @error('short_description')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>

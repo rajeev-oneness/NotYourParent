@@ -69,7 +69,7 @@ class HomeController extends Controller
             'dob' => 'nullable|date_format:Y-m-d|before:' . date('Y-m-d'),
             'marital' => 'nullable|string|in:Single,Married,Divorced',
             'aniversary' => 'nullable|date_format:Y-m-d|before:' . date('Y-m-d'),
-            'short_description' => 'nullable|string',
+            'short_description' => 'nullable|string|min:1|max: 15',
             'bio' => 'nullable|string',
             'linkedin_url' => 'nullable|url',
             'fb_url' => 'nullable|url',
