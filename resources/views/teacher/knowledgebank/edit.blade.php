@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <img src="{{asset($knowledgebank->image)}}" alt="img" class="img-thumbnail" style="height: 100px">
                             <br>
-                            <label for="image" class="control-label">Chnage Image</label>
+                            <label for="image" class="control-label">Change Image</label>
                             <input type="file" name="image" id="image" class="form-control">
                             @error('image') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>

@@ -14,11 +14,16 @@
     <div class="container position-relative">
         <div class="knowledge_bank_details">
             <div class="detail_text">
+                @if (!empty($knowledgebank->image))
+                    <div class="img__holder">
+                        <img src="{{ asset($knowledgebank->image) }}" alt="image">
+                    </div>
+                @endif
                 <h1 class="text-uppercase darkblue proxima_exbold">{{$knowledgebank->title}}</h1>
                 <h6 class="text-uppercase golden proxima_bold">{{$knowledgebank->name}}</h6>
                 <p class="darkgray">{{$knowledgebank->subtitle}}</p>
                 <hr>
-                <p class="darkgray">{{$knowledgebank->description}}</p>
+                <p class="darkgray">{!!$knowledgebank->description!!}</p>
             </div>
             {{-- <div class="bullets">
                 <h5 class="black proxima_exbold">Who is this for?</h5>

@@ -14,9 +14,9 @@
                             <li class="sign_up_btn"><a href="{{route('logout')}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Log Out</a></li>
                         @endauth
                         @guest
-                            <li class="expart_btn"><a href="{{route('front.sign-up',['userType' => 2])}}#join-now">Become an Expert</a></li>
+                            <li class="expart_btn"><a href="{{route('front.sign-up',['userType' => 2])}}">Become an Expert</a></li>
                             <li class="sign_up_btn mr-1"><a href="{{url('login')}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Login</a></li>
-                            <li class="sign_up_btn"><a href="{{route('front.sign-up',['userType' => 3])}}#join-now"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Sign Up</a></li>
+                            <li class="sign_up_btn"><a href="{{route('front.sign-up',['userType' => 3])}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Sign Up</a></li>
                         @endguest							
                     </ul>
                 </div>

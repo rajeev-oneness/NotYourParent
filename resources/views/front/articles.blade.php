@@ -26,7 +26,7 @@
                     </div>
                     <div class="recent_article_des">
                         <span class="article_date proxima_bold">{{date('d M,Y', strtotime($article->created_at))}}</span>
-                        <h3 class="proxima_exbold"><a class="d-block" href="#">{{$article->title}}</a></h3>
+                        <h3 class="proxima_exbold"><a class="d-block" href="{{route('front.articles.single', ['articleId' => $article->id])}}">{{$article->title}}</a></h3>
                         <p class="darkgray">{{words($article->description, 20)}}</p>
                         <a href="{{route('front.articles.single', ['articleId' => $article->id])}}" class="secondary_btn darkblue_btn">Read More</a>
                     </div>

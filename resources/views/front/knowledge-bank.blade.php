@@ -30,11 +30,18 @@
             @foreach($knowledgebank as $item)
             <div class="col-lg-4 col-md-6">
                 <div class="darkblue clearfix knowledge_bank_cards">
-                    <div class="white new text-uppercase text-center">{{ $item->name }}</div>
-                    <h3 class="proxima_bold">{{ words($item->title, 7) }}</h3>
-                    <h6 class="proxima_bold">{{ $item->subtitle }}</h6>
-                    <p>{{ words($item->description, 20) }}</p>
-                    <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $item->id])}}">Read More</a>
+                    @if (!empty($item->image))
+                        <div class="img__holder">
+                            <img src="{{ asset($item->image) }}" alt="image">
+                        </div>
+                    @endif
+                    <div class="desc_holder">
+                        <div class="white new text-uppercase text-center">{{ $item->name }}</div>
+                        <h3 class="proxima_bold">{{ words($item->title, 7) }}</h3>
+                        <h6 class="proxima_bold">{{ $item->subtitle }}</h6>
+                        <p>{!! words($item->description, 20) !!}</p>
+                        <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $item->id])}}">Read More</a>
+                    </div>
                 </div>
             </div>
             @endforeach

@@ -2064,6 +2064,7 @@ button {
     border-bottom: 8px solid #89d640;
     position: relative;
     overflow: hidden;
+    padding: 20px;
 }
 .knowledge_bank_cards h3 {
     padding: 20px 0;
@@ -2072,6 +2073,26 @@ button {
 .knowledge_bank_cards h6 {
     padding-top: 20px;
     font-size: 18px;
+}
+.knowledge_bank_cards .img__holder {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+}
+.knowledge_bank_cards .img__holder img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 .new {
     background-color: #f8b810;
@@ -2091,6 +2112,30 @@ button {
     min-height: 120vh;
     padding: 50px;
 }
+.knowledge_bank_details .img__holder img {
+    margin-bottom: 50px;
+    height: 200px;
+}
+/* .knowledge_bank_details .img__holder {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+}
+.knowledge_bank_details .img__holder img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+} */
 .detail_text {
     padding-right: 10%;
 }
