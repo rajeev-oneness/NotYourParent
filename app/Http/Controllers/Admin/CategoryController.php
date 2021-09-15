@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -41,9 +42,17 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'image' => 'required|mimes:jpg,jpeg,png,gif,svg|max: 2048',
         ]);
+
+        $fileName = time().'.'.strtolower($request->image->extension());
+        $upload_path = 'defaultImages/category/';
+        $request->image->move(public_path($upload_path), $fileName);
+        $image = $upload_path.$fileName;
+
         $category = new Category();
         $category->name = $request->name;
+        $category->image = $image;
         $category->save();
         return redirect()->route('admin.category.index');
     }
@@ -70,11 +79,28 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'image' => 'mimes:jpg,jpeg,png,svg,gif|max:2048'
         ]);
+
+        if($request->hasFile('image')) {
+            $oldImage = public_path(Category::find($id)->image);
+            File::delete($oldImage);
+
+            $fileName = time().'.'.strtolower($request->image->extension());
+            $upload_path = 'defaultImages/category/';
+            $request->image->move(public_path($upload_path), $fileName);
+            $image = $upload_path.$fileName;
+
+            Category::where('id', $id)->update([
+                'image' => $image,
+            ]);
+        }
+
         Category::where('id', $id)->update([
             'name' => $request->name
         ]);
+
         return redirect()->route('admin.category.index');
     }
 

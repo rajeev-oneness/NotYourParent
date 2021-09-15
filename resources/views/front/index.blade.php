@@ -16,10 +16,18 @@
             <p>Lorem ipsum dolor sit amet, <span>consectetur adipiscing</span> elit. Proin at risus. <span>Sed nec congue</span> quam. Nulla sed tristique turpis. </p>
             <div class="banner_search_box">
                 <form action="{{route('front.directory')}}" autocomplete="off">
-                    <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search">
-                    <input class="banner_search_btn parimary_btn green_btn" type="submit" value="Search Now" name="">
+                    <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search" id="expertSearch">
+                    {{-- <input class="banner_search_btn parimary_btn green_btn" type="submit" value="Search Now" name=""> --}}
                     <a href="{{route('front.experts')}}" class="banner_search_btn parimary_btn darkblue_btn">View all Experts</a>
                 </form>
+                <div id="search_result" style="display: none;">
+                    {{-- <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+                    </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -101,7 +109,7 @@
                                     </div>
                                     <div class="mentor_course_review_name">
                                         <h5 class="mb-0">{{$item->name}}</h5>
-                                        <p class="mb-0">{{$item->short_description}}</p>
+                                        <p class="mb-0">Expert in {{$item->user_primary_category->name}}</p>
                                     </div>
                                 </div>
                                 <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">{{words($item->bio, 20)}}</p>
@@ -286,7 +294,6 @@
 </section>
 <!-- become_member_section -->
 
-
 <section class="recent_article_section">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
@@ -322,6 +329,60 @@
 @endsection
 
 @section('script')
+
+<script>
+    $('#expertSearch').on('keyup', function() {
+        var val = $('#expertSearch').val();
+        if (val.length > 1) {
+            $.ajax({
+                url: "{{ route('front.home.search') }}",
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    token: "{{ csrf_token() }}",
+                    value: val,
+                },
+                beforeSend: function() {
+                    // console.log(val);
+                },
+                success: function(response) {
+                    if(response.data.length > 0) {
+                        var result = '';
+                        result += '<div class="list-group">';
+
+                        $.each(response.data, function(i, val) {
+                            var url = '{{route("front.experts.single",':id')}}';
+                            url = url.replace(':id',val.id);
+
+                            result += '<a href="'+url+'" class="list-group-item list-group-item-action"><div class="d-flex"><div class="exp_img_holder mr-3"><img src="'+val.image+'" alt="expert-image" class="search_expert_image"></div><div class="exp_details_holder"><h6 class="mb-0">'+val.name+' - Expert in '+val.primary_category+'</h6><p class="topic-name">'+val.topic_name+'</p></div></div></a>';
+                        })
+
+                        result += '</div>';
+                        $('#search_result').html(result).show();
+                    } else {
+                        var result = '';
+                        result += '<div class="list-group">';
+
+                        result += '<a href="javascript: void(0)" class="list-group-item list-group-item-action"><h6 class="mb-0">No results found</h6><p class="topic-name"> Try other keyword</p></a>';
+
+                        result += '</div>';
+                        $('#search_result').html(result).show();
+                    }
+                }
+            });
+        } else {
+            $('#search_result').html('').hide();
+        }
+    });
+
+    $(document).mouseup(function (e) {
+        var searchHolder = $("#search_result");
+        if (!searchHolder.is(e.target) && searchHolder.has(e.target).length === 0) {
+            searchHolder.hide();
+        }
+    });
+</script>
+
 {{-- <script>
     let d = new Date();
     month = ['Jan','Feb','March','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Master;
 use App\Models\User;
+use App\Models\Topic;
+use App\Models\TeacherTopic;
 use App\Models\UserLanguage;
 use App\Models\Address;
 use App\Models\UserLanguagesKnown;
@@ -272,5 +274,47 @@ class HomeController extends Controller
         $address->type = $request->type;
         $address->update();
         return redirect()->route('user.address.index');
+    }
+
+    public function userTopics()
+    {
+        $user = Auth::user();
+        $teacher_topics = TeacherTopic::where('teacherId', Auth::user()->id)
+            ->get();
+        $topics = Topic::orderBy('name')->get();
+        return view('auth.user.topic', compact('user', 'topics', 'teacher_topics'));
+    }
+
+    public function userTopicSave(Request $request)
+    {
+        $request->validate([
+            'topicId' => 'required'
+        ]);
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        $user = User::find($user_id);
+
+        $check_data = TeacherTopic::where([
+            ['teacherId', $user_id],
+            ['topicId', $request->topicId],
+        ])->count();
+
+        if ($check_data < 1) {
+            $teacher_topic = new TeacherTopic();
+            $teacher_topic->teacherId = Auth::user()->id;
+            $teacher_topic->topicId = $request->topicId;
+            $teacher_topic->save();
+            return redirect()->back()->with('success', 'Topic added successfully');
+        } else {
+            return redirect()->back()->with('error', 'Topic already added');
+        }
+    }
+
+    public function userTopicDelete(Request $request, $id)
+    {
+        $teacher_topic = TeacherTopic::find($id);
+        $teacher_topic->delete();
+        return redirect()->back()->with('success', 'Topic removed');
     }
 }

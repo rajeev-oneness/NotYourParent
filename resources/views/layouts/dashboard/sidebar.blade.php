@@ -15,7 +15,7 @@
                     </li>
                     @if(Auth::user()->user_type != 1)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
+                            <a class="nav-link" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>My Points</a>
                         </li>
                     @endif
 
@@ -36,10 +36,13 @@
                             <a class="nav-link {{ Request::segment(2) === 'knowledgebank' ? 'active' : null }}" href="{{route('admin.knowledgebank.index')}}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Courses</a>
+                            <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Case studies</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'topic' ? 'active' : null }}" href="{{route('admin.topic.index')}}"><i class="fa fa-fw fa-user-circle"></i>Topics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('admin/language*')) ? 'active' : '' }}" href="{{route('admin.language.index')}}"><i class="fa fa-fw fa-user-circle"></i>Language</a>
                         </li>
 
                         <!-- Report Section -->
@@ -72,6 +75,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link {{(request()->is('admin/settings/howItWorks*')) ? 'active' : ''}}" href="{{route('admin.howItWorks.index')}}">How it works</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{(request()->is('admin/settings/terms-and-conditions*')) ? 'active' : ''}}" href="{{route('admin.termsAndConditions.index')}}">Terms & Conditions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{(request()->is('admin/settings/privact-policy*')) ? 'active' : ''}}" href="{{route('admin.privacyPolicy.index')}}">Privacy policy</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -81,7 +90,7 @@
 
                         {{-- here goes teacher sidebar menu --}}
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Case study</a>
+                            <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>My Case study</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>

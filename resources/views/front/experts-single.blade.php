@@ -22,11 +22,26 @@
                 @endif
             </div>
             <h1 class="proxima_exbold darkblue text-uppercase">{{$teacher->name}}</h1>
-            @foreach ($topics as $topic)
-                <h3 class="golden designation">{{$topic->topicDetail->name}}</h3>
-            @endforeach
-            <h3 class="proxima_exbold black">TOTAL <span class="golden">120+</span> CLASSES <span style="color: #e76f37;">4.5</span> <span class="proxima_normal" style="color: #003456;">Ratings</span></h3>
-            <h3 style="color: #003456;"><span class="darkblue proxima_exbold">34,598</span> Students</h3>
+
+            <h4 class="proxima_exbold black mb-4">Expert in {{$teacher->user_primary_category->name}}</h4>
+
+            <h5 class="black designation">
+                Expert in other topics :
+                @foreach ($topics as $topic)
+                {{ $loop->first ? '' : ', ' }}
+                <span class="golden designation">{{$topic->topicDetail->name}}</span>
+                @endforeach
+            </h5>
+
+            <h3 class="proxima_exbold black">
+                @if ($coursesCount > 0)
+                TOTAL <span class="golden">{{$coursesCount}}</span> CASE STUDIES 
+                @endif
+                <span class="badge badge-{{custom_review($teacher->review)}} badge-pill" title="K2 review is {{$teacher->review}}">{{$teacher->review}} <i class="fa fa-star"></i> </span>
+                {{-- <span style="color: #e76f37;">4.5</span> 
+                <span class="proxima_normal" style="color: #003456;">Ratings</span> --}}
+            </h3>
+            {{-- <h3 style="color: #003456;"><span class="darkblue proxima_exbold">34,598</span> Students</h3> --}}
             <h6 class="darkblue text-uppercase proxima_bold">Regular sessions</h6>
 
             <div class="calender">
@@ -112,10 +127,8 @@
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
             <h2 class="proxima_black text-uppercase darkblue">Case studies (<span class="golden">{{$coursesCount}}</span>)</h2>
-            <p class="darkgray proxima_light">Greater Pittsburgh's Expert Basement Waterproofing & Foundation Repair
-                Contractor</p>
+            <p class="darkgray proxima_light">Case studies by {{$teacher->name}}</p>
         </div>
-        {{--  --}}
         <div class="row">
             @forelse ($courses as $course)
             {{-- foreach ($reviews as $review) --}}
@@ -134,7 +147,7 @@
                         </div>
                     </div>
                     <div class="mentor_course_content">
-                        <div class="mentor_course_review">
+                        {{-- <div class="mentor_course_review">
                             <div class="mentor_course_review_img">
                                 <img src="{{asset($course->teacherDetail->image)}}">
                             </div>
@@ -142,40 +155,37 @@
                                 <h5>{{$course->teacherDetail->name}}</h5>
                                 <h6>{{$course->teacherDetail->short_description}}</h6>
                             </div>
-                        </div>
-                        <p></p>
+                        </div> --}}
+                        <p class="mt-2">{{words($course->description, 20)}}</p>
                         <ul>
                             {{-- <li><a href="{{url()->current()}}">Consult Now</a></li> --}}
-                            <li><a href="{{route('front.courses.single', ['courseId' => $course->id])}}">View Now</a></li>
-                            <li><a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li>
+                            <li><a href="{{route('front.courses.single', ['courseId' => $course->id])}}">View more</a></li>
+                            {{-- <li><a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}">Visit Profile</a></li> --}}
                         </ul>
                     </div>
                 </div>
             </div>
             @empty
             <div class="col-12 text-center">
-                <h5 class="">No sessions found for this tutor !</h5>
+                <h4 class="proxima_black text-uppercase text-center">No Case studies found for this tutor</h4>
             </div>
             @endforelse
         </div>
         {{-- --}}
         
         <div class="explore_all text-center">
-            <a href="javascript:void(0);" class="parimary_btn green_btn">explore all</a>
+            <a href="{{route('front.courses')}}" class="parimary_btn green_btn">explore all</a>
         </div>
     </div>
 </section>
-<!-- my sessions ends  -->
 
 <section class="experts_testimonials ">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase white">what people says about {{$teacher->name}}</h2>
-            <p class="darkgray proxima_light white">Greater Pittsburgh's Expert Basement Waterproofing & Foundation
-                Repair Contractor</p>
+            <h2 class="proxima_black text-uppercase white">Testimonials</h2>
+            <p class="darkgray proxima_light white">what people says about {{$teacher->name}}</p>
         </div>
 
-        
         <div class="review_slider_wrap position-relative">
             <div class="review_slider owl-carousel owl-theme">
                 @forelse ($testimonials as $testimonial)
@@ -196,14 +206,27 @@
 
                     <div class="review_slider_item_right bg-gray">
                         <div class="class_teacher_description align-self-center">
-                            <h3 class="text-uppercase darkblue">Total <span class="golden">120+</span>
-                                <br><b>Classes</b></h3>
+                            <h3 class="text-uppercase darkblue">
+                                Total 
+                                <span class="golden">{{$coursesCount}}</span>
+                                <br>
+                                <b>Case studies</b>
+                            </h3>
                             <div class="class_teacher_name">
                                 <h4 class="darkblue proxima_exbold">{{$testimonial->teacherDetails->name}}</h4>
+                                Expert in {{$teacher->user_primary_category->name}}
+                                <br>
                                 @foreach ($topics as $topic)
-                                    <h5 class="text-uppercase darkblue proxima_exbold">{{$topic->topicDetail->name}}, </h5>
+                                {{ $loop->first ? '' : ', ' }}
+                                    {{$topic->topicDetail->name}}
                                 @endforeach
-                                <img src="{{asset('front/images/reviews_star.png')}}">
+                                <br>
+                                {{-- @foreach ($topics as $topic)
+                                    {{ $loop->first ? '' : ', ' }}
+                                    <h5 class="text-uppercase darkblue proxima_exbold">{{$topic->topicDetail->name}}, </h5>
+                                @endforeach --}}
+                                <span class="badge badge-{{custom_review($teacher->review)}} badge-pill" title="K2 review is {{$teacher->review}}">{{$teacher->review}} <i class="fa fa-star"></i> </span>
+                                {{-- <img src="{{asset('front/images/reviews_star.png')}}"> --}}
                             </div>
                         </div>
                         <div class="class_teacher_img_wrap experts_img_wrap position-relative align-self-center">
@@ -214,14 +237,14 @@
                     </div>
                 </div>
                 @empty
-                    <h4 class="proxima_black text-uppercase white text-center">oops ! No testimonial found</h4>
+                    <h4 class="proxima_black text-uppercase white text-center">No testimonial found</h4>
                 @endforelse
             </div>
         </div>    
 
-        <div class="text-center">
+        {{-- <div class="text-center">
             <a href="javascript:void(0);" class="parimary_btn green_btn">explore all</a>
-        </div>
+        </div> --}}
         <div class="experts_testimonials_plane">
             <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">
         </div>

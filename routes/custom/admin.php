@@ -68,6 +68,15 @@
         Route::get('/delete/{id}',[TopicController::class, 'destroy'])->name('admin.topic.delete');
     });
 
+    Route::group(['prefix' => 'language'], function() {
+        Route::get('/',[LanguageController::class, 'index'])->name('admin.language.index');
+        Route::get('/add',[LanguageController::class, 'create'])->name('admin.language.add');
+        Route::post('/store',[LanguageController::class, 'store'])->name('admin.language.store');
+        Route::get('/edit/{id}',[LanguageController::class, 'edit'])->name('admin.language.edit');
+        Route::put('/update/{id}',[LanguageController::class, 'update'])->name('admin.language.update');
+        Route::get('/delete/{id}',[LanguageController::class, 'destroy'])->name('admin.language.delete');
+    });
+
     Route::group(['prefix' => 'testimonial'], function() {
         Route::get('/',[TestimonialController::class, 'index'])->name('admin.testimonial.index');
         Route::get('/add',[TestimonialController::class, 'create'])->name('admin.testimonial.add');
@@ -90,7 +99,7 @@
     Route::group(['prefix' => 'user'], function() {
         Route::get('/',[UserController::class, 'getAllUsers'])->name('admin.user.index');
         Route::get('/students',[UserController::class, 'getAllStudents'])->name('admin.user.students');
-        Route::get('/teachers',[UserController::class, 'getAllTeachers'])->name('admin.user.teachers');
+        Route::get('/experts',[UserController::class, 'getAllTeachers'])->name('admin.user.teachers');
 
         Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
 		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
@@ -112,6 +121,14 @@
         Route::get('/aboutUs', [CrudController::class, 'aboutUsIndex'])->name('admin.aboutUs.index');
         Route::get('/aboutUs/edit/{id}',[CrudController::class, 'aboutUsEdit'])->name('admin.aboutUs.edit');
         Route::put('/aboutUs/update/{id}',[CrudController::class, 'aboutUsUpdate'])->name('admin.aboutUs.update');
+
+        Route::get('/terms-and-conditions',[CrudController::class, 'termsAndConditionsIndex'])->name('admin.termsAndConditions.index');
+        Route::get('/terms-and-conditions/edit/{id}',[CrudController::class, 'termsAndConditionsEdit'])->name('admin.termsAndConditions.edit');
+        Route::put('/terms-and-conditions/update/{id}',[CrudController::class, 'termsAndConditionsUpdate'])->name('admin.termsAndConditions.update');
+
+        Route::get('/privact-policy',[CrudController::class, 'privacyPolicyIndex'])->name('admin.privacyPolicy.index');
+        Route::get('/privact-policy/edit/{id}',[CrudController::class, 'privacyPolicyEdit'])->name('admin.privacyPolicy.edit');
+        Route::put('/privact-policy/update/{id}',[CrudController::class, 'privacyPolicyUpdate'])->name('admin.privacyPolicy.update');
     });
 
     Route::get('referred_to/user/{userId}',[UserController::class,'getReferredToList'])->name('admin.referral.referred_to');

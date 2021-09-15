@@ -16,9 +16,16 @@
                     <form method="POST" action="{{ route('admin.category.update', ['id' => $category->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="form-group">
+                            <label for="image" class="control-label">Image</label>
+                            <img src="{{asset($category->image)}}" alt="category-image" style="height: 100px">
+                            <input type="file" class="form-control" name="image" value="{{$category->name}}" id="image">
+                            @error('image') <small class="text-danger">{{$message}}</small> @enderror
+                        </div>
                         <div class="form-group required">
-                          <label for="name" class="control-label">Name</label>
-                          <input type="text" class="form-control" name="name" value="{{$category->name}}" id="name"  placeholder="Category name" required>
+                            <label for="name" class="control-label">Name</label>
+                            <input type="text" class="form-control" name="name" value="{{$category->name}}" id="name"  placeholder="Category name" required>
+                            @error('name') <small class="text-danger">{{$message}}</small> @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>

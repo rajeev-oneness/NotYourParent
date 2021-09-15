@@ -66,7 +66,7 @@ class CreateSettingsTable extends Migration
             ],
             [
                 'key' => 'how_it_works_child',
-                'heading' => 'LEARN &amp; ENJOY',
+                'heading' => 'LEARN & ENJOY',
                 'description' => '',
                 'image' => 'front/images/learn_enjoy.png',
                 'link' => '',

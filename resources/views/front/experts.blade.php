@@ -28,7 +28,7 @@
                             </div>
                             <div class="mentor_course_review_name">
                                 <h5 class="mb-0">{{$course->name}}</h5>
-                                <p class="mb-0">{{$course->short_description}}</p>
+                                <p class="mb-0">Expert in {{$course->user_primary_category->name}}</p>
                             </div>
                         </div>
                         <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">{{words($course->bio, 20)}}</p>

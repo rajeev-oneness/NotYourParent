@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title','Users')
+@section('title','All users')
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -12,7 +12,7 @@
                         </a> --}}
 
                         <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">All</a>
-                        <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-light active">Students</a>
+                        <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-light active">Users</a>
                         <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-light active">Experts</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->

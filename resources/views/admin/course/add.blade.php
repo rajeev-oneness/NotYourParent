@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.master')
-@section('title','Add Course')
+@section('title','Add Case study')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Course
+                    <h5 class="mb-0">Add Case study
                         <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.course.index')}}">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                         </a>
@@ -21,6 +21,15 @@
                                 <option disabled selected>Select Category</option>
                                 @foreach ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="teacherId" class="control-label">Select Expert</label>
+                            <select class="form-control" id="teacherId" name="teacherId" required>
+                                <option disabled selected>Select Expert</option>
+                                @foreach ($experts as $expert)
+                                    <option value="{{$expert->id}}">{{$expert->name}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -13,8 +13,15 @@
                     <div class="row">
                         <div class="col-6"><h5 class="mb-0">Settings</h5></div>
                         <div class="col-6 text-right">
+                            @if (Auth::user()->user_type == 2)
+                                <a href="{{route('user.topics.index')}}" class="btn btn-sm btn-primary">Expert Category & Topics</a>
+                            @endif
+
                             <a href="{{route('user.address.index')}}" class="btn btn-sm btn-primary">Address</a>
-                            <a href="{{route('user.language.index')}}" class="btn btn-sm btn-primary">Language</a>
+
+                            @if (Auth::user()->user_type == 2)
+                                <a href="{{route('user.language.index')}}" class="btn btn-sm btn-primary">Language</a>
+                            @endif
                         </div>
                     </div>
                 </div>

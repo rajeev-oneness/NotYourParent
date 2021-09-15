@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     @empty
-                    <h4 class="proxima_black text-uppercase white text-center">No courses found !</h4>
+                    <h4 class="proxima_black text-uppercase white text-center">No case study found !</h4>
                     @endforelse
                 </div>	
             </div>

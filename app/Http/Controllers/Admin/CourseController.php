@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -30,7 +31,8 @@ class CourseController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.course.add', compact('categories'));
+        $experts = User::where('user_type', 2)->get();
+        return view('admin.course.add', compact('categories', 'experts'));
     }
 
     /**
@@ -47,7 +49,8 @@ class CourseController extends Controller
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
             'duration' => 'required',
-            'categoryId' => 'required'
+            'categoryId' => 'required',
+            'teacherId' => 'required',
         ]);
         $fileName = time().'.'.$request->image->extension();
         $request->image->move(public_path('uploads/'), $fileName);
@@ -59,7 +62,7 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->duration = $request->duration;
         $course->price = $request->price;
-        $course->teacherId = Auth::user()->id;
+        $course->teacherId = $request->teacherId;
         $course->save();
         return redirect()->route('admin.course.index');
     }
@@ -74,7 +77,8 @@ class CourseController extends Controller
     {
         $categories = Category::all();
         $course = Course::find($id);
-        return view('admin.course.edit',compact('course','categories'));
+        $experts = User::where('user_type', 2)->get();
+        return view('admin.course.edit',compact('course','categories', 'experts'));
     }
 
     /**
@@ -92,7 +96,8 @@ class CourseController extends Controller
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
             'duration' => 'required',
-            'categoryId' => 'required'
+            'categoryId' => 'required',
+            'teacherId' => 'required',
         ]);
         if($request->hasFile('image')) {
             $oldImage = public_path(Course::find($id)->image);
@@ -109,7 +114,8 @@ class CourseController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'duration' => $request->duration,
-            'categoryId' => $request->categoryId
+            'categoryId' => $request->categoryId,
+            'teacherId' => $request->teacherId,
         ]);
         return redirect()->route('admin.course.index');
     }

@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-    Home
+    Category single
 @endsection
 
 <style>
@@ -18,15 +18,74 @@
 <section class="mentors_section directory_mentors_section" style="margin-top: 280px;">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase darkblue">{{$categoryName->name}}</h2>
-            <p class="darkgray proxima_light">Courses related to {{$categoryName->name}} category</p>
+            <h2 class="proxima_black text-uppercase darkblue">
+                <img src="{{asset($categoryName->image)}}" alt="category-image" style="height: 100px;">
+                {{$categoryName->name}}
+            </h2>
+            <p class="darkgray proxima_light">Experts & Case studies related to {{$categoryName->name}}</p>
         </div>
 
-        <div class="available_sessions">
-            <h3 class="proxima_normal darkblue" id="count_section"></h3>
+        <div class="row" id="expert_list">
+            <div class="col-md-12">
+                <div class="available_sessions">
+                    <h3 class="proxima_normal darkblue" id="count_section">Experts' lists</h3>
+                </div>
+            </div>
+            @forelse ($experts_data as $course)
+            <div class="col-md-4 mb-3">
+                <div class="mentor_course">
+                    <div class="mentor_course_content">
+                        <div class="mentor_course_review">
+                            <div class="mentor_course_review_img">
+                                <img src="{{asset($course->image)}}">
+                            </div>
+                            <div class="mentor_course_review_name">
+                                <h5 class="mb-0">{{$course->name}}</h5>
+                                <p class="mb-0">Expert in {{$course->user_primary_category->name}}</p>
+                            </div>
+                        </div>
+                        <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">{{words($course->bio, 20)}}</p>
+
+                        <div class="d-flex mb-2 mt-3">
+                            <div class="availability_section">
+                                <span class="badge badge-light badge-pill" title="Expet is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
+                            </div>
+                            <div class="rate_section">
+                                @if (!empty($course->hourly_rate))
+                                <span class="badge badge-light badge-pill" title="Hourly rate of Expert is ${{$course->hourly_rate}}">${{$course->hourly_rate}}/ hr</span>
+                                @endif
+                            </div>
+                            <div class="rating_section">
+                                @if (!empty($course->review))
+                                <span class="badge badge-{{custom_review($course->review)}} badge-pill" title="K2 review is {{$course->review}}">{{$course->review}} <i class="fa fa-star"></i> </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <ul class="mt-4">
+                            {{-- <li><a href="javascript:void(0);">Consult Now</a></li> --}}
+                            <li><a href="{{route('front.experts.single', ['expertId' => $course->id])}}">Visit Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="col-md-12">
+                <h4 class="mb-5 text-muted">No experts found for this category</h4>
+            </div>
+            @endforelse
         </div>
+
+        {{-- <div class="available_sessions">
+            <h3 class="proxima_normal darkblue" id="count_section"></h3>
+        </div> --}}
         <div class="row" id="course_list">
-            @foreach ($data as $item)
+            <div class="col-md-12">
+                <div class="available_sessions">
+                    <h3 class="proxima_normal darkblue" id="count_section">Case studies</h3>
+                </div>
+            </div>
+            @forelse ($data as $item)
             <div class="col-lg-4">
                 <div class="mentor_course">
                     <div class="mentor_course_img">
@@ -48,18 +107,22 @@
                             </div>
                             <div class="mentor_course_review_name">
                                 <h5>{{$item->expert_name}}</h5>
-                                <h6>{{$item->expert_short_desc}}</h6>
+                                {{-- <h6>{{$item->expert_short_desc}}</h6> --}}
                             </div>
                         </div>
-                        <p>{{words($item->description, 20)}}</p>
+                        <p class="mt-2">{{words($item->description, 20)}}</p>
                         <ul>
-                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">Consult Now</a></li>
-                            <li><a href="{{route('front.experts.single', ['expertId' => $item->expert_id])}}">Visit Profile</a></li>
+                            <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">View More</a></li>
+                            {{-- <li><a href="{{route('front.experts.single', ['expertId' => $item->expert_id])}}">Visit Profile</a></li> --}}
                         </ul>
                     </div>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-md-12">
+                <h4 class="mb-5 text-muted">No case study found for this category</h4>
+            </div>
+            @endforelse
 
             <div class="col-md-12">
                 {{$data->links()}}
