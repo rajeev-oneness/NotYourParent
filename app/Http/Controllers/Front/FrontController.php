@@ -195,6 +195,7 @@ class FrontController extends Controller
     {
         if (!empty($req->detailId)) {
             $knowledgebank = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->where('knowledgebanks.id', $req->detailId)->first();
+
             $knowledgebankAll = Knowledgebank::join('knowledgebankcategories', 'knowledgebankcategories.id', '=', 'knowledgebanks.category')->select('knowledgebanks.*', 'knowledgebankcategories.name')->get();
             return view('front.knowledge-bank-details', compact('knowledgebank', 'knowledgebankAll'));
         } else {
@@ -276,11 +277,32 @@ class FrontController extends Controller
         $data = Course::orderBy('id', 'desc')
             ->join('categories', 'categories.id', '=', 'courses.categoryId')
             ->join('users', 'users.id', '=', 'courses.teacherId')
-            ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name')
+            ->select('courses.*', 'users.id as expert_id', 'users.name as expert_name', 'users.image as expert_image', 'users.short_description as expert_short_desc', 'categories.name as cat_name', 'categories.image as cat_image')
             ->where('categoryId', $id)
             ->paginate(6);
 
-        $categoryName = Category::where('id', '=', $id)->select('name')->first();
-        return view('front.courses-category-wise', compact('data', 'categoryName'));
+        $experts_data = User::where('user_type', 2)->where('primary_category', $id)->get();
+
+        $categoryName = Category::where('id', '=', $id)->select('name', 'image')->first();
+        return view('front.courses-category-wise', compact('data', 'experts_data', 'categoryName'));
+    }
+
+    public function expertSearch(Request $req)
+    {
+        $value = $req->value;
+
+        $experts =  User::withTrashed()
+                    ->where('user_type', 2)
+                    ->where('teacher_topics.deleted_at', null)
+                    ->where('users.name', 'LIKE','%'.$value.'%')
+                    ->orWhere('users.email', 'LIKE','%'.$value.'%')
+                    ->join('categories', 'categories.id', '=', 'users.primary_category')
+                    ->join('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
+                    ->join('topics', 'topics.id', '=', 'teacher_topics.topicId')
+                    ->select('users.id', 'users.image', 'users.name', 'categories.name as primary_category', 'topics.name as topic_name')
+                    ->limit(5)
+                    ->get();
+
+        return response()->json(['data' => $experts]);
     }
 }

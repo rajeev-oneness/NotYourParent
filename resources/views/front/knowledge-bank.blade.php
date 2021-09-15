@@ -19,10 +19,24 @@
         </div>
 
         <div class="row mb-5">
+            @php
+                $allClass = $inHouseClass = $expertrClass = 'btn-outline-primary';
+                if (empty($_GET['content'])) {
+                    $allClass = 'btn-primary';
+                } else {
+                    if ($_GET['content'] == 'in-house') {
+                        $inHouseClass = 'btn-primary';
+                    } else {
+                        $expertrClass = 'btn-primary';
+                    }
+                }
+            @endphp
             <div class="col-12 text-right">
-                <a href="{{route('front.knowledge-bank')}}" class="btn btn-sm {{ (request()->is('knowledge-bank')) ? 'btn-primary' : 'btn-outline-primary' }}">All</a>
-                <a href="{{route('front.knowledge-bank', ['content' => 'in-house'])}}" class="btn btn-sm {{ (request()->is('knowledge-bank?content=in-house')) ? 'btn-primary' : 'btn-outline-primary' }}">In-house Content</a>
-                <a href="{{route('front.knowledge-bank', ['content' => 'expert'])}}" class="btn btn-sm {{ (request()->is('knowledge-bank?content=expert')) ? 'btn-primary' : 'btn-outline-primary' }}">Expert Content</a>
+                <a href="{{route('front.knowledge-bank')}}" class="btn btn-sm {{ $allClass }}">All</a>
+
+                <a href="{{route('front.knowledge-bank', ['content' => 'in-house'])}}" class="btn btn-sm {{ $inHouseClass }}">In-house Content</a>
+
+                <a href="{{route('front.knowledge-bank', ['content' => 'expert'])}}" class="btn btn-sm {{ $expertrClass }}">Expert Content</a>
             </div>
         </div>
 

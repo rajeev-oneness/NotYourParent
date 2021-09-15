@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 
 class CrudController extends Controller
 {
+    // HOW IT WORKS
     public function howToWorkIndex()
     {
         $howitworks = Settings::where('key', 'how_it_works_child')->orWhere('key', 'how_it_works_main')->get();
@@ -44,10 +45,11 @@ class CrudController extends Controller
         return redirect()->route('admin.howItWorks.index');
     }
 
+    // ABOUT US
     public function aboutUsIndex()
     {
         $aboutus = Settings::where('key', 'about_us_main')->get();
-        return view('admin.aboutUs.index', compact('aboutus'));
+        return view('admin.aboutus.index', compact('aboutus'));
     }
 
     public function aboutUsEdit($id) {
@@ -76,5 +78,51 @@ class CrudController extends Controller
             'description' => $request->description,
         ]);
         return redirect()->route('admin.aboutUs.index');
+    }
+
+    // TERMS AND CONDITIONS
+    public function termsAndConditionsIndex()
+    {
+        $data = Settings::where('key', 'terms_and_conditions')->get();
+        return view('admin.terms-and-conditions.index', compact('data'));
+    }
+
+    public function termsAndConditionsEdit($id) {
+        $data = Settings::where('id', $id)->first();
+        return view('admin.terms-and-conditions.edit', compact('data'));
+    }
+
+    public function termsAndConditionsUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'description' => 'required|string',
+        ]);
+        Settings::where('id', $id)->update([
+            'description' => $request->description,
+        ]);
+        return redirect()->route('admin.termsAndConditions.index');
+    }
+
+    // PRIVACY POLICY
+    public function privacyPolicyIndex()
+    {
+        $data = Settings::where('key', 'privacy_policy')->get();
+        return view('admin.privacy-policy.index', compact('data'));
+    }
+
+    public function privacyPolicyEdit($id) {
+        $data = Settings::where('id', $id)->first();
+        return view('admin.privacy-policy.edit', compact('data'));
+    }
+
+    public function privacyPolicyUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'description' => 'required|string',
+        ]);
+        Settings::where('id', $id)->update([
+            'description' => $request->description,
+        ]);
+        return redirect()->route('admin.privacyPolicy.index');
     }
 }

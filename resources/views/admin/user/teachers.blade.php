@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title','Users')
+@section('title','Experts')
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -12,7 +12,7 @@
                         </a> --}}
 
                         <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-light active">All</a>
-                        <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-light active">Students</a>
+                        <a href="{{ route('admin.user.students') }}" class="btn btn-sm btn-light active">Users</a>
                         <a href="{{ route('admin.user.teachers') }}" class="btn btn-sm btn-primary">Experts</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
@@ -26,6 +26,9 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Category</th>
+                                    <th>Short description</th>
+                                    <th>Quote</th>
                                     <th>Membership</th>
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
@@ -39,9 +42,15 @@
                                     @if($user->user_type != 1)
                                         <tr>
                                             <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
-                                            <td>{{$user->name}}</td>
+                                            <td>
+                                                {{$user->name}}
+                                                <span class="badge badge-light"> <i class="fa fa-circle text-{{$user->user_availability->type}}"></i> {{$user->user_availability->name}}</span>
+                                            </td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->mobile}}</td>
+                                            <td>{{$user->user_primary_category->name}}</td>
+                                            <td>{{$user->short_description}}</td>
+                                            <td>{!!words($user->bio, 5)!!}</td>
                                             <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
                                             <td>{{$user->referral_code}}</td>
                                             <td>

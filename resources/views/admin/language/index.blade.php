@@ -1,13 +1,13 @@
 @extends('layouts.dashboard.master')
-@section('title','Categories')
+@section('title','Language')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Categories
-                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.category.add')}}">
+                    <h5 class="mb-0">Language
+                        <a class="headerbuttonforAdd addBlogCategory" href="{{route('admin.language.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
                         </a>
                     </h5>
@@ -20,22 +20,16 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $key => $category)
+                                @foreach ($languages as $key => $item)
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td>
-                                        @if (!empty($category->image))
-                                            <img src="{{asset($category->image)}}" alt="{{$category->name}}-category-image" style="height: 50px">
-                                        @endif
-                                    </td>
-                                    <td>{{$category->name}}</td>
-                                    <td><a href="{{route('admin.category.edit',['id' => $category->id])}}">Edit</a> | <a href="#" data-id="{{$category->id}}" class="text-danger delete-confirm">Delete</a></td>
+                                    <td>{{$item->name}}</td>
+                                    <td><a href="{{route('admin.language.edit',['id' => $item->id])}}">Edit</a> | <a href="#" data-id="{{$item->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -53,9 +47,10 @@
     $(document).ready(function() {
         $('#example4').DataTable();
     });
+
     $('.delete-confirm').on('click', function (event) {
         event.preventDefault();
-        const url = "category/delete/";
+        const url = "language/delete/";
         const id = $(this).data('id');
         swal({
             title: 'Are you sure?',

@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-    Courses single
+    Case studies single
 @endsection
 
 @section('content')
@@ -13,10 +13,16 @@
         <article>
             <div class="article_left">
                 <img src="{{asset($course->image)}}" alt="">
+
+                <div class="purchase_holder mt-4">
+                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#purchase-modal">Purchase now &amp; Unlock video lesson</button>
+                </div>
             </div>
             <div class="article_right">
                 <span class="badge badge-primary mb-3"><h5 class="mb-0">{{$course->category_name}}</h5></span>
                 <h1 class="text-uppercase darkblue proxima_exbold">{{$course->name}}</h1>
+
+                <h5><em>Case study by {{$course->teacherDetail->name}}</em></h5>
 
                 <div class="banner_content my-3">
                     <h1 class="text-uppercase proxima_bold" style="font-size: 25px;"><strong class="proxima_black" style="font-size: 25px;">DURATION</strong> {{$course->duration}} minutes</h1>
@@ -61,6 +67,37 @@
     </div>
 </section>
 <!-- People also like  -->
+
+<!-- Modal -->
+<div class="modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Purchase this case study</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12"><h5><strong>Title</strong></h5></div>
+                    <div class="col-md-12"><h4 class="text-muted">{{$course->name}}</h4></div>
+                    <div class="col-md-12"><h5><strong>Duration</strong></h5></div>
+                    <div class="col-md-12"><h4 class="text-muted">{{$course->duration}} minutes</h4></div>
+                    <div class="col-md-12"><h5><strong>Price</strong></h5></div>
+                    <div class="col-md-12"><h4 class="text-muted">${{$course->price}}</h4></div>
+                    <div class="col-md-12"><em>Case study by {{$course->teacherDetail->name}}</em></div>
+                    <div class="col-md-12 mt-3">
+                        <button type="button" class="btn btn-primary">Confirm Purchase</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')

@@ -33,6 +33,15 @@
                             </select>
                         </div>
                         <div class="form-group required">
+                            <label for="teacherId" class="control-label">Select Expert</label>
+                            <select class="form-control" id="teacherId" name="teacherId" required>
+                                <option disabled selected>Select Expert</option>
+                                @foreach ($experts as $expert)
+                                    <option value="{{$expert->id}}" {{ $expert->id == $course->teacherId ? 'selected' : '' }}>{{$expert->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group required">
                             <label for="image" class="control-label">Image</label>
                             <input type="file" class="form-control-file" name="image" value="{{$course->image}}" id="image">
                         </div>

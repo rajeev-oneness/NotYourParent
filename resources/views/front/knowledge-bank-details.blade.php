@@ -21,6 +21,7 @@
                 @endif
                 <h1 class="text-uppercase darkblue proxima_exbold">{{$knowledgebank->title}}</h1>
                 <h6 class="text-uppercase golden proxima_bold">{{$knowledgebank->name}}</h6>
+                <p class="darkgray"><em>By {{$knowledgebank->expert_details->name }}</em></p>
                 <p class="darkgray">{{$knowledgebank->subtitle}}</p>
                 <hr>
                 <p class="darkgray">{!!$knowledgebank->description!!}</p>
@@ -66,7 +67,7 @@
                     <div class="white new text-uppercase text-center">{{ $item->name }}</div>
                     <h3 class="proxima_bold">{{ words($item->title, 7) }}</h3>
                     <h6 class="proxima_bold">{{ $item->subtitle }}</h6>
-                    <p>{{ words($item->description, 20) }}</p>
+                    <p>{!! words($item->description, 20) !!}</p>
                     <a class="golden proxima_bold" href="{{route('front.knowledge-bank', ['detailId' => $item->id])}}">Read More</a>
                 </div>
             </div>

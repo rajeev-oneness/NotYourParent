@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-    Home
+    Case studies
 @endsection
 
 <style>
@@ -18,7 +18,7 @@
 <section class="mentors_section directory_mentors_section" id="courses-tab" style="margin-top: 280px;">
     <div class="container">
         <div class="section_heading how_it_wrok_heading text-center">
-            <h2 class="proxima_black text-uppercase darkblue">All courses</h2>
+            <h2 class="proxima_black text-uppercase darkblue">Case studies</h2>
             <p class="darkgray proxima_light">Greater Pittsburgh's Expert Basement Waterproofing & Foundation Repair Contractor</p>
         </div>
 
@@ -62,7 +62,7 @@
         </div>
 
         <div class="available_sessions">
-            <h3 class="proxima_normal darkblue" id="count_section">All courses</h3>
+            <h3 class="proxima_normal darkblue" id="count_section">All Case studies</h3>
         </div>
 
         <div class="row" id="course_list">
@@ -88,10 +88,10 @@
                             </div>
                             <div class="mentor_course_review_name">
                                 <h5>{{$item->expert_name}}</h5>
-                                <h6>{{$item->expert_short_desc}}</h6>
+                                {{-- <h6>Expert in {{$item->user_primary_category->name}}</h6> --}}
                             </div>
                         </div>
-                        <p>{{words($item->description, 20)}}</p>
+                        <p class="mt-2">{{words($item->description, 20)}}</p>
                         <ul>
                             <li><a href="{{route('front.courses.single', ['courseId' => $item->id])}}">View Now</a></li>
                             <li><a href="{{route('front.experts.single', ['expertId' => $item->expert_id])}}">Visit Profile</a></li>
@@ -121,7 +121,7 @@
             </div>
             <div class="col-lg-4 align-self-center">
                 <div class="become_member_content">
-                    <h2 class="darkblue text-uppercase">Let’s <b class="proxima_exbold">Become a</b> <span class="green proxima_exbold">EXPERT</span></h2>
+                    <h2 class="darkblue text-uppercase">Let’s <b class="proxima_exbold">Become an</b> <span class="green proxima_exbold">EXPERT</span></h2>
                     <p class="darkgray proxima_light">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                     <a href="{{route('front.sign-up',['userType' => 2])}}" class="parimary_btn darkblue_btn">Start Today</a>
                 </div>

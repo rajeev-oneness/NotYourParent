@@ -322,6 +322,21 @@ button {
 }
 .banner_search_box {
     max-width: 500px;
+    position: relative;
+}
+#search_result {
+    position: absolute;
+    top: 57px;
+    left: 0;
+    width: 100%
+}
+#search_result .topic-name {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+#search_result .search_expert_image {
+    height: 32px;
+    border-radius: 50%;
 }
 .banner_search_field {
     width: 100%;
@@ -636,6 +651,7 @@ button {
     line-height: 1.2;
     margin-bottom: 5px;
     margin-top: 12px;
+    white-space: nowrap;
 }
 .mentor_course_review_name h6 {
     margin-bottom: 0;
@@ -800,7 +816,7 @@ button {
 }
 .designation {
     line-height: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 /* calender */
 .calender {
@@ -1079,7 +1095,7 @@ button {
 }
 .class_teacher_description h3 span,
 .class_teacher_description h3 b {
-    font-size: 40px;
+    font-size: 25px;
     font-weight: normal;
     font-family: "Proxima Nova Extrabold";
 }
@@ -1223,7 +1239,7 @@ button {
     margin-bottom: 25px;
 }
 .become_member_content h2 b {
-    font-size: 55px;
+    font-size: 45px;
 }
 .become_member_content h2 span {
     font-size: 95px;
@@ -2246,6 +2262,10 @@ article {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
+}
+.article_left {
+    position: sticky;
+    top: 0;
 }
 .article_left img {
     width: 100%;

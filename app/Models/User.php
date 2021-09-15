@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\UserAvailability', 'availability', 'id');
     }
+
+    public function user_primary_category()
+    {
+        return $this->belongsTo('App\Models\Category', 'primary_category', 'id');
+    }
 }
