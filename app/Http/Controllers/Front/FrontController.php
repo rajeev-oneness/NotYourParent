@@ -297,8 +297,8 @@ class FrontController extends Controller
                     ->where('users.name', 'LIKE','%'.$value.'%')
                     ->orWhere('users.email', 'LIKE','%'.$value.'%')
                     ->join('categories', 'categories.id', '=', 'users.primary_category')
-                    ->join('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
-                    ->join('topics', 'topics.id', '=', 'teacher_topics.topicId')
+                    ->leftJoin('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
+                    ->leftjoin('topics', 'topics.id', '=', 'teacher_topics.topicId')
                     ->select('users.id', 'users.image', 'users.name', 'categories.name as primary_category', 'topics.name as topic_name')
                     ->limit(5)
                     ->get();
