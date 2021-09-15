@@ -305,4 +305,16 @@ class FrontController extends Controller
 
         return response()->json(['data' => $experts]);
     }
+
+    public function privacyPolicyIndex()
+    {
+        $privacyPolicy = Settings::where('key', 'privacy_policy')->first();
+        return view('front.privacy-policy', compact('privacyPolicy'));
+    }
+
+    public function termsAndConditionsIndex()
+    {
+        $privacyPolicy = Settings::where('key', 'terms_and_conditions')->first();
+        return view('front.privacy-policy', compact('privacyPolicy'));
+    }
 }

@@ -112,6 +112,9 @@
 
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-fw fa-user-circle"></i>Settings</a>
+                        </li>
                     @endif
                 </ul>
             </div>

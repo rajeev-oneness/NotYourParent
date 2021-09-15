@@ -77,7 +77,7 @@ class HomeController extends Controller
             'fb_url' => 'nullable|url',
             'twitter_url' => 'nullable|url',
             'instagram_url' => 'nullable|url',
-            'hourly_rate' => 'required|min:1|max:10',
+            'hourly_rate' => 'nullable|min:1|max:10',
         ]);
         $user = Auth::user();
         $user->name = $req->name;

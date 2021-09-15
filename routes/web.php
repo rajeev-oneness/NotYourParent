@@ -44,6 +44,9 @@ Route::get('/singleDate/{expertId}/{date}', [FrontController::class,'getSingleDa
 Route::get('/courses', [FrontController::class, 'courses'])->name('front.courses');
 Route::get('/course/{courseId}', [FrontController::class, 'coursesSingle'])->name('front.courses.single');
 
+Route::get('/privacy-policy', [FrontController::class, 'privacyPolicyIndex'])->name('front.privacyPolicy');
+Route::get('/terms-and-conditions', [FrontController::class, 'termsAndConditionsIndex'])->name('front.termsAndConditions');
+
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile', [HomeController::class,'userProfile'])->name('user.profile');
