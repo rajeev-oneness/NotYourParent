@@ -28,18 +28,18 @@
                             <label>Available</label>
                             <select name="available">
                                 <option value="" hidden>Select Availability</option>
-                                <option>Now</option>
-                                <option>No</option>
+                                @foreach ($availability as $item)
+                                    <option value="{{$item->id}}">{{ucwords($item->name)}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="expart_search_grid">
-                            <label>Seniority</label>
-                            {{-- <input type="hidden" name="seniority" id="seniority_level" value=""> --}}
+                            <label>Language</label>
                             <select id="seniority" name="seniority">
-                                <option value="" hidden>Select Seniority Level</option>
-                                @for ($i = 1; $i <= 7; $i++)
-                                    <option value="{{$i}}">{{$i}} {{($i == 1)? 'Year' : 'Years'}} +</option>
-                                @endfor
+                                <option value="" hidden>Select language</option>
+                                @foreach ($language as $item)
+                                    <option value="{{$item->id}}">{{ucwords($item->name)}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button class="search_icon_top" type="submit">

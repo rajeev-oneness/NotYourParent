@@ -14,6 +14,8 @@ use App\Models\Topic, App\Models\TeacherTopic;
 use App\Models\Faq;
 use App\Models\Settings;
 use App\Models\UserLanguagesKnown;
+use App\Models\UserAvailability;
+use App\Models\UserLanguage;
 
 class FrontController extends Controller
 {
@@ -60,7 +62,9 @@ class FrontController extends Controller
     {
         $topics = Topic::get();
         $request = $req->all();
-        return view('front.directory', compact('request', 'topics'));
+        $availability = UserAvailability::all();
+        $language = UserLanguage::get();
+        return view('front.directory', compact('request', 'topics', 'availability', 'language'));
     }
 
     public function directorySearch(Request $req)
