@@ -14,8 +14,8 @@
 		<div class="row">
 			<div class="col-md-5 col-sm-12 align-self-center">
 				<div class="resource_banner_content">
-					<h1 class="text-uppercase darkblue proxima_bold">BECOME A <br><span
-							class="proxima_black golden">{{ $data['userType'] == 3 ? 'STUDENT' : 'EXPERT' }}</span></h1>
+					<h1 class="text-uppercase darkblue proxima_bold">BECOME <br><span
+							class="proxima_black golden">{{ $data['userType'] == 3 ? 'A STUDENT' : 'AN EXPERT' }}</span></h1>
 					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
 						been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
 						galley acof type and scrambled it to make a type specimen book.</p>
@@ -48,18 +48,22 @@
 					@error('user_type')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
+
 					@error('referral')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
 					<input class="email" type="text" name="referral" placeholder="Referral Code (if any)" value="{{old('referral')}}">
+
 					@error('name')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
 					<input class="email" type="text" name="name" placeholder="Full Name" value="{{old('name')}}">
+
 					@error('email')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
 					<input class="email" type="email" name="email" placeholder="Email Address"  value="{{old('email')}}" >
+
 					@error('mobile')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror

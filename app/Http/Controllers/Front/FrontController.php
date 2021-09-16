@@ -14,6 +14,8 @@ use App\Models\Topic, App\Models\TeacherTopic;
 use App\Models\Faq;
 use App\Models\Settings;
 use App\Models\UserLanguagesKnown;
+use App\Models\UserAvailability;
+use App\Models\UserLanguage;
 
 class FrontController extends Controller
 {
@@ -60,7 +62,9 @@ class FrontController extends Controller
     {
         $topics = Topic::get();
         $request = $req->all();
-        return view('front.directory', compact('request', 'topics'));
+        $availability = UserAvailability::all();
+        $language = UserLanguage::get();
+        return view('front.directory', compact('request', 'topics', 'availability', 'language'));
     }
 
     public function directorySearch(Request $req)
@@ -297,12 +301,24 @@ class FrontController extends Controller
                     ->where('users.name', 'LIKE','%'.$value.'%')
                     ->orWhere('users.email', 'LIKE','%'.$value.'%')
                     ->join('categories', 'categories.id', '=', 'users.primary_category')
-                    ->join('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
-                    ->join('topics', 'topics.id', '=', 'teacher_topics.topicId')
+                    ->leftJoin('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
+                    ->leftjoin('topics', 'topics.id', '=', 'teacher_topics.topicId')
                     ->select('users.id', 'users.image', 'users.name', 'categories.name as primary_category', 'topics.name as topic_name')
                     ->limit(5)
                     ->get();
 
         return response()->json(['data' => $experts]);
+    }
+
+    public function privacyPolicyIndex()
+    {
+        $privacyPolicy = Settings::where('key', 'privacy_policy')->first();
+        return view('front.privacy-policy', compact('privacyPolicy'));
+    }
+
+    public function termsAndConditionsIndex()
+    {
+        $privacyPolicy = Settings::where('key', 'terms_and_conditions')->first();
+        return view('front.privacy-policy', compact('privacyPolicy'));
     }
 }

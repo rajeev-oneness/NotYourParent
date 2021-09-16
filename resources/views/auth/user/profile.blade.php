@@ -106,6 +106,7 @@
                             </div>
                         </div>
 
+                        @if (Auth::user()->user_type == 2)
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="aniversary" class="col-form-label">Anniversary:</label>
@@ -157,6 +158,7 @@
                                 @error('instagram_url')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>

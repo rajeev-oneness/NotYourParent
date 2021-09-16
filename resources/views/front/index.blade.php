@@ -351,10 +351,15 @@
                         result += '<div class="list-group">';
 
                         $.each(response.data, function(i, val) {
+                            var topic = '';
                             var url = '{{route("front.experts.single",':id')}}';
                             url = url.replace(':id',val.id);
 
-                            result += '<a href="'+url+'" class="list-group-item list-group-item-action"><div class="d-flex"><div class="exp_img_holder mr-3"><img src="'+val.image+'" alt="expert-image" class="search_expert_image"></div><div class="exp_details_holder"><h6 class="mb-0">'+val.name+' - Expert in '+val.primary_category+'</h6><p class="topic-name">'+val.topic_name+'</p></div></div></a>';
+                            if (val.topic_name !== null) {
+                                topic = '<p class="topic-name">'+val.topic_name+'</p>';
+                            }
+
+                            result += '<a href="'+url+'" class="list-group-item list-group-item-action"><div class="d-flex"><div class="exp_img_holder mr-3"><img src="'+val.image+'" alt="expert-image" class="search_expert_image"></div><div class="exp_details_holder"><h6 class="mb-0">'+val.name+' - Expert in '+val.primary_category+'</h6>'+topic+'</div></div></a>';
                         })
 
                         result += '</div>';

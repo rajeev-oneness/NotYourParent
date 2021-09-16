@@ -41,10 +41,12 @@
                         <div class="form-group required">
                             <label for="heading" class="control-label">Heading</label>
                             <input type="text" class="form-control" name="heading" id="heading" value="{{$howitworks->heading}}" placeholder="Heading" required>
+                            @error('heading') <small class="text-danger">{{$message}}</small> @enderror
                         </div>
                         <div class="form-group">
                             <label for="description" class="control-label">Description</label>
                             <textarea type="text" class="form-control" name="description" id="description" placeholder="Description">{{$howitworks->description}}</textarea>
+                            @error('description') <small class="text-danger">{{$message}}</small> @enderror
                         </div>
                         <div class="form-group">
                             <label for="link" class="control-label">Link</label>
