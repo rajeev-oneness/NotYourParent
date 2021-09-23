@@ -35,7 +35,7 @@
 
                         <div class="d-flex mb-2 mt-3">
                             <div class="availability_section">
-                                <span class="badge badge-light badge-pill" title="Expet is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
+                                <span class="badge badge-light badge-pill" title="Expert is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
                             </div>
                             <div class="rate_section">
                                 @if (!empty($course->hourly_rate))

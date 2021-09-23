@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Payment\PaymentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,14 +32,12 @@ Route::get('/how-it-works', [FrontController::class,'howItWorks'])->name('front.
 Route::get('/categories', [FrontController::class,'categories'])->name('front.categories');
 Route::get('/categories/{id}', [FrontController::class,'categoryWiseCourses'])->name('front.categories.course');
 Route::get('/knowledge-bank', [FrontController::class,'knowledgeBank'])->name('front.knowledge-bank');
-Route::get('/directory', [FrontController::class,'directory'])->name('front.directory');
+
 Route::get('/experts', [FrontController::class,'experts'])->name('front.experts');
 Route::get('/experts/{expertId}', [FrontController::class,'expertsSingle'])->name('front.experts.single');
 Route::get('/experts/{expertId}/{currentDate}', [FrontController::class,'expertsDates'])->name('front.experts.dates');
-// Route::get('/experts', [FrontController::class,'expertsSingle'])->name('front.experts');
 Route::get('/articles', [FrontController::class,'articles'])->name('front.articles');
 Route::get('/articles/{articleId}', [FrontController::class,'articleSingle'])->name('front.articles.single');
-// Route::get('/articles', [FrontController::class,'articles'])->name('front.articles');
 Route::get('/sign-up', [FrontController::class,'signUp'])->name('front.sign-up');
 Route::get('/singleDate/{expertId}/{date}', [FrontController::class,'getSingleDate'])->name('front.my-slot.single');
 Route::get('/courses', [FrontController::class, 'courses'])->name('front.courses');
@@ -46,6 +45,14 @@ Route::get('/course/{courseId}', [FrontController::class, 'coursesSingle'])->nam
 
 Route::get('/privacy-policy', [FrontController::class, 'privacyPolicyIndex'])->name('front.privacyPolicy');
 Route::get('/terms-and-conditions', [FrontController::class, 'termsAndConditionsIndex'])->name('front.termsAndConditions');
+
+// search routes
+Route::get('/search', [FrontController::class,'homeExpertSearch'])->name('front.search.expert');
+// Route::get('/directory', [FrontController::class,'directory'])->name('front.directory');
+
+// payment
+Route::post('/payment', [PaymentController::class, 'videoSession'])->name('payment.session.video');
+Route::get('/order-response', [PaymentController::class, 'orderSuccess'])->name('front.purchase.success');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
@@ -71,6 +78,10 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/profile/address/save', [HomeController::class,'userAddressSave'])->name('user.address.save');
 	Route::get('user/profile/address/edit', [HomeController::class,'userAddressEdit'])->name('user.address.edit');
 	Route::put('user/profile/address/update', [HomeController::class,'userAddressUpdate'])->name('user.address.update');
+
+	// video sessions
+	Route::get('user/sessions', [HomeController::class,'sessionsIndex'])->name('user.sessions.index');
+	Route::get('user/sessions', [HomeController::class,'expertSessionsIndex'])->name('expert.sessions.index');
 
 });
 

@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Front\FrontController;
-use Illuminate\Support\Facades\Route,Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

@@ -39,6 +39,55 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 		<script>
+			$('#expert_input').on('keyup', function() {
+				var val = $(this).val();
+				if (val.length > 1) {
+					$.ajax({
+						url: "{{ route('front.home.search') }}",
+						method: "POST",
+						dataType: 'json',
+						data: {
+							token: "{{ csrf_token() }}",
+							value: val,
+						},
+						beforeSend: function() {
+							// console.log(val);
+						},
+						success: function(response) {
+							if(response.data.length > 0) {
+								var result = '';
+								result += '<div class="list-group">';
+
+								$.each(response.data, function(i, val) {
+									var topic = '';
+									var url = '{{route("front.experts.single",':id')}}';
+									url = url.replace(':id',val.id);
+
+									if (val.topic_name !== null) {
+										topic = '<p class="topic-name">'+val.topic_name+'</p>';
+									}
+
+									result += '<a href="'+url+'" class="list-group-item list-group-item-action"><div class="d-flex"><div class="exp_img_holder mr-3"><img src="'+val.image+'" alt="expert-image" class="search_expert_image"></div><div class="exp_details_holder"><h6 class="mb-0">'+val.name+' - Expert in '+val.primary_category+'</h6>'+topic+'</div></div></a>';
+								})
+
+								result += '</div>';
+								$('#search_result').html(result).show();
+							} else {
+								var result = '';
+								result += '<div class="list-group">';
+
+								result += '<a href="javascript: void(0)" class="list-group-item list-group-item-action"><h6 class="mb-0">No results found</h6><p class="topic-name"> Try other keyword</p></a>';
+
+								result += '</div>';
+								$('#search_result').html(result).show();
+							}
+						}
+					});
+				} else {
+					$('#search_result').html('').hide();
+				}
+			});
+
 			//sweetalert
 			@if(Session::has('Success'))
 				swal('Success','{{Session::get('Success')}}', 'success');

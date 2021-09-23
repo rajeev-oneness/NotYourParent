@@ -9,6 +9,7 @@ use App\Models\Topic;
 use App\Models\TeacherTopic;
 use App\Models\UserLanguage;
 use App\Models\Address;
+use App\Models\SlotBooking;
 use App\Models\UserLanguagesKnown;
 use App\Models\UserAvailability;
 use Illuminate\Support\Facades\Auth;
@@ -316,5 +317,19 @@ class HomeController extends Controller
         $teacher_topic = TeacherTopic::find($id);
         $teacher_topic->delete();
         return redirect()->back()->with('success', 'Topic removed');
+    }
+
+    public function sessionsIndex(Request $request)
+    {
+        $data = SlotBooking::where('userId', Auth::user()->id)->latest()->get();
+        return view('auth.user.sessions', compact('data'));
+    }
+
+    public function expertSessionsIndex(Request $request)
+    {
+        $data = SlotBooking::join('slots', 'slots.id', '=', 'slot_bookings.slotId')
+                ->where('slots.teacherId', Auth::user()->id)->orderBy('slot_bookings.created_at', 'DESC')->get();
+
+        return view('teacher.video-session.index', compact('data'));
     }
 }

@@ -37,7 +37,10 @@
                 @if ($coursesCount > 0)
                 TOTAL <span class="golden">{{$coursesCount}}</span> CASE STUDIES 
                 @endif
+
+                @if ($teacher->review > 0.00)
                 <span class="badge badge-{{custom_review($teacher->review)}} badge-pill" title="K2 review is {{$teacher->review}}">{{$teacher->review}} <i class="fa fa-star"></i> </span>
+                @endif
                 {{-- <span style="color: #e76f37;">4.5</span> 
                 <span class="proxima_normal" style="color: #003456;">Ratings</span> --}}
             </h3>
@@ -251,6 +254,8 @@
     </div>
 </section>
 
+@include('front.modal.modals')
+
 @endsection
 
 @section('script')
@@ -270,8 +275,12 @@
                     $.each(data.data, function(i, val) {
                         calendarRight += '<li>'+val.time+'</li>';
                         calendarRight += '<li>'+val.note+'</li>';
-                        calendarRight += '<li><a href="#" class="btn btn-sm btn-danger">Book now</a></li>';
-                        // $('#calender_right').show();
+                        calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger" onclick="bookSessionModal()">Book now</a></li>';
+
+                        $('#sessionDate').html(val.date);
+                        $('#sessionslotId').val(val.id);
+                        $('#sessionTime').html(val.time);
+                        $('#sessionNote').html(val.note);
                     })
                 } else {
                     calendarRight += '<li>No Slots!</li>';
@@ -282,5 +291,11 @@
             }
         })
     }
+
+    function bookSessionModal() {
+        $('#bookSessionModal').modal('show');
+    }
+
+    // $('#bookSessionModal').modal('show');
 </script>
 @endsection

@@ -15,19 +15,12 @@
             <h1 class="text-uppercase proxima_bold">ALSO WE CAN <br><strong class="proxima_black">HELP YOU<span>!</span></strong></h1>
             <p>Lorem ipsum dolor sit amet, <span>consectetur adipiscing</span> elit. Proin at risus. <span>Sed nec congue</span> quam. Nulla sed tristique turpis. </p>
             <div class="banner_search_box">
-                <form action="{{route('front.directory')}}" autocomplete="off">
-                    <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search" id="expertSearch">
-                    {{-- <input class="banner_search_btn parimary_btn green_btn" type="submit" value="Search Now" name=""> --}}
+                <form action="{{route('front.search.expert')}}" autocomplete="off">
+                {{-- <form action="{{route('front.directory')}}" autocomplete="off"> --}}
+                    <input class="banner_search_field" placeholder="Search an Expert" type="text" name="search" id="expert_input">
                     <a href="{{route('front.experts')}}" class="banner_search_btn parimary_btn darkblue_btn">View all Experts</a>
                 </form>
-                <div id="search_result" style="display: none;">
-                    {{-- <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                        <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                    </div> --}}
-                </div>
+                <div id="search_result" style="display: none;"></div>
             </div>
         </div>
     </div>
@@ -331,55 +324,6 @@
 @section('script')
 
 <script>
-    $('#expertSearch').on('keyup', function() {
-        var val = $('#expertSearch').val();
-        if (val.length > 1) {
-            $.ajax({
-                url: "{{ route('front.home.search') }}",
-                method: "POST",
-                dataType: 'json',
-                data: {
-                    token: "{{ csrf_token() }}",
-                    value: val,
-                },
-                beforeSend: function() {
-                    // console.log(val);
-                },
-                success: function(response) {
-                    if(response.data.length > 0) {
-                        var result = '';
-                        result += '<div class="list-group">';
-
-                        $.each(response.data, function(i, val) {
-                            var topic = '';
-                            var url = '{{route("front.experts.single",':id')}}';
-                            url = url.replace(':id',val.id);
-
-                            if (val.topic_name !== null) {
-                                topic = '<p class="topic-name">'+val.topic_name+'</p>';
-                            }
-
-                            result += '<a href="'+url+'" class="list-group-item list-group-item-action"><div class="d-flex"><div class="exp_img_holder mr-3"><img src="'+val.image+'" alt="expert-image" class="search_expert_image"></div><div class="exp_details_holder"><h6 class="mb-0">'+val.name+' - Expert in '+val.primary_category+'</h6>'+topic+'</div></div></a>';
-                        })
-
-                        result += '</div>';
-                        $('#search_result').html(result).show();
-                    } else {
-                        var result = '';
-                        result += '<div class="list-group">';
-
-                        result += '<a href="javascript: void(0)" class="list-group-item list-group-item-action"><h6 class="mb-0">No results found</h6><p class="topic-name"> Try other keyword</p></a>';
-
-                        result += '</div>';
-                        $('#search_result').html(result).show();
-                    }
-                }
-            });
-        } else {
-            $('#search_result').html('').hide();
-        }
-    });
-
     $(document).mouseup(function (e) {
         var searchHolder = $("#search_result");
         if (!searchHolder.is(e.target) && searchHolder.has(e.target).length === 0) {

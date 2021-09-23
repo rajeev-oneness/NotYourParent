@@ -58,55 +58,119 @@ class FrontController extends Controller
         return view('front.resources');
     }
 
-    public function directory(Request $req)
+    public function homeExpertSearch(Request $req)
     {
-        $topics = Topic::get();
+        $categories = Category::orderBy('name')->get();
         $request = $req->all();
         $availability = UserAvailability::all();
         $language = UserLanguage::get();
-        return view('front.directory', compact('request', 'topics', 'availability', 'language'));
+        return view('front.directory', compact('request', 'categories', 'availability', 'language'));
     }
+
+    // public function directory(Request $req)
+    // {
+    //     $categories = Category::orderBy('name')->get();
+    //     $request = $req->all();
+    //     $availability = UserAvailability::all();
+    //     $language = UserLanguage::get();
+    //     return view('front.directory', compact('request', 'categories', 'availability', 'language'));
+    // }
 
     public function directorySearch(Request $req)
     {
+        // $req->validate([
+        //     'page' => 'required|min:0|numeric',
+        //     'search' => 'nullable|string',
+        //     'categoryId' => 'nullable|numeric|min:1',
+        //     'topic' => 'nullable|numeric|min:1',
+        //     'available' => 'nullable|string',
+        //     'seniority' => 'nullable|numeric|min:1',
+        //     'expert' => 'nullable|string',
+        // ]);
+
         $req->validate([
-            'page' => 'required|min:0|numeric',
-            'search' => 'nullable|string',
-            'categoryId' => 'nullable|numeric|min:1',
-            'topic' => 'nullable|numeric|min:1',
-            'available' => 'nullable|string',
-            'seniority' => 'nullable|numeric|min:1',
-            'expert' => 'nullable|string',
+            'search' => 'required|string',
+            'category' => 'nullable|numeric|min:1',
         ]);
-        // $reqs = $req->except('_token');
+
         $reqs = $req->all();
-        $offset = $req->page * 9;
-        $course = Course::select('*', 'courses.id AS course_id', 'courses.name AS course_name', 'courses.image AS course_img', 'courses.description AS course_desc');
-        if (!empty($req->search)) {
-            $course = $course->where('name', 'like', '%' . $req->search . '%');
+
+        // if (!empty($req->search)) {
+        $experts = User::withTrashed()
+                ->where('users.user_type', 2)
+                ->where('teacher_topics.deleted_at', null)
+                ->where('users.name', 'LIKE', '%'.$req->search.'%');
+        // }
+
+        if (!empty($req->category)) {
+            $experts = $experts->where('users.primary_category', $req->category);
         }
-        if (!empty($req->categoryId)) {
-            // $course = $course->where('categoryId', $req->categoryId);
+        if (!empty($req->availability)) {
+            $experts = $experts->where('users.availability', $req->availability);
         }
-        if (!empty($req->expert)) {
-            $name = $req->expert;
-            $course = $course->leftjoin('users', 'courses.teacherId', '=', 'users.id')->where('users.name', 'like', "%$name%");
+        if (!empty($req->language)) {
+            $experts = $experts->join('user_languages_knowns', 'user_languages_knowns.user_id', '=', 'users.id')
+            ->where('user_languages_knowns.language_id', $req->language);
         }
-        if (!empty($req->topic)) {
-            $topic = $req->topic;
-            $course = $course->leftjoin('teacher_topics', 'courses.teacherId', '=', 'teacher_topics.teacherId')->where('teacher_topics.topicId', $topic);
-        }
-        // if(!empty($req->available)) {}
-        if (!empty($req->seniority)) {
-            $seniority = $req->seniority;
-            $seniorityDate = date("Y-m-d", strtotime("-$seniority years"));
-            $course = $course->leftjoin('experiences', 'courses.teacherId', '=', 'experiences.teacherId')->where('experiences.teaching_started', '<=', $seniorityDate);
-        }
-        $total = $course->count();
-        $course = $course->with('teacherDetail')->limit(9)->offset($offset)->get();
-        // dd($course);
-        return response()->json(['error' => false, 'message' => 'Course Data', 'data' => $course, 'total' => $total, 'requests' => $reqs]);
+
+        $experts = $experts
+                // ->orWhere('users.email', 'LIKE', '%'.$req->search.'%')
+                ->join('categories', 'categories.id', '=', 'users.primary_category')
+                ->join('user_availabilities', 'user_availabilities.id', '=', 'users.availability')
+                ->leftJoin('addresses', 'addresses.userId', '=', 'users.id')
+                ->leftJoin('teacher_topics', 'teacher_topics.teacherId', '=', 'users.id')
+                ->leftjoin('topics', 'topics.id', '=', 'teacher_topics.topicId')
+                // ->leftjoin('user_languages_knowns', 'user_languages_knowns.user_id', '=', 'users.id')
+                // ->leftjoin('user_languages', 'user_languages.id', '=', 'user_languages_knowns.language_id')
+                ->select('users.id', 'users.image', 'users.name', 'users.bio', 'users.hourly_rate', 'users.review', 'categories.name as primary_category', 'topics.name as topic_name', 'user_availabilities.name as availability_name', 'user_availabilities.type as availability_type', 'addresses.city', 'addresses.state', 'addresses.country');
+
+        $experts = $experts->get();
+
+        $total = $experts->count();
+
+        return response()->json(['error' => false, 'message' => 'Course Data', 'data' => $experts, 'total' => $total, 'requests' => $reqs]);
     }
+
+    // public function directorySearch(Request $req)
+    // {
+    //     $req->validate([
+    //         'page' => 'required|min:0|numeric',
+    //         'search' => 'nullable|string',
+    //         'categoryId' => 'nullable|numeric|min:1',
+    //         'topic' => 'nullable|numeric|min:1',
+    //         'available' => 'nullable|string',
+    //         'seniority' => 'nullable|numeric|min:1',
+    //         'expert' => 'nullable|string',
+    //     ]);
+    //     // $reqs = $req->except('_token');
+    //     $reqs = $req->all();
+    //     $offset = $req->page * 9;
+    //     $course = Course::select('*', 'courses.id AS course_id', 'courses.name AS course_name', 'courses.image AS course_img', 'courses.description AS course_desc');
+    //     if (!empty($req->search)) {
+    //         $course = $course->where('name', 'like', '%' . $req->search . '%');
+    //     }
+    //     if (!empty($req->categoryId)) {
+    //         // $course = $course->where('categoryId', $req->categoryId);
+    //     }
+    //     if (!empty($req->expert)) {
+    //         $name = $req->expert;
+    //         $course = $course->leftjoin('users', 'courses.teacherId', '=', 'users.id')->where('users.name', 'like', "%$name%");
+    //     }
+    //     if (!empty($req->topic)) {
+    //         $topic = $req->topic;
+    //         $course = $course->leftjoin('teacher_topics', 'courses.teacherId', '=', 'teacher_topics.teacherId')->where('teacher_topics.topicId', $topic);
+    //     }
+    //     // if(!empty($req->available)) {}
+    //     if (!empty($req->seniority)) {
+    //         $seniority = $req->seniority;
+    //         $seniorityDate = date("Y-m-d", strtotime("-$seniority years"));
+    //         $course = $course->leftjoin('experiences', 'courses.teacherId', '=', 'experiences.teacherId')->where('experiences.teaching_started', '<=', $seniorityDate);
+    //     }
+    //     $total = $course->count();
+    //     $course = $course->with('teacherDetail')->limit(9)->offset($offset)->get();
+    //     // dd($course);
+    //     return response()->json(['error' => false, 'message' => 'Course Data', 'data' => $course, 'total' => $total, 'requests' => $reqs]);
+    // }
 
     public function experts()
     {
