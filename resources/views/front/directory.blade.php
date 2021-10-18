@@ -21,7 +21,15 @@
                             <select id="category" name="category">
                                 <option value="" hidden>Select Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{$category->id}}" {{ ($_GET['category'] == $category->id) ? 'selected' : '' }}>{{$category->name}}</option>
+                                    <option value="{{$category->id}}" 
+                                    @php
+                                        if (!empty($_GET['category'])) {
+                                            if ($_GET['category'] == $category->id) {
+                                                echo 'selected';
+                                            }
+                                        }
+                                    @endphp
+                                    >{{$category->name}}</option>
                                 @endforeach
                                 <option value="">Remove category</option>
                             </select>
@@ -31,7 +39,13 @@
                             <select id="availability" name="availability">
                                 <option value="" hidden>Select Availability</option>
                                 @foreach ($availability as $item)
-                                    <option value="{{$item->id}}" {{ ($_GET['availability'] == $item->id) ? 'selected' : '' }}>{{ucwords($item->name)}}</option>
+                                    <option value="{{$item->id}}"@php
+                                        if (!empty($_GET['availability'])) {
+                                            if ($_GET['availability'] == $item->id) {
+                                                echo 'selected';
+                                            }
+                                        }
+                                    @endphp>{{$item->name}}</option>
                                 @endforeach
                                 <option value="">Remove availability</option>
                             </select>
@@ -41,7 +55,13 @@
                             <select id="language" name="language">
                                 <option value="" hidden>Select Language</option>
                                 @foreach ($language as $item)
-                                    <option value="{{$item->id}}" {{ ($_GET['language'] == $item->id) ? 'selected' : '' }}>{{ucwords($item->name)}}</option>
+                                    <option value="{{$item->id}}"@php
+                                        if (!empty($_GET['language'])) {
+                                            if ($_GET['language'] == $item->id) {
+                                                echo 'selected';
+                                            }
+                                        }
+                                    @endphp>{{$item->name}}</option>
                                 @endforeach
                                 <option value="">Remove language</option>
                             </select>
