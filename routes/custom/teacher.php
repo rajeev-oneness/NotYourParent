@@ -27,12 +27,12 @@ Route::group(['prefix' => 'my-slot'], function() {
     Route::get('/delete/{id}',[TeacherController::class, 'deleteSlot'])->name('teacher.my-slot.delete');
 });
 
-Route::group(['prefix' => 'chat'], function() {
-    Route::get('/', [TeacherController::class, 'chatIndex'])->name('teacher.chat.index');
-    Route::get('/{id}', [TeacherController::class, 'single'])->name('teacher.chat.single');
-    Route::post('/', [TeacherController::class, 'create'])->name('teacher.chat.create');
-    Route::post('/new', [TeacherController::class, 'new'])->name('teacher.chat.new');
-});
+// Route::group(['prefix' => 'chat'], function() {
+//     Route::get('/', [TeacherController::class, 'chatIndex'])->name('teacher.chat.index');
+//     // Route::get('/{id}', [TeacherController::class, 'single'])->name('teacher.chat.single');
+//     Route::post('/', [TeacherController::class, 'create'])->name('teacher.chat.create');
+//     Route::post('/new', [TeacherController::class, 'new'])->name('teacher.chat.new');
+// });
 
 Route::group(['prefix' => 'knowledgebank'], function() {
     Route::get('/',[TeacherController::class, 'knowledgeBankIndex'])->name('teacher.knowledgebank.index');

@@ -20,10 +20,10 @@
                         <span class="text-dark" id="sessionTime"></span>
                     </strong>
                 </p>
-                <p class="text-muted small">
+                {{-- <p class="text-muted small">
                     Note : 
                     <span class="text-dark" id="sessionNote"></span>
-                </p>
+                </p> --}}
                 <p class="text-muted small">
                     Amount : 
                     <strong><span class="text-dark" id="sessionAmount">${{$teacher->hourly_rate/4}}</span></strong>

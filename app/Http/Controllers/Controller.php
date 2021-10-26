@@ -6,8 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Referral;use DB;use App\Models\User;use Hash;
 use App\Models\UserPoints;
+use App\Models\Notification;
 
 class Controller extends BaseController
 {

@@ -9,6 +9,7 @@ use App\Models\Topic;
 use App\Models\TeacherTopic;
 use App\Models\UserLanguage;
 use App\Models\Address;
+use App\Models\Notification;
 use App\Models\SlotBooking;
 use App\Models\UserLanguagesKnown;
 use App\Models\UserAvailability;
@@ -328,8 +329,22 @@ class HomeController extends Controller
     public function expertSessionsIndex(Request $request)
     {
         $data = SlotBooking::join('slots', 'slots.id', '=', 'slot_bookings.slotId')
-                ->where('slots.teacherId', Auth::user()->id)->orderBy('slot_bookings.created_at', 'DESC')->get();
+                ->where('slots.teacherId', Auth::user()->id)
+                ->orderBy('slot_bookings.created_at', 'DESC')
+                ->get();
+        // $data = SlotBooking::select('slot_bookings.created_at', 'slot_bookings.join_url')
+        //         ->join('slots', 'slots.id', '=', 'slot_bookings.slotId')
+        //         ->where('slots.teacherId', Auth::user()->id)
+        //         ->orderBy('slot_bookings.created_at', 'DESC')
+        //         ->get();
 
         return view('teacher.video-session.index', compact('data'));
+    }
+
+    public function readIndex(Request $request)
+    {
+        $noti = Notification::findOrFail($request->id);
+        $noti->read_flag = 1;
+        $noti->save();
     }
 }

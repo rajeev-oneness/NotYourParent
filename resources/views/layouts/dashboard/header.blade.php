@@ -9,6 +9,24 @@
             <ul class="navbar-nav ml-auto navbar-right-top">
                 @if(Auth::user())
                     <li class="nav-item dropdown nav-user">
+                        <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            @if ($notification->unreadCount > 0)
+                                <span class="badge badge-danger">{{$notification->unreadCount}}</span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right nav-user-dropdown noti-details" aria-labelledby="navbarDropdownMenuLink1">
+                            @foreach ($notification as $noti)
+                                @if ($noti->read_flag == 0)
+                                    <a href="javascript:void(0)" class="dropdown-item single-noti unread-noti" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')">{{$noti->title}}</a>
+                                @else
+                                    <a href="javascript:void(0)" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')" class="dropdown-item single-noti read-noti">{{$noti->title}}</a>
+                                @endif
+                            @endforeach
+                            {{-- <a class="dropdown-item text-center p-0" href="#"><span class="badge badge-light border" style="font-size: 14px;">View all notification</span></a> --}}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{Auth::user()->image}}" alt="" class="user-avatar-md rounded-circle">
                         </a>

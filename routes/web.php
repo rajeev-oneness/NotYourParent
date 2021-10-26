@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,8 +81,19 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::put('user/profile/address/update', [HomeController::class,'userAddressUpdate'])->name('user.address.update');
 
 	// video sessions
-	Route::get('user/sessions', [HomeController::class,'sessionsIndex'])->name('user.sessions.index');
+	Route::get('user/session', [HomeController::class,'sessionsIndex'])->name('user.sessions.index');
 	Route::get('user/sessions', [HomeController::class,'expertSessionsIndex'])->name('expert.sessions.index');
+
+	// notification read
+	Route::post('/read', [HomeController::class, 'readIndex'])->name('user.notification.read');
+
+	// chat
+	Route::group(['prefix' => 'user/chat'], function() {
+		Route::get('/', [TeacherController::class, 'chatIndex'])->name('user.chat.index');
+		// Route::get('/{id}', [TeacherController::class, 'single'])->name('teacher.chat.single');
+		Route::post('/', [TeacherController::class, 'create'])->name('user.chat.create');
+		Route::post('/new', [TeacherController::class, 'new'])->name('user.chat.new');
+	});
 
 });
 

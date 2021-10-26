@@ -7248,3 +7248,24 @@ Media Query
     padding: 12px 12px 0px 12px;
 }
 /***************** Sweet Alert Design END **********************/
+.noti-details {
+    height: 267px;
+    overflow-y: scroll;
+}
+.single-noti {
+    margin-bottom: 5px;
+}
+
+.single-noti.unread-noti {
+    background-color: #d4d4d4 !important;
+    color: #000 !important;
+}
+
+.single-noti.read-noti {
+    background-color: transparent !important;
+    color: #ccc !important;
+}
+
+.single-noti:hover {
+    background-color: #f1f1f1 !important;
+}

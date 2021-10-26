@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
-                                        <p class="small text-muted">
+                                        <p class="small text-muted" style="white-space: nowrap">
                                             DATE :
                                             <span class="text-dark">{{ date('j F, Y', strtotime($item->slotDetails->date)) }}</span>
                                         </p>
@@ -40,10 +40,10 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <p class="small text-muted">
+                                        {{-- <p class="small text-muted">
                                             EXPERT :
                                             <span class="text-dark">{{ $item->slotDetails->expertDetails->name }}</span>
-                                        </p>
+                                        </p> --}}
                                         <p class="small text-muted">
                                             NOTE :
                                             <span class="text-dark">{{$item->slotDetails->note}}</span>
@@ -56,7 +56,7 @@
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="#" class="btn btn-sm btn-primary">Start Video <i class="fa fa-video"></i></a>
+                                        <a href="{{$item->join_url}}" class="btn btn-sm btn-primary" style="white-space: nowrap" target="_blank">Start Video <i class="fa fa-video"></i></a>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>

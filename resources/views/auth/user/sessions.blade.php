@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
-                                        <p class="small text-muted">
+                                        <p class="small text-muted" style="white-space: nowrap">
                                             DATE :
                                             <span class="text-dark">{{ date('j F, Y', strtotime($item->slotDetails->date)) }}</span>
                                         </p>
@@ -49,7 +49,7 @@
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="#" class="btn btn-sm btn-primary">Start Video <i class="fa fa-video"></i></a>
+                                        <a href="#" class="btn btn-sm btn-primary" style="white-space: nowrap">Start Video <i class="fa fa-video"></i></a>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>

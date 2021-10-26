@@ -26,9 +26,11 @@
             <h4 class="proxima_exbold black mb-4">Expert in {{$teacher->user_primary_category->name}}</h4>
 
             <h5 class="black designation">
-                Expert in other topics :
+                @if (count($topics) > 0)
+                Expert in other topics :    
+                @endif
                 @foreach ($topics as $topic)
-                {{ $loop->first ? '' : ', ' }}
+                    {{ $loop->first ? '' : ', ' }}
                 <span class="golden designation">{{$topic->topicDetail->name}}</span>
                 @endforeach
             </h5>
@@ -260,6 +262,10 @@
 
 @section('script')
 <script>
+    function truncateWithEllipses(text, max) {
+        return text.substr(0,max-1)+(text.length>max?'&hellip;':''); 
+    }
+
     function dayClick(selectedDate) {
         const expId = $("#expId").val();
         $.ajax({
@@ -268,19 +274,23 @@
             data: { _token: "{{ csrf_token() }}", date: selectedDate, expertId: expId },
             success:function(data) {
                 $("#calender_right").empty();
-                console.log(data.data);
+                // console.log(data.data);
                 let calendarRight = '';
                 calendarRight += '<h5 class="white">'+data.date+'</sup></h5><ul class="times">';
                 if(data.data.length > 0) {
                     $.each(data.data, function(i, val) {
-                        calendarRight += '<li>'+val.time+'</li>';
-                        calendarRight += '<li>'+val.note+'</li>';
-                        calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger" onclick="bookSessionModal()">Book now</a></li>';
+                        varDate = "'"+val.date+"'";
+                        varId = "'"+val.id+"'";
+                        varTime = "'"+val.time+"'";
 
-                        $('#sessionDate').html(val.date);
-                        $('#sessionslotId').val(val.id);
-                        $('#sessionTime').html(val.time);
-                        $('#sessionNote').html(val.note);
+                        calendarRight += '<li>'+val.time+'</li>';
+                        calendarRight += '<li title="'+val.note+'">'+truncateWithEllipses(val.note, 100)+'</li>';
+                        calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger" onclick="bookSessionModal('+varDate+', '+varId+', '+varTime+')">Book now</a></li>';
+
+                        // $('#sessionDate').html(val.date);
+                        // $('#sessionslotId').val(val.id);
+                        // $('#sessionTime').html(val.time);
+                        // $('#sessionNote').html(val.note);
                     })
                 } else {
                     calendarRight += '<li>No Slots!</li>';
@@ -292,7 +302,11 @@
         })
     }
 
-    function bookSessionModal() {
+    function bookSessionModal(date, id, time, note = null) {
+        $('#sessionDate').html(date);
+        $('#sessionslotId').val(id);
+        $('#sessionTime').html(time);
+        $('#sessionNote').html(note);
         $('#bookSessionModal').modal('show');
     }
 

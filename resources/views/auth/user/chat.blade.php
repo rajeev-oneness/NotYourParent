@@ -7,7 +7,7 @@
             <div class="card" sty le="border: 0;box-shadow: 0px 1px 2px 1px transparent;">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Teacher Chat</h5></div>
+                        <div class="col-6"><h5 class="mb-0">Chat</h5></div>
                         {{-- <div class="col-6 text-right"><a href="#allUserModal" data-toggle="modal" class="btn btn-sm btn-primary">Start new chat</a></div> --}}
                     </div>
                 </div>
@@ -22,11 +22,14 @@
                                             @php
                                                 if ($user->message_from == auth()->user()->id) {
                                                     $displayName = $user->user_to->name;
+                                                    $displayImage = asset($user->user_to->image);
                                                 } else {
                                                     $displayName = $user->user_from->name;
+                                                    $displayImage = asset($user->user_from->image);
                                                 }
                                             @endphp
-                                            <a class="nav-link rounded-0 {{$index == 0 ? 'active' : ''}} chatSeriel{{$index}}" data-toggle="pill" href="javascript: void(0)" onclick="chatChange('{{$displayName}}', '{{json_encode($user->messages)}}', {{$user->id}}, this)">
+                                            <a class="nav-link rounded-0 {{$index == 0 ? 'active' : ''}} chatSeriel{{$index}}" data-toggle="pill" href="javascript: void(0)" onclick="chatChange('{{$displayName}}', '{{json_encode($user->messages)}}', {{$user->id}}, '{{$displayImage}}')">
+                                                <img src="{{$displayImage}}" alt="user" height="27" class="rounded-circle">
                                                 {{$displayName}}
                                             </a>
                                         @endforeach
@@ -104,14 +107,8 @@
 
 @section('script')
 <script>
-    function chatChange(userName, message, conversationId, target) {
-        // if (target.hasClass('active')) {
-            
-        // } else {
-            
-        // }
-        // $(target).css('pointerEvents', 'none');
-        $('#v-pills-chat .card-header').text(userName);
+    function chatChange(userName, message, conversationId, image) {
+        $('#v-pills-chat .card-header').html('<img src="'+image+'" alt="user" height="27" class="rounded-circle"> '+userName);
         $('#conversation_id').val(conversationId);
         var messages = JSON.parse(message);
         var chat = '';

@@ -38,6 +38,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
@@ -60,6 +61,20 @@
 
         //local timezone
         console.log(moment.tz.guess());
+
+        function readNotification(id, route) {
+            $.ajax({
+                url : '{{route("user.notification.read")}}',
+                method : 'POST',
+                data : {'_token' : '{{csrf_token()}}', id : id},
+                success : function(result) {
+                    // console.log('{{url()->current()}}',route);
+                    // if (route != '' && '{{url()->current()}}' != route) {
+                        window.location = route;
+                    // }
+                }
+            });
+        }
     </script>
 
     @yield('script')

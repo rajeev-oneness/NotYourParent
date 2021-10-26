@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
 use App\Models\User;
 use App\Models\Conversation;
 use App\Models\Message;
-use App\Models\ChatTxn;
 use App\Models\Knowledgebank;
 use App\Models\Knowledgebankcategory;
 
@@ -57,23 +56,10 @@ class TeacherController extends Controller
 
     // chat script
     public function chatIndex() {
-        $user = auth::user();
-        $user_id = $user->id;
-        $data = Conversation::where('message_from', $user_id)
-                ->orWhere('message_to', $user_id)
-                ->join('users', 'users.id', '=', 'conversations.message_from')
-                ->select('users.name', 'conversations.id')
-                ->get();
+        $loginUserId = auth()->user()->id;
 
-        $user = User::where('user_type', 3)->orderBy('name')->get();
-
-        return view('teacher.chat.index', compact('data', 'user'));
-    }
-
-    public function single($id) {
-        $message = Message::get();
-        dd($message);
-        // return view('teacher.chat.index', compact('message'));
+        $data = Conversation::where('message_from', $loginUserId)->orWhere('message_to', $loginUserId)->get();
+        return view('auth.user.chat', compact('data'));
     }
 
     public function create(Request $req) {
@@ -86,6 +72,7 @@ class TeacherController extends Controller
         $message->from_id = Auth::user()->id;
         $message->message = $req->message;
         $message->conversation_id = $req->conversation_id;
+        $message->is_seen = 1;
         $message->save();
         return redirect()->back()->with('success', 'message sent');
     }
@@ -113,7 +100,7 @@ class TeacherController extends Controller
             $conversation->save();
             return redirect()->back();
         } else {
-            return redirect()->route('teacher.chat.index');
+            return redirect()->route('user.chat.index');
         }
     }
 

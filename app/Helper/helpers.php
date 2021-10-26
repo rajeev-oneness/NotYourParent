@@ -165,4 +165,15 @@
 		// dd($slots);
 		// exit;
 	}
+
+	function createNotification($sender, $receiver, $type, $title, $message, $route = null) {
+		$notification = new App\Models\Notification;
+		$notification->sender_id = $sender;
+		$notification->receiver_id = $receiver;
+		$notification->type = $type;
+		$notification->title = $title;
+		$notification->message = $message;
+		$notification->route = $route;
+		$notification->save();
+	}
  ?>
