@@ -16,7 +16,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown noti-details" aria-labelledby="navbarDropdownMenuLink1">
-                            @foreach ($notification as $noti)
+                            @forelse ($notification as $noti)
                                 @if ($noti->read_flag == 0)
                                     {{-- unread notification --}}
                                     <a href="javascript:void(0)" class="dropdown-item single-noti unread-noti" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')">
@@ -32,7 +32,9 @@
                                         <p class="small text-muted text-right">{{ \Carbon\Carbon::parse($noti->created_at)->diffForHumans() }}</p>
                                     </a>
                                 @endif
-                            @endforeach
+                            @empty
+                            <a href="javascript:void(0)" class="dropdown-item"><p class="small text-muted text-center">No notifications yet</p></a>
+                            @endforelse
                             {{-- <a class="dropdown-item text-center p-0" href="#"><span class="badge badge-light border" style="font-size: 14px;">View all notification</span></a> --}}
                         </div>
                     </li>

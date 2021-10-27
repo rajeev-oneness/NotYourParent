@@ -97,6 +97,23 @@
 
 			//local timezone
 			console.log(moment.tz.guess());
+
+			// payment modal 1 - VIDEO SESSION BOOK
+			function bookSessionModal(date, id, time, note = null) {
+				$('#sessionDate').html(date);
+				$('#sessionslotId').val(id);
+				$('#sessionTime').html(time);
+				$('#sessionNote').html(note);
+				$('#bookSessionModal').modal('show');
+			}
+
+			// payment modal 2 - CASE STUDY BOOK
+			function bookCaseStudyModal(amount) {
+				$('.courseAmount').text(amount);
+				$('#courseId').val(amount);
+				$('#courseFormAmountId').val(amount);
+				$('#coursePurchaseModal').modal('show');
+			}
     	</script>
         @yield('script')
 	</body>

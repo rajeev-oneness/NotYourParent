@@ -36,6 +36,8 @@ class PaymentController extends Controller
         $user = User::select('name')->where('id', $request->userId)->first();
 
         $teacherId = $slot->teacherId;
+        $teacherName = $slot->expertDetails->name;
+        $purchasingUserName = $user->name;
         $user_id = Auth::user()->id;
 
         if ($bookingChk > 0) {
@@ -53,7 +55,7 @@ class PaymentController extends Controller
 
                 // zoom
                 $zoomRequest = new Request([
-                    'topic' => 'Meeting with '.$slot->expertDetails->name.' and '.$user->name,
+                    'topic' => 'Meeting with '.$teacherName.' and '.$purchasingUserName,
                     'start_time' => $slot->date.' '.$slot->time,
                     'agenda' => '',
                 ]);
@@ -101,17 +103,19 @@ class PaymentController extends Controller
                 }
 
                 // notification
-                $adminMessage = $user->name.' purchased video session dated on '.$slot->date.' at '.$slot->time;
-                $expertMessage = $user->name.' purchased your video session dated on '.$slot->date.' at '.$slot->time;
-                $userMessage = 'video session dated on '.$slot->date.' at '.$slot->time;
+                $adminMessage = $purchasingUserName.' purchased video session scheduled on '.$slot->date.' at '.$slot->time;
+                $expertMessage = $purchasingUserName.' purchased your video session scheduled on '.$slot->date.' at '.$slot->time;
+                $userMessage = 'video session scheduled on '.$slot->date.' at '.$slot->time;
 
                 // NOTIFICATION - params - (sender, receiver, type, title, message, route)
                 // admin notification
                 createNotification($teacherId, 1, 'video_session_purchase', 'Video session purchase', $adminMessage, 'user.sessions.index');
                 // expert notification
                 createNotification($request->userId, $teacherId, 'video_session_purchase', 'Video session is purchased', $expertMessage, 'user.sessions.index');
+                createNotification($request->userId, $teacherId, 'video_session_purchase_chat', 'Now you can talk to '.$purchasingUserName, $expertMessage, 'user.chat.index');
                 // user notification
                 createNotification($teacherId, $request->userId, 'video_session_purchase', 'Thanks for purchasing Video session', $userMessage, 'user.sessions.index');
+                createNotification($teacherId, $request->userId, 'video_session_purchase_chat', 'Now you can talk to '.$teacherName, $userMessage, 'user.chat.index');
 
                 DB::commit();
                 return redirect()->route('front.purchase.success')->with('success', 'Payment successful');

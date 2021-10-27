@@ -7266,6 +7266,10 @@ Media Query
     color: #ccc !important;
 }
 
-.single-noti:hover {
+.single-noti.unread-noti:hover {
+    background-color: #bfbfbf !important;
+}
+
+.single-noti.read-noti:hover {
     background-color: #f1f1f1 !important;
 }

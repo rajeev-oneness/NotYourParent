@@ -282,6 +282,7 @@
                         varDate = "'"+val.date+"'";
                         varId = "'"+val.id+"'";
                         varTime = "'"+val.time+"'";
+                        varNote = "'"+val.note+"'";
 
                         calendarRight += '<li>'+val.time+'</li>';
                         calendarRight += '<li title="'+val.note+'">'+truncateWithEllipses(val.note, 100)+'</li>';
@@ -289,13 +290,8 @@
                         if (val.availability == 0) {
                             calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger">Not available</a></li>';
                         } else {
-                            calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-success" onclick="bookSessionModal('+varDate+', '+varId+', '+varTime+')">Book now</a></li>';
+                            calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-success" onclick="bookSessionModal('+varDate+', '+varId+', '+varTime+', '+varNote+')">Book now</a></li>';
                         }
-
-                        // $('#sessionDate').html(val.date);
-                        // $('#sessionslotId').val(val.id);
-                        // $('#sessionTime').html(val.time);
-                        // $('#sessionNote').html(val.note);
                     })
                 } else {
                     calendarRight += '<li>No Slots!</li>';
@@ -306,15 +302,5 @@
             }
         })
     }
-
-    function bookSessionModal(date, id, time, note = null) {
-        $('#sessionDate').html(date);
-        $('#sessionslotId').val(id);
-        $('#sessionTime').html(time);
-        $('#sessionNote').html(note);
-        $('#bookSessionModal').modal('show');
-    }
-
-    // $('#bookSessionModal').modal('show');
 </script>
 @endsection
