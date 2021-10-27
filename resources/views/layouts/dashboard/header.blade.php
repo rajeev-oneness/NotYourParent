@@ -18,9 +18,19 @@
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown noti-details" aria-labelledby="navbarDropdownMenuLink1">
                             @foreach ($notification as $noti)
                                 @if ($noti->read_flag == 0)
-                                    <a href="javascript:void(0)" class="dropdown-item single-noti unread-noti" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')">{{$noti->title}}</a>
+                                    {{-- unread notification --}}
+                                    <a href="javascript:void(0)" class="dropdown-item single-noti unread-noti" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')">
+                                        <h6 class="mb-2">{{$noti->title}}</h6>
+                                        <p class="small text-muted">{{$noti->message}}</p>
+                                        <p class="small text-muted text-right">{{ \Carbon\Carbon::parse($noti->created_at)->diffForHumans() }}</p>
+                                    </a>
                                 @else
-                                    <a href="javascript:void(0)" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')" class="dropdown-item single-noti read-noti">{{$noti->title}}</a>
+                                    {{-- read notification --}}
+                                    <a href="javascript:void(0)" onclick="readNotification('{{$noti->id}}', '{{($noti->route ? route($noti->route) : '')}}')" class="dropdown-item single-noti read-noti">
+                                        <h6 class="mb-2">{{$noti->title}}</h6>
+                                        <p class="small text-muted">{{$noti->message}}</p>
+                                        <p class="small text-muted text-right">{{ \Carbon\Carbon::parse($noti->created_at)->diffForHumans() }}</p>
+                                    </a>
                                 @endif
                             @endforeach
                             {{-- <a class="dropdown-item text-center p-0" href="#"><span class="badge badge-light border" style="font-size: 14px;">View all notification</span></a> --}}

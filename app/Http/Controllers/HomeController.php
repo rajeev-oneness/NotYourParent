@@ -322,7 +322,18 @@ class HomeController extends Controller
 
     public function sessionsIndex(Request $request)
     {
-        $data = SlotBooking::where('userId', Auth::user()->id)->latest()->get();
+        $user_id = Auth::user()->id;
+        if ($user_id == 1) {
+            $data = SlotBooking::latest()->get();
+        } elseif ($user_id == 2) {
+            $data = SlotBooking::join('slots', 'slots.id', '=', 'slot_bookings.slotId')
+                ->where('slots.teacherId', Auth::user()->id)
+                ->orderBy('slot_bookings.created_at', 'DESC')
+                ->get();
+        } else {
+            $data = SlotBooking::where('userId', $user_id)->latest()->get();
+        }
+
         return view('auth.user.sessions', compact('data'));
     }
 

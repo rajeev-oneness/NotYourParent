@@ -49,6 +49,10 @@
                         {{-- <li class="nav-divider">Report</li> --}}
 
                         <!-- Crud Operation Section -->
+                        <li class="nav-divider">Report</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fa fa-fw fa-user-circle"></i>Video sessions</a>
+                        </li>
                         <li class="nav-divider">Features</li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) === 'testimonial' ? 'active' : null }}" href="{{route('admin.testimonial.index')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
@@ -96,7 +100,7 @@
                             <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('user/sessions*')) ? 'active' : '' }}" href="{{ route('expert.sessions.index') }}"><i class="fa fa-fw fa-user-circle"></i>Video sessions</a>
+                            <a class="nav-link {{ (request()->is('user/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fa fa-fw fa-user-circle"></i>Video sessions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('teacher/knowledgebank*')) ? 'active' : '' }}" href="{{ route('teacher.knowledgebank.index') }}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
@@ -111,7 +115,6 @@
                             <a class="nav-link {{ (request()->is('user/status*')) ? 'active' : '' }}" href="{{ route('user.status') }}"><i class="fa fa-fw fa-user-circle"></i> Status</a>
                             {{-- <a class="nav-link {{ (request()->is('user/status*')) ? 'active' : '' }}" href="{{ route('user.status') }}"><i class="fa fa-fw fa-user-circle"></i> Status <i class="fa fa-circle text-{{$user->user_availability->type}}"></i></a> --}}
                         </li>
-
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}
                         <li class="nav-item">

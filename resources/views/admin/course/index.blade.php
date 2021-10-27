@@ -21,11 +21,11 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Image</th>
-                                    <th>Category</th>
                                     <th>Name</th>
                                     <th>Teacher</th>
-                                    <th>Duration (Minutes)</th>
-                                    <th>Price</th>
+                                    <th>Preview video</th>
+                                    <th>Original video</th>
+                                    <th>Others</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -33,12 +33,29 @@
                                 @foreach ($courses as $key => $course)
                                 <tr>
                                     <td>{{$key + 1}}</td>
-                                    <td><img src="{{asset($course->image)}}" width="60" /></td>
-                                    <td>{{$course->categoryDetail->name}}</td>
+                                    <td><img src="{{asset($course->image)}}" width="60" />
+                                    <br>
+                                    <br>
+                                    <p class="small">category : {{$course->categoryDetail->name}}</p>
+                                    </td>
                                     <td>{{$course->name}}</td>
                                     <td>{{$course->teacherDetail->name}}</td>
-                                    <td>{{$course->duration}}</td>
-                                    <td>{{$course->price}}</td>
+                                    <td>
+                                        @if (!empty($course->preview_video_url))
+                                        <video controls muted height="100">
+                                            <source src="{{asset($course->preview_video_url)}}" type="video/mp4">
+                                        </video>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <video controls muted height="100">
+                                            <source src="{{asset($course->original_video_url)}}" type="video/mp4">
+                                        </video>
+                                    </td>
+                                    <td>duration - {{$course->duration}} min
+                                        <br>
+                                        <br>
+                                    price - $ {{$course->price}}</td>
                                     <td><a href="{{route('admin.course.edit',['id' => $course->id])}}">Edit</a> | <a href="#" data-id="{{$course->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach

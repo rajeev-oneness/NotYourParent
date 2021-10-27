@@ -20,6 +20,7 @@
                                     <th>No.</th>
                                     <th>Timing</th>
                                     <th>Details</th>
+                                    <th>Note</th>
                                     <th>Action</th>
                                     <th>Purchased at</th>
                                 </tr>
@@ -31,7 +32,7 @@
                                     <td>
                                         <p class="small text-muted" style="white-space: nowrap">
                                             DATE :
-                                            <span class="text-dark">{{ date('j F, Y', strtotime($item->slotDetails->date)) }}</span>
+                                            <span class="text-dark">{{ $item->slotDetails->date ? date('j F, Y', strtotime($item->slotDetails->date)) : '' }}</span>
                                         </p>
                                         <p class="small text-muted">
                                             TIME :
@@ -44,12 +45,17 @@
                                             <span class="text-dark">{{ $item->slotDetails->expertDetails->name }}</span>
                                         </p>
                                         <p class="small text-muted">
-                                            NOTE :
+                                            USER :
+                                            <span class="text-dark">{{ $item->userDetails->name }}</span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="small text-muted">
                                             <span class="text-dark">{{$item->slotDetails->note}}</span>
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="#" class="btn btn-sm btn-primary" style="white-space: nowrap">Start Video <i class="fa fa-video"></i></a>
+                                        <a href="{{$item->join_url}}" class="btn btn-sm btn-primary" style="white-space: nowrap" target="_blank">Start Video <i class="fa fa-video"></i></a>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>

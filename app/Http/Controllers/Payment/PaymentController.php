@@ -107,11 +107,11 @@ class PaymentController extends Controller
 
                 // NOTIFICATION - params - (sender, receiver, type, title, message, route)
                 // admin notification
-                createNotification($teacherId, 1, 'video_session_purchase', 'Video session purchase', $adminMessage, 'expert.sessions.index');
+                createNotification($teacherId, 1, 'video_session_purchase', 'Video session purchase', $adminMessage, 'user.sessions.index');
                 // expert notification
-                createNotification($request->userId, $teacherId, 'video_session_purchase', 'Video session is purchased', $expertMessage, 'expert.sessions.index');
+                createNotification($request->userId, $teacherId, 'video_session_purchase', 'Video session is purchased', $expertMessage, 'user.sessions.index');
                 // user notification
-                createNotification($teacherId, $request->userId, 'video_session_purchase', 'Thanks for purchasing Video session', $userMessage, 'expert.sessions.index');
+                createNotification($teacherId, $request->userId, 'video_session_purchase', 'Thanks for purchasing Video session', $userMessage, 'user.sessions.index');
 
                 DB::commit();
                 return redirect()->route('front.purchase.success')->with('success', 'Payment successful');

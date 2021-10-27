@@ -131,6 +131,10 @@
         Route::put('/privact-policy/update/{id}',[CrudController::class, 'privacyPolicyUpdate'])->name('admin.privacyPolicy.update');
     });
 
+    // Route::group(['prefix' => 'sessions'], function() {
+    //     Route::get('/',[AdminController::class, 'purchasedVideoSessions'])->name('admin.sessions.index');
+    // });
+
     Route::get('referred_to/user/{userId}',[UserController::class,'getReferredToList'])->name('admin.referral.referred_to');
 	Route::get('user/points/{userId}',[UserController::class,'getUserPoints'])->name('admin.user.points');
     Route::get('/commission',[AdminController::class, 'getCommission'])->name('admin.commission.index');

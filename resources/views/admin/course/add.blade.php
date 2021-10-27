@@ -20,38 +20,57 @@
                             <select class="form-control" id="category" name="categoryId" required>
                                 <option disabled selected>Select Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}" {{ (old('categoryId') == $category->id ? 'selected' : '') }}>{{$category->name}}</option>
                                 @endforeach
                             </select>
+                            @error('categoryId') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                         <div class="form-group required">
                             <label for="teacherId" class="control-label">Select Expert</label>
-                            <select class="form-control" id="teacherId" name="teacherId" required>
+                            <select class="form-control" id="teacherId" name="teacherId">
                                 <option disabled selected>Select Expert</option>
                                 @foreach ($experts as $expert)
-                                    <option value="{{$expert->id}}">{{$expert->name}}</option>
+                                    <option value="{{$expert->id}}" {{ (old('teacherId') == $expert->id ? 'selected' : '') }}>{{$expert->name}}</option>
                                 @endforeach
                             </select>
+                            @error('teacherId') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                         <div class="form-group required">
                             <label for="image" class="control-label">Image</label>
-                            <input type="file" class="form-control-file" name="image" id="image" required>
+                            <input type="file" class="form-control-file" name="image" id="image">
+                            @error('image') <p class="text-danger">{{$message}}</p> @enderror
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="preview_video_url" class="control-label">Preview video</label>
+                                <input type="file" class="form-control-file" name="preview_video_url" id="preview_video_url">
+                                @error('preview_video_url') <p class="text-danger">{{$message}}</p> @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="original_video_url" class="control-label">Original video<span class="text-danger">*</span> </label>
+                                <input type="file" class="form-control-file" name="original_video_url" id="original_video_url">
+                                @error('original_video_url') <p class="text-danger">{{$message}}</p> @enderror
+                            </div>
                         </div>
                         <div class="form-group required">
                           <label for="name" class="control-label">Name</label>
-                          <input type="text" class="form-control" name="name" id="name"  placeholder="Course name" required>
+                          <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}" placeholder="Course name">
+                          @error('name') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                         <div class="form-group required">
                             <label for="description" class="control-label">Description</label>
-                            <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
+                            <textarea class="form-control" name="description" id="description" rows="3">{{old('description')}}</textarea>
+                            @error('description') <p class="text-danger">{{$message}}</p> @enderror
                         </div>
                         <div class="form-group required">
                             <label for="duration" class="control-label">Duration (In Minutes)</label>
-                            <input type="number" class="form-control" name="duration" id="duration"  placeholder="example 15 minutes" required>
+                            <input type="number" class="form-control" name="duration" id="duration"  placeholder="example 15 minutes" value="{{old('duration')}}">
+                            @error('duration') <p class="text-danger">{{$message}}</p> @enderror
                           </div>
                           <div class="form-group required">
                             <label for="price" class="control-label">Price</label>
-                            <input type="number" class="form-control" name="price" id="price"  placeholder="example 30" required>
+                            <input type="number" class="form-control" name="price" id="price"  placeholder="example 30" value="{{old('price')}}">
+                            @error('price') <p class="text-danger">{{$message}}</p> @enderror
                           </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
