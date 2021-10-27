@@ -36,7 +36,7 @@
                                     <td>{{$course->categoryDetail->name}}</td>
                                     <td>{{$course->name}}</td>
                                     <td>{{$course->duration}}</td>
-                                    <td>{{$course->price}}</td>
+                                    <td>$ {{$course->price}}</td>
                                     <td><a href="{{route('teacher.my-course.edit',['id' => $course->id])}}">Edit</a> | <a href="#" data-id="{{$course->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>
                                 @endforeach

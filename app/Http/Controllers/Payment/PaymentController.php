@@ -32,7 +32,7 @@ class PaymentController extends Controller
         ]);
 
         $bookingChk = SlotBooking::where([['userId', $request->userId], ['slotId', $request->slotId]])->count();
-        $slot = Slot::select('teacherId', 'date', 'time')->where('id', $request->slotId)->first();
+        $slot = Slot::select('teacherId', 'date', 'time', 'availability')->where('id', $request->slotId)->first();
         $user = User::select('name')->where('id', $request->userId)->first();
 
         $teacherId = $slot->teacherId;
@@ -76,6 +76,11 @@ class PaymentController extends Controller
                     $slotBooking->over = 0;
                 }
                 $slotBooking->save();
+
+                // slot availability
+                $slotUpdate = Slot::findOrFail($request->slotId);
+                $slotUpdate->availability = 0;
+                $slotUpdate->save();
 
                 // chat
                 $convo_chk_count = Conversation::where([

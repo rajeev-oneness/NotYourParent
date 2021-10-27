@@ -40,7 +40,21 @@ class AddColumnsToSlotBookingsTable extends Migration
     public function down()
     {
         Schema::table('slot_bookings', function (Blueprint $table) {
-            //
+            $table->dropColumn('uuid');
+            $table->dropColumn('meetingId');
+            $table->dropColumn('host_id');
+            $table->dropColumn('host_email');
+            $table->dropColumn('topic');
+            $table->dropColumn('start_time');
+            $table->dropColumn('agenda');
+            $table->dropColumn('join_url');
+            $table->dropColumn('password');
+            $table->dropColumn('encrypted_password');
+            $table->dropColumn('status');
+            $table->dropColumn('type');
+            $table->dropColumn('start_url');
+            $table->dropColumn('remark');
+            $table->dropColumn('over');
         });
     }
 }

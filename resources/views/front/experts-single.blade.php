@@ -285,7 +285,12 @@
 
                         calendarRight += '<li>'+val.time+'</li>';
                         calendarRight += '<li title="'+val.note+'">'+truncateWithEllipses(val.note, 100)+'</li>';
-                        calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger" onclick="bookSessionModal('+varDate+', '+varId+', '+varTime+')">Book now</a></li>';
+
+                        if (val.availability == 0) {
+                            calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-danger">Not available</a></li>';
+                        } else {
+                            calendarRight += '<li><a href="javascript: void(0)" class="btn btn-sm btn-success" onclick="bookSessionModal('+varDate+', '+varId+', '+varTime+')">Book now</a></li>';
+                        }
 
                         // $('#sessionDate').html(val.date);
                         // $('#sessionslotId').val(val.id);

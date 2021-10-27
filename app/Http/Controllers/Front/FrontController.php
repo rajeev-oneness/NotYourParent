@@ -313,7 +313,6 @@ class FrontController extends Controller
     public function getSlotByDate(Request $req)
     {
         $slot = Slot::where('teacherId', $req->expertId)->where('date', $req->date)->get();
-        // dd($slot);
         $date = date('D M d', strtotime($req->date));
 
         return response()->json(['data' => $slot, 'date' => $date]);

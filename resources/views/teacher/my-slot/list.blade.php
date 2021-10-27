@@ -4,8 +4,11 @@
 <link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
     <style>
         #calendar {
-		max-width: 100%;
-		margin: 0 auto;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .fc-unthemed td.fc-today {
+            background: #2196f359;
         }
     </style>
 @endsection
@@ -66,25 +69,27 @@
     <script>
         $(document).ready(function() {
             const SITEURL = "{{ url('/') }}";
+
             $.ajaxSetup({
                 headers:{
-                        'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                    }
+                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                }
             });
+
             const calendar = $('#calendar').fullCalendar({
                 defaultView: 'month',
                 header: {
                     left: 'month,agendaWeek,agendaDay',
                     center: 'title',
                     right:  'today prev,next'
-                    },
+                },
                 buttonText : {
                     today:    'today',
                     month:    'month',
                     week:     'week',
                     day:      'day',
                     list:     'list'
-                    },
+                },
                 dayClick  : function(info){
                         console.log(info);
                         $('#exampleModal').modal('toggle');
@@ -119,6 +124,10 @@
                     {
                         title : '{{ $slot->note}}',
                         start : '{{ $slot->date }}',
+                        backgroundColor : '@php if ($slot->availability == 1) {echo "#8BC34A";} else {echo "#f00";} @endphp',
+                        borderColor : '@php if ($slot->availability == 1) {echo "#8BC34A";} else {echo "#f00";} @endphp',
+                        // url : '{{ route("user.sessions.index") }}',
+                        url : '@php if ($slot->availability == 0) { echo route("user.sessions.index"); } else { echo "javascript: void(0)"; } @endphp'
                     },
                     @endforeach
                 ],

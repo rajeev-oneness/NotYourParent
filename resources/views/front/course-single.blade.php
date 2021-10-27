@@ -22,7 +22,7 @@
                 <span class="badge badge-primary mb-3"><h5 class="mb-0">{{$course->category_name}}</h5></span>
                 <h1 class="text-uppercase darkblue proxima_exbold">{{$course->name}}</h1>
 
-                <h5><em>Case study by {{$course->teacherDetail->name}}</em></h5>
+                <h5><em>Case study by <a href="{{route('front.experts.single', ['expertId' => $course->teacherDetail->id])}}"><strong>{{$course->teacherDetail->name}}</strong></a></em></h5>
 
                 <div class="banner_content my-3">
                     <h1 class="text-uppercase proxima_bold" style="font-size: 25px;"><strong class="proxima_black" style="font-size: 25px;">DURATION</strong> {{$course->duration}} minutes</h1>
@@ -43,7 +43,7 @@
 <section class="more_articles">
     <div class="container">
         <div class="section_heading experty_insights_heading text-center">
-            <h2 class="proxima_black text-uppercase darkblue">You may also like</h2>
+            <h2 class="proxima_black text-uppercase darkblue">Articles you may like</h2>
         </div>
         <div class="mentors_slider owl-carousel owl-theme">
             @forelse ($randomCourses as $item)

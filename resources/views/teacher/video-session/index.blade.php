@@ -32,7 +32,7 @@
                                     <td>
                                         <p class="small text-muted" style="white-space: nowrap">
                                             DATE :
-                                            <span class="text-dark">{{ date('j F, Y', strtotime($item->slotDetails->date)) }}</span>
+                                            <span class="text-dark">{{ $item->slotDetails->date ? date('j F, Y', strtotime($item->slotDetails->date)) : '' }}</span>
                                         </p>
                                         <p class="small text-muted">
                                             TIME :
