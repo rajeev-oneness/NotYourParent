@@ -35,14 +35,15 @@
                     Amount : 
                     <strong><span class="text-dark">$<span class="courseAmount"></span></span></strong>
                 </p>
-                <form action="{{ route('payment.casestudy') }}" method="POST">
+                {{-- <form action="{{ route('payment.casestudy') }}" method="POST"> --}}
+                <form action="javascript: void(0)" method="GET">
                 @csrf
                     @error('userId') <small class="text-danger">{{$message}}</small> @enderror
                     @auth
                         <input type="hidden" name="courseId" id="courseId" value="{{$course->id}}">
                         <input type="hidden" name="amount" id="courseFormAmountId" value="">
-                        <input type="hidden" name="userId" value="{{Auth::user()->id}}">
-                        <button type="submit" class="btn btn-primary btn-sm btn-block">Pay $<span class="courseAmount"></span></button>
+                        {{-- <button type="submit" class="btn btn-primary btn-sm btn-block">Pay $<span class="courseAmount"></span></button> --}}
+                        <button id="videoSessionForm" type="submit" class="btn btn-primary btn-sm btn-block" onclick="stripePaymentStart('{{$course->price}}', '{{ route('payment.casestudy', $course->id) }}', 'usd', 'course')">Pay ${{$course->price}}</button>
                     @endauth
                     @guest
                         <p class="small mb-0 text-danger">You have to login first</p>
@@ -51,10 +52,6 @@
                 </form>
                 <p class="small mb-0 mt-2 text-muted"><i class="fa fa-lock"></i> This payment is secured</p>
             </div>
-            {{-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> --}}
         </div>
     </div>
 </div>

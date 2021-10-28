@@ -199,7 +199,7 @@ function strCheck($string = "")
 		if ($string[$i] == '"') {
 			$returnString .= '&#34;';
 		} else if ($string[$i] == "'") {
-			$returnString .= '&#39;';
+			$returnString .= '&#3;';
 		} else {
 			$returnString .= $string[$i];
 		}

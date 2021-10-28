@@ -28,14 +28,14 @@
                     Amount : 
                     <strong><span class="text-dark" id="sessionAmount">${{$teacher->hourly_rate/4}}</span></strong>
                 </p>
-                <form action="{{ route('payment.session.video') }}" method="POST">
+                {{-- <form action="{{ route('payment.session.video') }}" method="POST" id="videoSessionForm"> --}}
+                <form action="javascript: void(0)" method="GET">
                 @csrf
                     @error('userId') <small class="text-danger">{{$message}}</small> @enderror
                     @auth
                         <input type="hidden" name="slotId" id="sessionslotId">
-                        <input type="hidden" name="amount" value="{{$teacher->hourly_rate/4}}">
-                        <input type="hidden" name="userId" value="{{Auth::user()->id}}">
-                        <button type="submit" class="btn btn-primary btn-sm btn-block">Pay ${{$teacher->hourly_rate/4}}</button>
+                        <input type="hidden" name="amount" id="videoSessionExpertRate" value="{{$teacher->hourly_rate/4}}">
+                        <button id="videoSessionForm" type="submit" class="btn btn-primary btn-sm btn-block" onclick="stripePaymentStart('{{$teacher->hourly_rate/4}}', '{{ route('payment.session.video') }}', 'usd', 'video')">Pay ${{$teacher->hourly_rate/4}}</button>
                     @endauth
                     @guest
                         <p class="small mb-0 text-danger">You have to login first</p>
@@ -44,10 +44,6 @@
                 </form>
                 <p class="small mb-0 mt-2 text-muted"><i class="fa fa-lock"></i> This payment is secured</p>
             </div>
-            {{-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> --}}
         </div>
     </div>
 </div>
