@@ -22,7 +22,7 @@ class TeacherController extends Controller
     {
         // dd(date('d-m-Y'));
         $teacher_id = Auth::user()->id;
-        $mySlots = Slot::where('teacherId',$teacher_id)->where('date','>=',date('Y-m-d'))->orderBy('date','ASC')->get();
+        $mySlots = Slot::where('teacherId', $teacher_id)->where('date', '>=', date('Y-m-d'))->orderBy('date', 'ASC')->get();
         // dd($mySlots);
         return view('teacher.my-slot.list', compact('mySlots'));
     }
@@ -35,7 +35,7 @@ class TeacherController extends Controller
     {
         Slot::where('date', $date)->delete();
         $data = [];
-        foreach($request->date as $key => $value){
+        foreach ($request->date as $key => $value) {
             $data[] = [
                 'teacherId' =>  Auth::user()->id,
                 'date' => Carbon::parse($request->date[$key])->format('Y-m-d'),
@@ -43,7 +43,7 @@ class TeacherController extends Controller
                 'note' => $request->note[$key],
             ];
         }
-        if(count($data)){
+        if (count($data)) {
             $slot = Slot::insert($data);
             return $slot;
         }
@@ -55,43 +55,47 @@ class TeacherController extends Controller
     }
 
     // chat script
-    public function chatIndex() {
+    public function chatIndex()
+    {
         $loginUserId = auth()->user()->id;
 
         $data = Conversation::where('message_from', $loginUserId)->orWhere('message_to', $loginUserId)->get();
         return view('auth.user.chat', compact('data'));
     }
 
-    public function create(Request $req) {
+    public function create(Request $req)
+    {
         $req->validate([
             'conversation_id' => 'required',
             'message' => 'required',
         ]);
-
         $message = new Message();
         $message->from_id = Auth::user()->id;
-        $message->message = $req->message;
+        $message->message = strCheck($req->message);
         $message->conversation_id = $req->conversation_id;
         $message->is_seen = 1;
         $message->save();
-        return redirect()->back()->with('success', 'message sent');
+        $message->created_at = $message->created_at->diffForHumans();
+        return response()->json(['data' => $message]);
+        // return redirect()->back()->with('success', 'message sent');
     }
 
-    public function new(Request $req) {
+    public function new(Request $req)
+    {
         $user_id = Auth::user()->id;
         $req->validate([
             'student_id' => 'required'
         ]);
 
         $convo_chk_count = Conversation::where([
-                        ['message_from', $user_id],
-                        ['message_to', $req->student_id]
-                    ])
-                    ->orWhere([
-                        ['message_to', $user_id],
-                        ['message_from', $req->student_id]
-                    ])
-                    ->count();
+            ['message_from', $user_id],
+            ['message_to', $req->student_id]
+        ])
+            ->orWhere([
+                ['message_to', $user_id],
+                ['message_from', $req->student_id]
+            ])
+            ->count();
 
         if ($convo_chk_count == 0) {
             $conversation = new Conversation;
@@ -124,9 +128,9 @@ class TeacherController extends Controller
             'description' => 'required|string|min:2',
             'image' => 'required|mimes:jpg, jpeg, png, gif, svg|max: 2048'
         ]);
-        $fileName = time().'.'.strtolower($request->image->extension());
+        $fileName = time() . '.' . strtolower($request->image->extension());
         $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
-        $image ='defaultImages/knowledgebank/'.$fileName;
+        $image = 'defaultImages/knowledgebank/' . $fileName;
 
         $teacher_id = Auth::user()->id;
         $knowledgebank = new Knowledgebank();
@@ -158,13 +162,13 @@ class TeacherController extends Controller
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $oldImage = public_path($knowledgebank->image);
             File::delete($oldImage);
 
-            $fileName = time().'.'.$request->image->extension();
+            $fileName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('defaultImages/knowledgebank/'), $fileName);
-            $image ='defaultImages/knowledgebank/'.$fileName;
+            $image = 'defaultImages/knowledgebank/' . $fileName;
             $knowledgebank->update([
                 'image' => $image,
             ]);

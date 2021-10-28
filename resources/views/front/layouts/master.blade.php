@@ -110,7 +110,6 @@
 			// payment modal 2 - CASE STUDY BOOK
 			function bookCaseStudyModal(amount) {
 				$('.courseAmount').text(amount);
-				$('#courseId').val(amount);
 				$('#courseFormAmountId').val(amount);
 				$('#coursePurchaseModal').modal('show');
 			}

@@ -44,7 +44,7 @@
         Route::get('/delete/{id}',[CourseController::class, 'destroy'])->name('admin.course.delete');
     });
 
-    Route::group(['prefix' => 'contact-us'], function() {
+    Route::group(['prefix' => 'settings/contact-us'], function() {
         Route::get('/',[AdminController::class, 'contactUs'])->name('admin.contactUs.index');
         Route::get('/edit/{id}',[AdminController::class, 'editContactUs'])->name('admin.contactUs.edit');
         Route::put('/update/{id}',[AdminController::class, 'updateContactUs'])->name('admin.contactUs.update');

@@ -22,10 +22,6 @@ class Conversation extends Model
 
     public function messages()
     {
-        return $this->hasMany('App\Models\Message', 'conversation_id', 'id');
-        // return $this->hasMany('App\Models\Message', 'conversation_id', 'id')->each(function ($data) {
-        //     $data->human_date = $data->created_at->diffForHumans();
-        //     return $data;
-        // });
+        return $this->hasMany('App\Models\Message', 'conversation_id', 'id')->limit(50);
     }
 }

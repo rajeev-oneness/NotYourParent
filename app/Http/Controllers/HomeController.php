@@ -9,8 +9,10 @@ use App\Models\Topic;
 use App\Models\TeacherTopic;
 use App\Models\UserLanguage;
 use App\Models\Address;
+use App\Models\CoursePurchase;
 use App\Models\Notification;
 use App\Models\SlotBooking;
+use App\Models\Transaction;
 use App\Models\UserLanguagesKnown;
 use App\Models\UserAvailability;
 use Illuminate\Support\Facades\Auth;
@@ -320,6 +322,18 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Topic removed');
     }
 
+    public function transactionIndex(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        if ($user_id == 1) {
+            $data = Transaction::latest()->get();
+        } else {
+            $data = Transaction::where('userId', $user_id)->latest()->get();
+        }
+
+        return view('auth.user.transaction', compact('data'));
+    }
+
     public function sessionsIndex(Request $request)
     {
         $user_id = Auth::user()->id;
@@ -337,19 +351,22 @@ class HomeController extends Controller
         return view('auth.user.sessions', compact('data'));
     }
 
-    public function expertSessionsIndex(Request $request)
+    public function caseStudyReport(Request $request)
     {
-        $data = SlotBooking::join('slots', 'slots.id', '=', 'slot_bookings.slotId')
-                ->where('slots.teacherId', Auth::user()->id)
-                ->orderBy('slot_bookings.created_at', 'DESC')
-                ->get();
-        // $data = SlotBooking::select('slot_bookings.created_at', 'slot_bookings.join_url')
-        //         ->join('slots', 'slots.id', '=', 'slot_bookings.slotId')
-        //         ->where('slots.teacherId', Auth::user()->id)
-        //         ->orderBy('slot_bookings.created_at', 'DESC')
-        //         ->get();
+        $user_id = Auth::user()->id;
 
-        return view('teacher.video-session.index', compact('data'));
+        if ($user_id == 1) {
+            $data = CoursePurchase::latest()->get();
+        } elseif ($user_id == 2) {
+            $data = CoursePurchase::join('courses', 'courses.id', '=', 'course_purchases.courseId')
+                ->where('courses.teacherId', Auth::user()->id)
+                ->orderBy('course_purchases.created_at', 'DESC')
+                ->get();
+        } else {
+            $data = CoursePurchase::where('userId', $user_id)->latest()->get();
+        }
+
+        return view('auth.user.case-study-report', compact('data'));
     }
 
     public function readIndex(Request $request)

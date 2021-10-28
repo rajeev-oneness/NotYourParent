@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Conversation;
+use App\Models\Course;
+use App\Models\CoursePurchase;
 use App\Models\Notification;
 use App\Models\Slot;
 use App\Models\SlotBooking;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +42,7 @@ class PaymentController extends Controller
         $teacherName = $slot->expertDetails->name;
         $purchasingUserName = $user->name;
         $user_id = Auth::user()->id;
+        $TXN_ID = 'TXN_'.uniqid().''.date('ymdhis');
 
         if ($bookingChk > 0) {
             return redirect()->route('front.purchase.success')->with('error', 'Session purchased already');
@@ -46,11 +50,20 @@ class PaymentController extends Controller
             DB::beginTransaction();
 
             try {
+                // transaction
+                $transaction = new Transaction();
+                $transaction->userId = $user_id;
+                $transaction->transaction = $TXN_ID;
+                $transaction->purchaseType = 'slot_bookings';
+                $transaction->amount = $request->amount;
+                $transaction->currency = 'usd';
+                $transaction->save();
+
                 // slot book
                 $slotBooking = new SlotBooking();
                 $slotBooking->userId = $request->userId;
                 $slotBooking->slotId = $request->slotId;
-                $slotBooking->transactionId = 'TXN_'.uniqid().''.date('ymdhis');
+                $slotBooking->transactionId = $transaction->id;
                 // $slotBooking->save();
 
                 // zoom
@@ -116,6 +129,90 @@ class PaymentController extends Controller
                 // user notification
                 createNotification($teacherId, $request->userId, 'video_session_purchase', 'Thanks for purchasing Video session', $userMessage, 'user.sessions.index');
                 createNotification($teacherId, $request->userId, 'video_session_purchase_chat', 'Now you can talk to '.$teacherName, $userMessage, 'user.chat.index');
+
+                DB::commit();
+                return redirect()->route('front.purchase.success')->with('success', 'Payment successful');
+            } catch(Exception $e) {
+                DB::rollback();
+                return (object)[];
+            }
+        }
+    }
+
+    public function caseStudy(Request $request)
+    {
+        $request->validate([
+            'courseId' => 'required|numeric|min:1',
+            'amount' => 'required',
+            'userId' => 'required|numeric|min:1',
+        ], [
+            'userId.required' => 'You have to login first'
+        ]);
+
+        $coursePurchaseChk = CoursePurchase::where([['userId', $request->userId], ['courseId', $request->courseId]])->count();
+        $course = Course::select('teacherId', 'name')->where('id', $request->courseId)->first();
+
+        $teacherId = $course->teacherId;
+        $courseName = $course->name;
+        $teacherName = $course->teacherDetail->name;
+        $purchasingUserName = Auth::user()->name;
+        $user_id = Auth::user()->id;
+        $TXN_ID = 'TXN_'.uniqid().''.date('ymdhis');
+
+        if ($coursePurchaseChk > 0) {
+            return redirect()->route('front.purchase.success')->with('error', 'Case study purchased already');
+        } else {
+            DB::beginTransaction();
+
+            try {
+                // transaction
+                $transaction = new Transaction();
+                $transaction->userId = $user_id;
+                $transaction->transaction = $TXN_ID;
+                $transaction->purchaseType = 'course_purchases';
+                $transaction->amount = $request->amount;
+                $transaction->currency = 'usd';
+                $transaction->save();
+
+                // course purchase
+                $coursePurchase = new CoursePurchase();
+                $coursePurchase->userId = $user_id;
+                $coursePurchase->courseId = $request->courseId;
+                $coursePurchase->transactionId = $transaction->id;
+                $coursePurchase->save();
+
+                // chat
+                $convo_chk_count = Conversation::where([
+                    ['message_from', $user_id],
+                    ['message_to', $teacherId]
+                ])
+                ->orWhere([
+                    ['message_to', $user_id],
+                    ['message_from', $teacherId]
+                ])
+                ->count();
+
+                if ($convo_chk_count == 0 && $teacherId != $user_id) {
+                    $conversation = new Conversation;
+                    $conversation->message_from = $user_id;
+                    $conversation->message_to = $teacherId;
+                    $conversation->save();
+                }
+
+                // notification
+                $adminMessage = $purchasingUserName.' purchased case study by '.$teacherName;
+                $expertMessage = $purchasingUserName.' purchased case study, '.$courseName;
+                $userMessage = 'case study purchased, '.$courseName;
+
+                // NOTIFICATION - params - (sender, receiver, type, title, message, route)
+                // admin notification
+                createNotification($teacherId, 1, 'case_study_purchase', 'Case study purchase', $adminMessage, 'user.caseStudy.index');
+                // expert notification
+                createNotification($request->userId, $teacherId, 'case_study_purchase', 'Case study is purchased', $expertMessage, 'user.caseStudy.index');
+                createNotification($request->userId, $teacherId, 'case_study_purchase_chat', 'Now you can talk to '.$purchasingUserName, $expertMessage, 'user.chat.index');
+                // user notification
+                createNotification($teacherId, $request->userId, 'case_study_purchase', 'Thanks for purchasing Case study', $userMessage, 'user.caseStudy.index');
+                createNotification($teacherId, $request->userId, 'case_study_purchase_chat', 'Now you can talk to '.$teacherName, $userMessage, 'user.chat.index');
 
                 DB::commit();
                 return redirect()->route('front.purchase.success')->with('success', 'Payment successful');

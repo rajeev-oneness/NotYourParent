@@ -38,7 +38,7 @@
                         <button type="submit" class="btn btn-primary btn-sm btn-block">Pay ${{$teacher->hourly_rate/4}}</button>
                     @endauth
                     @guest
-                        <p class="small mb-0 text-danger">You have to login first to purchase session</p>
+                        <p class="small mb-0 text-danger">You have to login first</p>
                         <a href="{{url('login')}}" class="btn btn-danger btn-sm btn-block">Login now</a>
                     @endguest
                 </form>

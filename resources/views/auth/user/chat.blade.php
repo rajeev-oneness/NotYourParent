@@ -15,7 +15,7 @@
                     <div class="row mx-0">
                         <div class="col-md-12">
                             <div class="row">
-
+                                @if (count($data) > 0)
                                 <div class="col-md-3 px-0">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         @foreach($data as $index => $user)
@@ -65,6 +65,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                @else
+                                    <div class="col-md-12 text-center">
+                                        <p class="text-muted my-5"><em>No chats yet</em></p>
+                                    </div>
+                                @endif
                             </div>
                         </div>                       
                     </div>
@@ -115,9 +120,9 @@
         if (messages.length > 0) {
             $.each(messages,function(index, value){
                 if ('{{auth()->user()->id}}' == value.from_id) {
-                    chat += '<div class="col-12 text-right"><div class="alert alert-primary p-1 d-inline-block">'+value.message+'<p style="font-size: 11px">'+moment(value.created_at).fromNow()+'</p></div></div>';
+                    chat += '<div class="col-12 text-right"><div class="alert alert-primary p-1 d-inline-block" style="max-width: 60%;">'+value.message+'<p style="font-size: 11px">'+moment(value.created_at).fromNow()+'</p></div></div>';
                 } else {
-                    chat += '<div class="col-12"><div class="alert alert-secondary p-1 d-inline-block">'+value.message+'<p style="font-size: 11px">'+moment(value.created_at).fromNow()+'</p></div></div>';
+                    chat += '<div class="col-12"><div class="alert alert-secondary p-1 d-inline-block" style="max-width: 60%;">'+value.message+'<p style="font-size: 11px">'+moment(value.created_at).fromNow()+'</p></div></div>';
                 }
             });
         } else {
@@ -133,13 +138,12 @@
 
     $('#createNewChat').on('submit', function (e) {
         e.preventDefault();
-
         $.ajax({
             url : $(this).prop('action'),
             method : $(this).prop('method'),
             data : {'_token' : '{{csrf_token()}}', conversation_id : $('#conversation_id').val(), message : $('#typed_message').val()},
             success : function(result) {
-                $('#userMessages').append('<div class="col-12 text-right"><div class="alert alert-primary p-1 d-inline-block">'+$('#typed_message').val()+'<p style="font-size: 11px">just now</p></div></div>');
+                $('#userMessages').append('<div class="col-12 text-right"><div class="alert alert-primary p-1 d-inline-block" style="max-width: 60%;">'+result.data.message+'<p style="font-size: 11px">'+moment(result.data.created_at).fromNow()+'</p></div></div>');
                 $('#typed_message').val('');
             }
         });

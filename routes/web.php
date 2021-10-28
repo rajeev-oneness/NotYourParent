@@ -52,7 +52,8 @@ Route::get('/search', [FrontController::class,'homeExpertSearch'])->name('front.
 // Route::get('/directory', [FrontController::class,'directory'])->name('front.directory');
 
 // payment
-Route::post('/payment', [PaymentController::class, 'videoSession'])->name('payment.session.video');
+Route::post('/payment/session', [PaymentController::class, 'videoSession'])->name('payment.session.video');
+Route::post('/payment/case', [PaymentController::class, 'caseStudy'])->name('payment.casestudy');
 Route::get('/order-response', [PaymentController::class, 'orderSuccess'])->name('front.purchase.success');
 
 // Common Auth Routes
@@ -80,12 +81,12 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile/address/edit', [HomeController::class,'userAddressEdit'])->name('user.address.edit');
 	Route::put('user/profile/address/update', [HomeController::class,'userAddressUpdate'])->name('user.address.update');
 
-	// video sessions
-	Route::get('user/session', [HomeController::class,'sessionsIndex'])->name('user.sessions.index');
-	Route::get('user/sessions', [HomeController::class,'expertSessionsIndex'])->name('expert.sessions.index');
-
-	// notification read
-	Route::post('/read', [HomeController::class, 'readIndex'])->name('user.notification.read');
+	// purchase reports
+	Route::group(['prefix' => 'user/report'], function() {
+		Route::get('transaction', [HomeController::class,'transactionIndex'])->name('user.transactions.index');
+		Route::get('session', [HomeController::class,'sessionsIndex'])->name('user.sessions.index');
+		Route::get('case-study', [HomeController::class,'caseStudyReport'])->name('user.caseStudy.index');
+	});
 
 	// chat
 	Route::group(['prefix' => 'user/chat'], function() {
@@ -95,6 +96,12 @@ Route::group(['middleware' => 'auth'],function(){
 		Route::post('/new', [TeacherController::class, 'new'])->name('user.chat.new');
 	});
 
+	// notification read
+	Route::post('/read', [HomeController::class, 'readIndex'])->name('user.notification.read');
+
+	Route::get('/payment', function() {
+		return view('front.payment');
+	});
 });
 
 // Stripe Payment Route
