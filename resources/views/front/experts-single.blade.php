@@ -8,6 +8,82 @@
 @endsection
 
 @section('content')
+<style>
+    .star-rating {
+  font-size: 0;
+  white-space: nowrap;
+  display: inline-block;
+  /* width: 250px; remove this */
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+.star-rating i {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  /* width: 20%; remove this */
+  z-index: 1;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+.star-rating input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  display: inline-block;
+  /* width: 20%; remove this */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  position: relative;
+}
+.star-rating input:hover + i,
+.star-rating input:checked + i {
+  opacity: 1;
+}
+.star-rating i ~ i {
+  width: 40%;
+}
+.star-rating i ~ i ~ i {
+  width: 60%;
+}
+.star-rating i ~ i ~ i ~ i {
+  width: 80%;
+}
+.star-rating i ~ i ~ i ~ i ~ i {
+  width: 100%;
+}
+::after,
+::before {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.star-rating.star-5 {width: 250px;}
+.star-rating.star-5 input,
+.star-rating.star-5 i {width: 20%;}
+.star-rating.star-5 i ~ i {width: 40%;}
+.star-rating.star-5 i ~ i ~ i {width: 60%;}
+.star-rating.star-5 i ~ i ~ i ~ i {width: 80%;}
+.star-rating.star-5 i ~ i ~ i ~ i ~i {width: 100%;}
+
+.star-rating.star-3 {width: 150px;}
+.star-rating.star-3 input,
+.star-rating.star-3 i {width: 33.33%;}
+.star-rating.star-3 i ~ i {width: 66.66%;}
+.star-rating.star-3 i ~ i ~ i {width: 100%;}
+</style>
+
 <!-- featured expert starts -->
 <section class="featured_experts">
     <div class="container">
@@ -245,16 +321,59 @@
                     <h4 class="proxima_black text-uppercase white text-center">No testimonial found</h4>
                 @endforelse
             </div>
-        </div>    
+        </div>
 
-        {{-- <div class="text-center">
-            <a href="javascript:void(0);" class="parimary_btn green_btn">explore all</a>
-        </div> --}}
+        <div class="text-center">
+            <a href="javascript:void(0);" class="parimary_btn green_btn" data-toggle="modal" data-target="#reviewModal">Review expert</a>
+        </div>
         <div class="experts_testimonials_plane">
             <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Review {{$teacher->name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form action="{{route('user.review.create')}}" method="post" id="reviewSubmit" class="w-100">
+                        <div class="col-12">
+                            <span class="star-rating star-5">
+                                <input type="radio" name="rating" value="1"><i></i>
+                                <input type="radio" name="rating" value="2"><i></i>
+                                <input type="radio" name="rating" value="3"><i></i>
+                                <input type="radio" name="rating" value="4"><i></i>
+                                <input type="radio" name="rating" value="5"><i></i>
+                            </span>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="description"><p class="small text-muted mb-0">Review</p></label>
+                            <textarea class="form-control form-control-sm" name="description" id="description" style="height: 100px;min-height: 100px;max-height:200px;"></textarea>
+                        </div>
+                        <div class="col-12 text-right mt-3">
+                            <p class="small text-danger" id="reviewErrors"></p>
+                            <p class="small text-success" id="reviewSuccess"></p>
+                            @guest
+                               <p class="small text-danger">You have to login first to review experts</p>
+                               <a href="{{URL('login')}}" class="btn parimary_btn green_btn bg-danger">Login now</a>
+                            @endguest
+                            @auth
+                                <button type="submit" id="reviewSubmitBtn" class="btn parimary_btn green_btn">Submit</button>
+                            @endauth
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @include('front.modal.modals')
 
@@ -302,5 +421,37 @@
             }
         })
     }
+
+    $('#reviewSubmit').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).prop('action'),
+            method: $(this).prop('method'),
+            // dataType: 'json',
+            data: {
+                '_token': "{{ csrf_token() }}",
+                rating : $('input[name="rating"]:checked').val(),
+                description : $('textarea[name="description"]').val(),
+                teacherId : '{{$teacher->id}}'
+            },
+            success: function(response) {
+                if (response.status == 200) {
+                    $('#reviewErrors').text('');
+                    $('#reviewSuccess').text(response.message);
+
+                    setTimeout(() => {
+                        $('input[name="rating"]:checked').prop('checked', false);
+                        $('textarea[name="description"]').val('');
+                        $('#reviewModal').modal('hide');
+                    }, 2000);
+                } else {
+                    $('#reviewSuccess').text('');
+                    $('#reviewErrors').text(response.message);
+                }
+                $('#reviewSubmitBtn').prop('disabled', false);
+            }
+        });
+    });
 </script>
 @endsection

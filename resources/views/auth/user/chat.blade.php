@@ -66,8 +66,10 @@
                                     </div>
                                 </div>
                                 @else
-                                    <div class="col-md-12 text-center">
-                                        <p class="text-muted my-5"><em>No chats yet</em></p>
+                                    <div class="col-md-12 text-center my-5">
+                                        <p class="text-muted"><em>No chats yet</em></p>
+                                        <p class="small text-muted mt-3">You can talk to experts after you purchase their contents</p>
+                                        <a href="{{route('front.experts')}}" class="btn btn-sm btn-primary">View all experts</a>
                                     </div>
                                 @endif
                             </div>
@@ -149,4 +151,36 @@
         });
     });
 </script>   
+
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAYJjqz2ZIqdGMFO5SoWVJXkOaFNZ9eQ1U",
+        authDomain: "rajeevpushnotification.firebaseapp.com",
+        projectId: "rajeevpushnotification",
+        storageBucket: "rajeevpushnotification.appspot.com",
+        messagingSenderId: "22286065452",
+        appId: "1:22286065452:web:cfa73197b76a279d111689",
+        measurementId: "G-SEC697RZE8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    initFirebaseMessagingRegistration();
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function(token) {
+            console.log('Web Token Is',token);
+            $('#webToken').val(token);
+        }).catch(function (err) {
+            console.log('User Chat Token Error'+ err);
+        });
+    }
+
+    messaging.onMessage(function(payload) {
+        console.log(payload);
+    });
+</script>
 @endsection

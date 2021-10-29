@@ -13,11 +13,11 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('admin.dashboard')}}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
-                    @if(Auth::user()->user_type != 1)
-                        <li class="nav-item">
+                    {{-- @if(Auth::user()->user_type != 1) --}}
+                        {{-- <li class="nav-item">
                             <a class="nav-link {{(request()->is('user/points*') ? 'active' : '')}}" href="{{route('user.points')}}"><i class="fas fa-dollar-sign"></i>My Points</a>
-                        </li>
-                    @endif
+                        </li> --}}
+                    {{-- @endif --}}
 
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
@@ -99,6 +99,9 @@
                         </li>
                         <li class="nav-divider">Purchase related</li>
                         <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ (request()->is('user/report/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
                         </li>
                         <li class="nav-item">
@@ -119,6 +122,9 @@
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}
                         <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ (request()->is('user/report/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
                         </li>
                         <li class="nav-item">
@@ -127,6 +133,9 @@
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('user/chat*')) ? 'active' : '' }}" href="{{ route('user.chat.index') }}"><i class="fa fa-comment"></i>Chat</a>
                         </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/review*')) ? 'active' : '' }}" href="{{ route('user.review.index') }}"><i class="fa fa-star"></i>Review</a>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-cog"></i>Settings</a>
                         </li>

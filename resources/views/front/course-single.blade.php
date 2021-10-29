@@ -15,8 +15,11 @@
                 <img src="{{asset($course->image)}}" alt="">
 
                 <div class="purchase_holder mt-4">
+                    @if($coursePurchase == true)
+                    <a href="{{route('user.caseStudy.index')}}" class="btn btn-success btn-lg">Already purchased <i class="fas fa-chevron-right"></i></a>
+                    @else
                     <button class="btn btn-primary btn-lg" onclick="bookCaseStudyModal('{{$course->price}}')">Purchase now &amp; Unlock video lesson</button>
-                    {{-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#purchase-modal">Purchase now &amp; Unlock video lesson</button> --}}
+                    @endif
                 </div>
             </div>
             <div class="article_right">

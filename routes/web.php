@@ -92,12 +92,18 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('case-study', [HomeController::class, 'caseStudyReport'])->name('user.caseStudy.index');
 	});
 
-	// chat
+	// chat group
 	Route::group(['prefix' => 'user/chat'], function () {
-		Route::get('/', [TeacherController::class, 'chatIndex'])->name('user.chat.index');
-		// Route::get('/{id}', [TeacherController::class, 'single'])->name('teacher.chat.single');
-		Route::post('/', [TeacherController::class, 'create'])->name('user.chat.create');
-		Route::post('/new', [TeacherController::class, 'new'])->name('user.chat.new');
+		Route::get('/', [HomeController::class, 'chatIndex'])->name('user.chat.index');
+		// Route::get('/{id}', [HomeController::class, 'single'])->name('teacher.chat.single');
+		Route::post('/', [HomeController::class, 'create'])->name('user.chat.create');
+		// Route::post('/new', [HomeController::class, 'new'])->name('user.chat.new');
+	});
+
+	// review group
+	Route::group(['prefix' => 'user/review'], function () {
+		Route::get('/', [HomeController::class, 'reviewIndex'])->name('user.review.index');
+		Route::post('/create', [HomeController::class, 'reviewCreate'])->name('user.review.create');
 	});
 
 	// notification read

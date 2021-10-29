@@ -15,6 +15,7 @@ use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Knowledgebank;
 use App\Models\Knowledgebankcategory;
+use App\Models\Review;
 
 class TeacherController extends Controller
 {
@@ -52,60 +53,6 @@ class TeacherController extends Controller
     {
         Slot::where('id', $id)->delete();
         return redirect()->route('teacher.my-slots.slotList');
-    }
-
-    // chat script
-    public function chatIndex()
-    {
-        $loginUserId = auth()->user()->id;
-
-        $data = Conversation::where('message_from', $loginUserId)->orWhere('message_to', $loginUserId)->get();
-        return view('auth.user.chat', compact('data'));
-    }
-
-    public function create(Request $req)
-    {
-        $req->validate([
-            'conversation_id' => 'required',
-            'message' => 'required',
-        ]);
-        $message = new Message();
-        $message->from_id = Auth::user()->id;
-        $message->message = strCheck($req->message);
-        $message->conversation_id = $req->conversation_id;
-        $message->is_seen = 1;
-        $message->save();
-        $message->created_at = $message->created_at->diffForHumans();
-        return response()->json(['data' => $message]);
-        // return redirect()->back()->with('success', 'message sent');
-    }
-
-    public function new(Request $req)
-    {
-        $user_id = Auth::user()->id;
-        $req->validate([
-            'student_id' => 'required'
-        ]);
-
-        $convo_chk_count = Conversation::where([
-            ['message_from', $user_id],
-            ['message_to', $req->student_id]
-        ])
-            ->orWhere([
-                ['message_to', $user_id],
-                ['message_from', $req->student_id]
-            ])
-            ->count();
-
-        if ($convo_chk_count == 0) {
-            $conversation = new Conversation;
-            $conversation->message_from = $user_id;
-            $conversation->message_to = $req->student_id;
-            $conversation->save();
-            return redirect()->back();
-        } else {
-            return redirect()->route('user.chat.index');
-        }
     }
 
     public function knowledgeBankIndex()

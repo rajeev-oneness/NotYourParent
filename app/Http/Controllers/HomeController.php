@@ -9,12 +9,16 @@ use App\Models\Topic;
 use App\Models\TeacherTopic;
 use App\Models\UserLanguage;
 use App\Models\Address;
+use App\Models\Conversation;
 use App\Models\CoursePurchase;
+use App\Models\Message;
 use App\Models\Notification;
+use App\Models\Review;
 use App\Models\SlotBooking;
 use App\Models\Transaction;
 use App\Models\UserLanguagesKnown;
 use App\Models\UserAvailability;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -374,5 +378,141 @@ class HomeController extends Controller
         $noti = Notification::findOrFail($request->id);
         $noti->read_flag = 1;
         $noti->save();
+    }
+
+    // chat script
+    public function chatIndex()
+    {
+        $loginUserId = auth()->user()->id;
+
+        $data = Conversation::where('message_from', $loginUserId)->orWhere('message_to', $loginUserId)->get();
+        return view('auth.user.chat', compact('data'));
+    }
+
+    public function create(Request $req)
+    {
+        $req->validate([
+            'conversation_id' => 'required',
+            'message' => 'required',
+        ]);
+        $message = new Message();
+        $message->from_id = Auth::user()->id;
+        $message->message = strCheck($req->message);
+        $message->conversation_id = $req->conversation_id;
+        $message->is_seen = 1;
+        $message->save();
+        $message->created_at = $message->created_at->diffForHumans();
+        return response()->json(['data' => $message]);
+        // return redirect()->back()->with('success', 'message sent');
+    }
+
+    // public function new(Request $req)
+    // {
+    //     $user_id = Auth::user()->id;
+    //     $req->validate([
+    //         'student_id' => 'required'
+    //     ]);
+
+    //     $convo_chk_count = Conversation::where([
+    //         ['message_from', $user_id],
+    //         ['message_to', $req->student_id]
+    //     ])
+    //         ->orWhere([
+    //             ['message_to', $user_id],
+    //             ['message_from', $req->student_id]
+    //         ])
+    //         ->count();
+
+    //     if ($convo_chk_count == 0) {
+    //         $conversation = new Conversation;
+    //         $conversation->message_from = $user_id;
+    //         $conversation->message_to = $req->student_id;
+    //         $conversation->save();
+    //         return redirect()->back();
+    //     } else {
+    //         return redirect()->route('user.chat.index');
+    //     }
+    // }
+
+    // review script
+    public function reviewIndex()
+    {
+        $loginUserId = auth()->user()->id;
+
+        $data = Conversation::where('message_from', $loginUserId)->orWhere('message_to', $loginUserId)->get();
+        return view('auth.user.review', compact('data'));
+    }
+
+    public function reviewCreate(Request $req)
+    {
+        $user = $req->user();
+        if ($user) {
+            $rules = [
+                'rating' => 'required|numeric|min:1',
+                'description' => 'required|min:1',
+                'teacherId' => 'required|numeric|min:1',
+            ];
+            $validate = validator()->make($req->all(), $rules);
+
+            if (!$validate->fails()) {
+                // check if user reviewed before
+                $chkReview = Review::where([['userId', $user->id], ['teacherId', $req->teacherId]])->count();
+
+                if ($chkReview > 0) {
+                    return response()->json(['status' => 400, 'message' => 'You can not review more than once']);
+                } else {
+                    // conversation between user & expert
+                    $convo_chk_count = Conversation::where([
+                        ['message_from', $user->id],
+                        ['message_to', $req->teacherId]
+                    ])->orWhere([
+                            ['message_to', $user->id],
+                            ['message_from', $req->teacherId]
+                        ])->count();
+
+                    if ($convo_chk_count > 0) {
+
+                        DB::beginTransaction();
+
+                        try {
+                            $teacher = User::select('review', 'rating_count')->where('id', $req->teacherId)->first();
+                            $old_rating_count = $teacher->rating_count;
+                            $old_rating = $teacher->review;
+
+                            if ($old_rating_count == 0) {
+                                $new_rating = $req->rating;
+                                $new_rating_count = 1;
+                            } else {
+                                $new_rating = ($old_rating + $req->rating)/ 2;
+                                $new_rating_count = $old_rating_count + 1;
+                            }
+
+                            $teacherUpdt = User::where('id', $req->teacherId)->first();
+                            $teacherUpdt->review = $new_rating;
+                            $teacherUpdt->rating_count = $new_rating_count;
+                            $teacherUpdt->update();
+
+                            $review = new Review();
+                            $review->rating = $req->rating;
+                            $review->description = $req->description;
+                            $review->userId = $user->id;
+                            $review->teacherId = $req->teacherId;
+                            $review->save();
+                            DB::commit();
+                            return response()->json(['status' => 200, 'message' => 'Thanks for your review']);
+                        } catch(Exception $e) {
+                            DB::rollback();
+                            return (object)[];
+                        }
+                    } else {
+                        return response()->json(['status' => 400, 'message' => 'You have to purchase their content first']);
+                    }
+                }
+            } else {
+                return response()->json(['status' => 400, 'message' => $validate->errors()->first()]);
+            }
+        } else {
+            return response()->json(['status' => 400, 'message' => 'Login first']);
+        }
     }
 }

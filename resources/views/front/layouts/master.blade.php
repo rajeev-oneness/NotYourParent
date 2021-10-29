@@ -78,7 +78,7 @@
 							<div class="row mt-3">
 								<div class="col-12 text-right">
 									<a type="button" class="" data-dismiss="modal">Cancel</a>
-									<button type="submit" class="btn btn-sm btn-primary">Pay (<span class="currencySymbolToPay">$</span><span class="amountToPay">0.00</span>)</button>
+									<button type="submit" id="stripePayButton" class="btn btn-sm btn-primary">Pay (<span class="currencySymbolToPay">$</span><span class="amountToPay">0.00</span>)</button>
 								</div>
 							</div>
 							{{-- <p class="small">This payment is processed by Stripe Payment gateway</p> --}}
@@ -101,6 +101,14 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 		<script>
+			$(document).ready(function() {
+				$('.loading-data').hide();
+				$(document).on('submit', 'form', function() {
+					$('button').attr('disabled', 'disabled');
+					$('.loading-data').show();
+				});
+			});
+
 			$('#expert_input').on('keyup', function() {
 				var val = $(this).val();
 				if (val.length > 1) {
@@ -196,6 +204,7 @@
 				if(parseInt(price) < 1){
 					alert('Price must be at least '+ currencySymbol(currency) +' 1')
 				}else{
+					event.preventDefault();
 					stripePrice = price;redirectURL = redirectionURL;currencyToPayment = currency;
 					if(type == 'video'){
 						redirectURL += '/'+slotId;
@@ -207,6 +216,7 @@
 					$('.amountToPay').text(price);
 					$('#bookSessionModal').modal('hide');
 					$('#coursePurchaseModal').modal('hide');
+					$('#stripePayButton').prop("disabled", false);
 					$('#stripePaymentModal').modal('show');
 				}
 			}
