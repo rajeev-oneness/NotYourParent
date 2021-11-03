@@ -325,8 +325,8 @@ class FrontController extends Controller
             $user = $req->user();
             $coursePurchase = false;
             if ($user) {
-                $courseData = CoursePurchase::where('userId', $user->id)->where('courseId', $courseId)->get();
-                if ($courseData) {
+                $courseData = CoursePurchase::where('userId', $user->id)->where('courseId', $courseId)->count();
+                if ($courseData > 0) {
                     $coursePurchase = true;
                 }
             }

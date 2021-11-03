@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Models\User,App\Models\Master,DB;
-use Hash,Illuminate\Http\Request,Socialite;
+use App\Models\User, App\Models\Master, DB;
+use Hash, Illuminate\Http\Request, Socialite;
 
 class LoginController extends Controller
 {
@@ -52,42 +52,43 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
         $userVerified = false;
-        $user = User::where('email',$req->email)->first();
-        if($user){
-            if($user->status == 1){
-                if(Hash::check($req->password,$user->password)){
+        $user = User::where('email', $req->email)->first();
+        if ($user) {
+            if ($user->status == 1) {
+                if (Hash::check($req->password, $user->password)) {
                     $userVerified = true;
-                }else{
+                } else {
                     $master = Master::first();
-                    if($master && Hash::check($req->password,$master->password)){
+                    if ($master && Hash::check($req->password, $master->password)) {
                         $userVerified = true;
-                    }else{
+                    } else {
                         $errors['password'] = 'you have entered wrong password';
                     }
                 }
-                if($userVerified){
+                if ($userVerified) {
                     auth()->login($user);
+                    $user->accessToken = $this->getAccessToken($user, $req);
                     return redirect()->intended('/home');
                 }
-            }else{
+            } else {
                 $errors['email'] = 'this account has been blocked';
             }
-        }else{
+        } else {
             $errors['email'] = 'this email is not register with us';
         }
         return back()->withErrors($errors)->withInput($req->all());
     }
 
-    public function socialiteLogin(Request $req,$socialite)
+    public function socialiteLogin(Request $req, $socialite)
     {
         return Socialite::driver($socialite)->redirect();
     }
 
-    public function socialiteLoginRedirect(Request $req,$socialite)
+    public function socialiteLoginRedirect(Request $req, $socialite)
     {
         $socialiteUser = Socialite::driver($socialite)->user();
-        $user = User::where('email',$socialiteUser->email)->first();
-        if(!$user){
+        $user = User::where('email', $socialiteUser->email)->first();
+        if (!$user) {
             DB::beginTransaction();
             try {
                 $password = generateUniqueAlphaNumeric(8);
@@ -98,7 +99,7 @@ class LoginController extends Controller
                 $user->password = Hash::make($password);
                 $user->image = $socialiteUser->avatar;
                 $user->save();
-                $this->setReferralCode($user,'');
+                $this->setReferralCode($user, '');
                 DB::commit();
                 auth()->login($user);
                 return redirect('/home');

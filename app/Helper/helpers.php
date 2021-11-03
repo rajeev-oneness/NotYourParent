@@ -206,3 +206,48 @@ function strCheck($string = "")
 	}
 	return $returnString;
 }
+
+function getUserDeviceTokens($fullRequest)
+{
+	$user = (object)[];
+	if (!empty($fullRequest->header('Authorization'))) {
+		$token = (explode(' ', $fullRequest->header('Authorization'))[1] ?? '');
+		dd($token);
+		$token_parts = explode('.', $token);
+		$token_header = ($token_parts[1] ?? '');
+		$token_header_json = base64_decode($token_header);
+		$token_header_array = json_decode($token_header_json, true);
+		$token_id = $token_header_array['jti'];
+		$userToken = \App\Models\OAuthAccessToken::where('id', $token_id)->first();
+		if ($userToken) {
+			$deviceTokens = \App\Models\OAuthAccessToken::select('device_token')->where('user_id', $userToken->user_id)->where('revoked', false)->pluck('device_token');
+			return $deviceTokens;
+		}
+	}
+	return $user;
+}
+function sendPushNotification($devideType = 'web', $deviceToken = [], $payload = [])
+{
+	if ($deviceToken != '') {
+		$API_ACCESS_KEY = 'AAAABTBaXyw:APA91bEO9aSMDXRqOfHX62UqcucWAq31dkjhidUygr5_i7eGKKYOQTn-mQ4pYJz4gVcgmL-hEWnmGE0ppc_cy44Vlu_ecXqi1mylEwnx4rplLLPs5zZ6OQcPjX12_n1ES7kG9pfL9dD9';
+		$firebaseToken = $deviceToken;
+		$data = [
+			"registration_ids" => $firebaseToken,
+			"notification" => [
+				'data' => $payload,
+			],
+		];
+		$headers = [
+			'Authorization: key=' . $API_ACCESS_KEY,
+			'Content-Type: application/json',
+		];
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+		$response = curl_exec($ch);
+	}
+}

@@ -51,7 +51,7 @@ class CourseController extends Controller
             'duration' => 'required',
             'categoryId' => 'required',
             'teacherId' => 'required',
-            'preview_video_url' => 'nullable|max:5000',
+            'preview_video_url' => 'nullable|max:50000',
             'original_video_url' => 'required',
         ]);
 

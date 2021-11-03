@@ -381,7 +381,7 @@ class HomeController extends Controller
     }
 
     // chat script
-    public function chatIndex()
+    public function chatIndex(Request $req)
     {
         $loginUserId = auth()->user()->id;
 
@@ -466,9 +466,9 @@ class HomeController extends Controller
                         ['message_from', $user->id],
                         ['message_to', $req->teacherId]
                     ])->orWhere([
-                            ['message_to', $user->id],
-                            ['message_from', $req->teacherId]
-                        ])->count();
+                        ['message_to', $user->id],
+                        ['message_from', $req->teacherId]
+                    ])->count();
 
                     if ($convo_chk_count > 0) {
 
@@ -483,7 +483,7 @@ class HomeController extends Controller
                                 $new_rating = $req->rating;
                                 $new_rating_count = 1;
                             } else {
-                                $new_rating = ($old_rating + $req->rating)/ 2;
+                                $new_rating = ($old_rating + $req->rating) / 2;
                                 $new_rating_count = $old_rating_count + 1;
                             }
 
@@ -500,7 +500,7 @@ class HomeController extends Controller
                             $review->save();
                             DB::commit();
                             return response()->json(['status' => 200, 'message' => 'Thanks for your review']);
-                        } catch(Exception $e) {
+                        } catch (Exception $e) {
                             DB::rollback();
                             return (object)[];
                         }
