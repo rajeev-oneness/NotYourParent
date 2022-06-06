@@ -837,7 +837,7 @@ button {
     flex-direction: column;
     justify-content: space-around;
     background-color: #fff;
-    padding: 0 30px;
+    padding: 30px;
 }
 .calender_heading {
     width: 100%;

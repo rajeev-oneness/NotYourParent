@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title','Video sessions')
+@section('title','Transactions')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="card text-left">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Purchased Video Sessions</h5></div>
+                        <div class="col-6"><h5 class="mb-0">Transactions</h5></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -18,10 +18,10 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Timing</th>
-                                    <th>Details</th>
-                                    <th>Note</th>
-                                    <th>Action</th>
+                                    <th>Purchased by</th>
+                                    <th>TXN_ID</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
                                     <th>Purchased at</th>
                                 </tr>
                             </thead>
@@ -30,32 +30,26 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
-                                        <p class="small text-muted" style="white-space: nowrap">
-                                            DATE :
-                                            <span class="text-dark">{{ $item->slotDetails->date ? date('j F, Y', strtotime($item->slotDetails->date)) : '' }}</span>
-                                        </p>
                                         <p class="small text-muted">
-                                            TIME :
-                                            <span class="text-dark">{{ date('g:i A', strtotime($item->slotDetails->time)) }}</span>
+                                            <span class="text-dark">{{ $item->userDetail->name }}</span>
                                         </p>
                                     </td>
                                     <td>
                                         <p class="small text-muted">
-                                            EXPERT :
-                                            <span class="text-dark">{{ $item->slotDetails->expertDetails->name }}</span>
-                                        </p>
-                                        <p class="small text-muted">
-                                            USER :
-                                            <span class="text-dark">{{ $item->userDetails->name }}</span>
+                                            <span class="text-dark">#{{ $item->transaction }}</span>
                                         </p>
                                     </td>
                                     <td>
-                                        <p class="small text-muted">
-                                            <span class="text-dark">{{$item->slotDetails->note}}</span>
-                                        </p>
+                                        @if ($item->purchaseType == 'course_purchases')
+                                            <a href="{{route('user.caseStudy.index')}}">Case study</a>
+                                        @else
+                                            <a href="{{route('user.sessions.index')}}">Video session</a>
+                                        @endif
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <a href="{{$item->join_url}}" class="btn btn-sm btn-primary" style="white-space: nowrap" target="_blank">Start Video <i class="fa fa-video"></i></a>
+                                    <td>
+                                        <p class="small text-muted">
+                                            <span class="text-dark">{{currencySymbol($item->currency)}}{{$item->amount}}</span>
+                                        </p>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>

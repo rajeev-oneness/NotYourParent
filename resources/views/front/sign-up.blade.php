@@ -49,10 +49,10 @@
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
 
-					@error('referral')
+					{{-- @error('referral')
 						<span class="text-danger"><small>{{$message}}</small></span>
 					@enderror
-					<input class="email" type="text" name="referral" placeholder="Referral Code (if any)" value="{{old('referral')}}">
+					<input class="email" type="text" name="referral" placeholder="Referral Code (if any)" value="{{old('referral')}}"> --}}
 
 					@error('name')
 						<span class="text-danger"><small>{{$message}}</small></span>

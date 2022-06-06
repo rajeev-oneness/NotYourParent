@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Message extends Model
+class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // public function getHumanDate()
-    // {
-    //     return $this->created_at->diffForHumans();
-    // }
+    public function userDetail()
+    {
+        return $this->belongsTo('App\Models\User', 'userId', 'id');
+    }
 }

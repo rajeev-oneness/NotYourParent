@@ -28,6 +28,67 @@
 		@include('front.layouts.footer')
 		<!-- main_footer -->
 
+		<!-- stripe Payement -->
+		<div class="modal fade align-modal" id="stripePaymentModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="stripePaymentModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="stripePaymentModalLabel">Stripe payment gateway</h5>
+						<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button> -->
+					</div>
+					<div class="modal-body">
+						<form role="form" action="{{ route('stripe.payment.store') }}" method="POST" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_TYooMQauvdEDq54NiTphI7jx" id="payment-form">
+						@csrf
+							<div class="row">
+								<div class="col-12 required">
+									<label for="">Name on the card</label>
+									<input type="text" value="Test" class="form-control form-control-sm" placeholder="Name on the card" size='4'>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 border-0 mt-2 card required">
+									<label for="">Card number</label>
+									<input type="text" value="4242424242424242" class="form-control form-control-sm card-number" placeholder="Card number" size='20'>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-6 cvc required">
+									<label for="">CVC</label>
+									<input type="text" value="123" class="form-control form-control-sm mr-2 card-cvc" placeholder="CVC">
+								</div>
+								<div class="col-6 expiration required">
+									<label for="">Expiry</label>
+									<div class="d-flex">
+										<input type="text" value="{{date('m',strtotime('+1 month'))}}" class="form-control form-control-sm mr-2 card-expiry-month" placeholder="MM" size='2'>
+										<input type="text" value="{{date('Y',strtotime('+1 year'))}}" class="form-control form-control-sm card-expiry-year" placeholder="YYYY" size='4'>
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-12 error hide">
+									<p class="text-danger" style="font-size: 12px">@error('stripePaymentGateway'){{$message}}@enderror<!-- Please correct the errors and try again.--></p>
+								</div>
+							</div>
+
+							<div class="row mt-3">
+								<div class="col-12 text-right">
+									<a type="button" class="" data-dismiss="modal">Cancel</a>
+									<button type="submit" id="stripePayButton" class="btn btn-sm btn-primary">Pay (<span class="currencySymbolToPay">$</span><span class="amountToPay">0.00</span>)</button>
+								</div>
+							</div>
+							{{-- <p class="small">This payment is processed by Stripe Payment gateway</p> --}}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- stripe Payment End -->
+
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -38,7 +99,16 @@
 		<script src="{{asset('design/js/sweetalert.min.js')}}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
+		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 		<script>
+			$(document).ready(function() {
+				$('.loading-data').hide();
+				$(document).on('submit', 'form', function() {
+					$('button').attr('disabled', 'disabled');
+					$('.loading-data').show();
+				});
+			});
+
 			$('#expert_input').on('keyup', function() {
 				var val = $(this).val();
 				if (val.length > 1) {
@@ -97,6 +167,113 @@
 
 			//local timezone
 			console.log(moment.tz.guess());
+
+			// payment modal 1 - VIDEO SESSION BOOK
+			var slotId = 0, courseId = 0;
+			function bookSessionModal(date, id, time, note = null) {
+				slotId = id;
+				$('#sessionDate').html(date);
+				$('#sessionslotId').val(id);
+				$('#sessionTime').html(time);
+				$('#sessionNote').html(note);
+				$('#bookSessionModal').modal('show');
+			}
+
+			// payment modal 2 - CASE STUDY BOOK
+			function bookCaseStudyModal(amount) {
+				$('.courseAmount').text(amount);
+				$('#courseFormAmountId').val(amount);
+				$('#coursePurchaseModal').modal('show');
+			}
+
+			// strpe payment gateway starts
+			function currencySymbol($type = ''){
+				$view = '$';
+				switch ($type) {
+					case 'gbp':$view = '£';break;
+					case 'usd':$view = '$';break;
+					case 'eur':$view = '€';break;
+					case 'euro':$view = '€';break;
+					default:$view = '$';break;
+				}
+				return $view;
+			}
+
+			var stripePrice = 0,redirectURL = '',currencyToPayment = 'usd';
+			function stripePaymentStart(price, redirectionURL, currency = 'usd',type = ''){
+				if(parseInt(price) < 1){
+					alert('Price must be at least '+ currencySymbol(currency) +' 1')
+				}else{
+					event.preventDefault();
+					stripePrice = price;redirectURL = redirectionURL;currencyToPayment = currency;
+					if(type == 'video'){
+						redirectURL += '/'+slotId;
+					}
+					//  else if (type == 'course') {
+					// 	redirectURL += '/'+courseId;
+					// }
+					$('.currencySymbolToPay').text(currencySymbol(currency));
+					$('.amountToPay').text(price);
+					$('#bookSessionModal').modal('hide');
+					$('#coursePurchaseModal').modal('hide');
+					$('#stripePayButton').prop("disabled", false);
+					$('#stripePaymentModal').modal('show');
+				}
+			}
+
+			$(function () {
+				var $form = $(".require-validation");
+				$('form.require-validation').bind('submit', function (e) {
+					var $form = $(".require-validation"),
+						inputSelector = ['input[type=email]', 'input[type=password]',
+							'input[type=text]', 'input[type=file]',
+							'textarea'
+						].join(', '),
+						$inputs = $form.find('.required').find(inputSelector),
+						$errorMessage = $form.find('div.error'),
+						valid = true;
+					$errorMessage.addClass('hide');
+
+					$('.has-error').removeClass('has-error');
+					$inputs.each(function (i, el) {
+						var $input = $(el);
+						if ($input.val() === '') {
+							$input.parent().addClass('has-error');
+							$errorMessage.removeClass('hide');
+							e.preventDefault();
+						}
+					});
+
+					if (!$form.data('cc-on-file')) {
+						e.preventDefault();
+						Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+						Stripe.createToken({
+							number: $('.card-number').val(),
+							cvc: $('.card-cvc').val(),
+							exp_month: $('.card-expiry-month').val(),
+							exp_year: $('.card-expiry-year').val()
+						}, stripeResponseHandler);
+					}
+				});
+
+				function stripeResponseHandler(status, response) {
+					if (response.error) {
+						$('.loading-data').hide();$('button').attr('disabled', false);
+						$('.error').removeClass('hide').find('.text-danger').text(response.error.message);
+					} else {
+						// token contains id, last4, and card type
+						var token = response['id'];
+						// insert the token into the form so it gets submitted to the server
+						$form.find('input[type=text]').empty();
+						$form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+						$form.append("<input type='hidden' name='amount' value='" + stripePrice + "'/>");
+						$form.append("<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>");
+						$form.append("<input type='hidden' name='currency' value='" + currencyToPayment + "'/>");
+						$form.get(0).submit();
+					}
+				}
+			});
+			// strpe payment gateway ends
     	</script>
         @yield('script')
 	</body>

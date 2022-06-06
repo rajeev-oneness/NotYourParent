@@ -44,7 +44,7 @@
         Route::get('/delete/{id}',[CourseController::class, 'destroy'])->name('admin.course.delete');
     });
 
-    Route::group(['prefix' => 'contact-us'], function() {
+    Route::group(['prefix' => 'settings/contact-us'], function() {
         Route::get('/',[AdminController::class, 'contactUs'])->name('admin.contactUs.index');
         Route::get('/edit/{id}',[AdminController::class, 'editContactUs'])->name('admin.contactUs.edit');
         Route::put('/update/{id}',[AdminController::class, 'updateContactUs'])->name('admin.contactUs.update');
@@ -130,6 +130,10 @@
         Route::get('/privact-policy/edit/{id}',[CrudController::class, 'privacyPolicyEdit'])->name('admin.privacyPolicy.edit');
         Route::put('/privact-policy/update/{id}',[CrudController::class, 'privacyPolicyUpdate'])->name('admin.privacyPolicy.update');
     });
+
+    // Route::group(['prefix' => 'sessions'], function() {
+    //     Route::get('/',[AdminController::class, 'purchasedVideoSessions'])->name('admin.sessions.index');
+    // });
 
     Route::get('referred_to/user/{userId}',[UserController::class,'getReferredToList'])->name('admin.referral.referred_to');
 	Route::get('user/points/{userId}',[UserController::class,'getUserPoints'])->name('admin.user.points');

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User, App\Models\Category;
 use App\Models\Article, App\Models\ArticleTag;
 use App\Models\Course, App\Models\Testimonial;
+use App\Models\CoursePurchase;
 use App\Models\Knowledgebank;
 use App\Models\Topic, App\Models\TeacherTopic;
 use App\Models\Faq;
@@ -313,7 +314,6 @@ class FrontController extends Controller
     public function getSlotByDate(Request $req)
     {
         $slot = Slot::where('teacherId', $req->expertId)->where('date', $req->date)->get();
-        // dd($slot);
         $date = date('D M d', strtotime($req->date));
 
         return response()->json(['data' => $slot, 'date' => $date]);
@@ -322,9 +322,17 @@ class FrontController extends Controller
     public function coursesSingle(Request $req, $courseId)
     {
         if (!empty($req->courseId)) {
+            $user = $req->user();
+            $coursePurchase = false;
+            if ($user) {
+                $courseData = CoursePurchase::where('userId', $user->id)->where('courseId', $courseId)->count();
+                if ($courseData > 0) {
+                    $coursePurchase = true;
+                }
+            }
             $course = Course::join('categories', 'categories.id', '=', 'courses.categoryId')->select('courses.*', 'categories.name as category_name')->find($req->courseId);
             $randomCourses = Course::inRandomOrder()->limit(5)->get();
-            return view('front.course-single', compact('course', 'randomCourses'));
+            return view('front.course-single', compact('course', 'randomCourses', 'coursePurchase'));
         }
     }
 

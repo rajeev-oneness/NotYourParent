@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Message extends Model
+class Notification extends Model
 {
     use HasFactory, SoftDeletes;
-
-    // public function getHumanDate()
-    // {
-    //     return $this->created_at->diffForHumans();
-    // }
 }

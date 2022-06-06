@@ -24,6 +24,12 @@
                             <strong>Thank you for your purchase</strong>
                         </div>
                     @endif
+
+                    @if (Session::get('error'))
+                        <div class="alert alert-danger" role="alert">
+                            <strong>{{Session::get('error')}}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

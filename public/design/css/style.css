@@ -1491,15 +1491,17 @@ Top Header
     margin: 0px;
 }
 
-.nav-user-name {}
-
 .nav-user-info {
-    background-color: #5969ff;
+    background-color: #89d541;
     line-height: 1.4;
     padding: 12px;
-    color: #fff;
+    color: #0e0c28;
     font-size: 13px;
     border-radius: 2px 2px 0 0;
+}
+
+.nav-user-name {
+    color: inherit;
 }
 
 .nav-user-info .status {
@@ -7248,3 +7250,102 @@ Media Query
     padding: 12px 12px 0px 12px;
 }
 /***************** Sweet Alert Design END **********************/
+.noti-details {
+    height: 267px;
+    overflow-y: scroll;
+}
+.single-noti {
+    margin-bottom: 5px;
+}
+
+.single-noti.unread-noti {
+    background-color: #89d64073 !important;
+    color: #000 !important;
+}
+
+.single-noti.read-noti {
+    background-color: transparent !important;
+    color: #ccc !important;
+}
+
+.single-noti.unread-noti:hover {
+    background-color: #89d640b5 !important;
+}
+
+.single-noti.read-noti:hover {
+    background-color: #f1f1f1 !important;
+}
+
+.navbar-right-top .nav-item .nav-link.bell-icon {
+    font-size: 19px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 4px 6px;
+    line-height: 1;
+    background-color: #fff;
+    border: 2px solid #cdcdcd;
+    margin: 13px;
+    position: relative;
+}
+
+.navbar-right-top .nav-item .nav-link.bell-icon span.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 13px;
+}
+
+.navbar-right-top .nav-item .nav-link.bell-icon:hover {
+    background-color: #f1f1f1;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus, .sidebar-dark.nav-left-sidebar .navbar-nav .nav-link.active {
+    background-color: #89d640;
+    color: #0e0c28;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus, .sidebar-dark.nav-left-sidebar .navbar-nav .nav-link.active:hover {
+    background-color: #89d640;
+    color: #0e0c28;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus, .sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:hover {
+    background-color: #89d64040;
+}
+
+.sidebar-dark.nav-left-sidebar .nav-link i {
+    color: #ffffff;
+}
+
+.sidebar-dark.nav-left-sidebar .nav-link.active i {
+    color: #0e0c28;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link.active:hover {
+    background-color: #89d640 !important;
+    color: #0e0c28 !important;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: absolute;
+    padding: 0;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #0e0c28;
+}
+
+::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #0e0c28;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #89d640;
+}

@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title','Video sessions')
+@section('title','Case study report')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="card text-left">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Purchased Video Sessions</h5></div>
+                        <div class="col-6"><h5 class="mb-0">Purchased Case study</h5></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -18,10 +18,9 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Timing</th>
-                                    <th>Details</th>
-                                    <th>Note</th>
-                                    <th>Action</th>
+                                    <th>User</th>
+                                    <th>Course</th>
+                                    <th>Watch</th>
                                     <th>Purchased at</th>
                                 </tr>
                             </thead>
@@ -30,32 +29,38 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
-                                        <p class="small text-muted" style="white-space: nowrap">
-                                            DATE :
-                                            <span class="text-dark">{{ $item->slotDetails->date ? date('j F, Y', strtotime($item->slotDetails->date)) : '' }}</span>
-                                        </p>
-                                        <p class="small text-muted">
-                                            TIME :
-                                            <span class="text-dark">{{ date('g:i A', strtotime($item->slotDetails->time)) }}</span>
-                                        </p>
-                                    </td>
-                                    <td>
+                                        @if (Auth::user()->id == 1)
                                         <p class="small text-muted">
                                             EXPERT :
-                                            <span class="text-dark">{{ $item->slotDetails->expertDetails->name }}</span>
+                                            <span class="text-dark">{{ $item->courseDetails->teacherDetail->name }}</span>
                                         </p>
                                         <p class="small text-muted">
                                             USER :
                                             <span class="text-dark">{{ $item->userDetails->name }}</span>
                                         </p>
+                                        @endif
+                                        @if (Auth::user()->id == 2)
+                                        <p class="small text-muted">
+                                            USER :
+                                            <span class="text-dark">{{ $item->userDetails->name }}</span>
+                                        </p>
+                                        @endif
+                                        @if (Auth::user()->id == 3)
+                                        <p class="small text-muted">
+                                            EXPERT :
+                                            <span class="text-dark">{{ $item->courseDetails->teacherDetail->name }}</span>
+                                        </p>
+                                        @endif
                                     </td>
                                     <td>
                                         <p class="small text-muted">
-                                            <span class="text-dark">{{$item->slotDetails->note}}</span>
+                                            <span class="text-dark">{{$item->courseDetails->name}}</span>
                                         </p>
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <a href="{{$item->join_url}}" class="btn btn-sm btn-primary" style="white-space: nowrap" target="_blank">Start Video <i class="fa fa-video"></i></a>
+                                    <td>
+                                        <video controls muted height="100">
+                                            <source src="{{asset($item->courseDetails->original_video_url)}}" type="video/mp4">
+                                        </video>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>

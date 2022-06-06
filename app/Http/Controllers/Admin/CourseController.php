@@ -51,13 +51,33 @@ class CourseController extends Controller
             'duration' => 'required',
             'categoryId' => 'required',
             'teacherId' => 'required',
+            'preview_video_url' => 'nullable|max:50000',
+            'original_video_url' => 'required',
         ]);
-        $fileName = time().'.'.$request->image->extension();
+
+        // handling image upload
+        $fileName = time().'-image.'.$request->image->extension();
         $request->image->move(public_path('uploads/'), $fileName);
         $image ='uploads/'.$fileName;
+
+        // handling preview video upload
+        $preview_video_url = '';
+        if (!empty($request->preview_video_url)) {
+            $preview_video_fileName = time().'-temvu.'.$request->preview_video_url->extension();
+            $request->preview_video_url->move(public_path('uploads/'), $preview_video_fileName);
+            $preview_video_url ='uploads/'.$preview_video_fileName;
+        }
+
+        // handling original video upload
+        $original_video_fileName = time().'-orgvu.'.$request->original_video_url->extension();
+        $request->original_video_url->move(public_path('uploads/'), $original_video_fileName);
+        $original_video_url ='uploads/'.$original_video_fileName;
+
         $course = new Course();
         $course->categoryId = $request->categoryId;
         $course->image = $image;
+        $course->preview_video_url = $preview_video_url;
+        $course->original_video_url = $original_video_url;
         $course->name = $request->name;
         $course->description = $request->description;
         $course->duration = $request->duration;
@@ -94,6 +114,8 @@ class CourseController extends Controller
             'name' => 'required|string',
             'description' => 'required',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'preview_video_url' => 'nullable|max:5000',
+            'original_video_url' => 'nullable',
             'price' => 'required',
             'duration' => 'required',
             'categoryId' => 'required',
@@ -107,6 +129,30 @@ class CourseController extends Controller
             $image ='uploads/'.$fileName;
             Course::where('id', $id)->update([
                 'image' => $image,
+            ]);
+        }
+
+        // preview video upload handling
+        if($request->hasFile('preview_video_url')) {
+            $oldFile = public_path(Course::find($id)->preview_video_url);
+            File::delete($oldFile);
+            $fileName = time().'-temvu.'.$request->preview_video_url->extension();
+            $request->preview_video_url->move(public_path('uploads/'), $fileName);
+            $videoFile ='uploads/'.$fileName;
+            Course::where('id', $id)->update([
+                'preview_video_url' => $videoFile,
+            ]);
+        }
+
+        // original video upload handling
+        if($request->hasFile('original_video_url')) {
+            $oldFile = public_path(Course::find($id)->original_video_url);
+            File::delete($oldFile);
+            $fileName = time().'-temvu.'.$request->original_video_url->extension();
+            $request->original_video_url->move(public_path('uploads/'), $fileName);
+            $videoFile ='uploads/'.$fileName;
+            Course::where('id', $id)->update([
+                'original_video_url' => $videoFile,
             ]);
         }
         Course::where('id', $id)->update([

@@ -11,67 +11,68 @@
                     <li class="nav-divider"> Menu </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                        <a class="nav-link {{ Request::segment(2) === 'dashboard' ? 'active' : null }}" href="{{route('admin.dashboard')}}"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                     </li>
-                    @if(Auth::user()->user_type != 1)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>My Points</a>
-                        </li>
-                    @endif
+                    {{-- @if(Auth::user()->user_type != 1) --}}
+                        {{-- <li class="nav-item">
+                            <a class="nav-link {{(request()->is('user/points*') ? 'active' : '')}}" href="{{route('user.points')}}"><i class="fas fa-dollar-sign"></i>My Points</a>
+                        </li> --}}
+                    {{-- @endif --}}
 
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'user' ? 'active' : null }}" href="{{route('admin.user.index')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
+                            <a class="nav-link {{ Request::segment(2) === 'user' ? 'active' : null }}" href="{{route('admin.user.index')}}"><i class="fas fa-users"></i>Users</a>
                         </li>
-                        <!-- Main Section -->
                         <li class="nav-divider">Main</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'article' ? 'active' : null }}" href="{{route('admin.article.index')}}"><i class="fa fa-fw fa-user-circle"></i>Articles</a>
+                            <a class="nav-link {{ Request::segment(2) === 'article' ? 'active' : null }}" href="{{route('admin.article.index')}}"><i class="fas fa-rss-square"></i>Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'category' ? 'active' : null }}" href="{{route('admin.category.index')}}"><i class="fa fa-fw fa-user-circle"></i>Categories</a>
+                            <a class="nav-link {{ Request::segment(2) === 'category' ? 'active' : null }}" href="{{route('admin.category.index')}}"><i class="fas fa-clipboard-list"></i>Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'knowledgebank' ? 'active' : null }}" href="{{route('admin.knowledgebank.index')}}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
+                            <a class="nav-link {{ Request::segment(2) === 'knowledgebank' ? 'active' : null }}" href="{{route('admin.knowledgebank.index')}}"><i class="fas fa-box-open"></i>Knowledge Bank</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-fw fa-user-circle"></i>Case studies</a>
+                            <a class="nav-link {{ Request::segment(2) === 'course' ? 'active' : null }}" href="{{route('admin.course.index')}}"><i class="fa fa-book"></i>Case studies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'topic' ? 'active' : null }}" href="{{route('admin.topic.index')}}"><i class="fa fa-fw fa-user-circle"></i>Topics</a>
+                            <a class="nav-link {{ Request::segment(2) === 'topic' ? 'active' : null }}" href="{{route('admin.topic.index')}}"><i class="fas fa-list"></i>Topics</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('admin/language*')) ? 'active' : '' }}" href="{{route('admin.language.index')}}"><i class="fa fa-fw fa-user-circle"></i>Language</a>
+                            <a class="nav-link {{ (request()->is('admin/language*')) ? 'active' : '' }}" href="{{route('admin.language.index')}}"><i class="fas fa-language"></i>Language</a>
                         </li>
-
-                        <!-- Report Section -->
-                        {{-- <li class="nav-divider">Report</li> --}}
-
-                        <!-- Crud Operation Section -->
+                        <li class="nav-divider">Report</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/case-study*')) ? 'active' : '' }}" href="{{ route('user.caseStudy.index') }}"><i class="fa fa-book"></i>Case studies</a>
+                        </li>
                         <li class="nav-divider">Features</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'testimonial' ? 'active' : null }}" href="{{route('admin.testimonial.index')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
+                            <a class="nav-link {{ Request::segment(2) === 'testimonial' ? 'active' : null }}" href="{{route('admin.testimonial.index')}}"><i class="fas fa-comment-alt"></i>Testimonial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'faq' ? 'active' : null }}" href="{{route('admin.faq.index')}}"><i class="fa fa-fw fa-user-circle"></i>Faq</a>
+                            <a class="nav-link {{ Request::segment(2) === 'faq' ? 'active' : null }}" href="{{route('admin.faq.index')}}"><i class="fab fa-rocketchat"></i>Faq</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'commission' ? 'active' : null }}" href="{{route('admin.commission.index')}}"><i class="fa fa-fw fa-user-circle"></i>Commissions</a>
+                            <a class="nav-link {{ Request::segment(2) === 'commission' ? 'active' : null }}" href="{{route('admin.commission.index')}}"><i class="fas fa-dollar-sign"></i>Commissions</a>
                         </li>
                         <li class="nav-item mb-5">
-                            <a class="nav-link {{ (request()->is('admin/settings*')) ? 'active' : '' }}" href="javascript:void(0)" data-toggle="collapse" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Settings </a>
+                            <a class="nav-link {{ (request()->is('admin/settings*')) ? 'active' : '' }}" href="javascript:void(0)" data-toggle="collapse" data-target="#submenu-6" aria-controls="submenu-6"><i class="fa fa-cog"></i> Settings </a>
                             <div id="submenu-6" class="collapse submenu {{ (request()->is('admin/settings*')) ? 'show' : '' }}">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link {{(request()->is('admin/contact-us*')) ? 'active' : ''}}" href="{{route('admin.contactUs.index')}}">Contact us</a>
+                                        <a class="nav-link {{(request()->is('admin/settings/contact-us*')) ? 'active' : ''}}" href="{{route('admin.contactUs.index')}}">Contact us</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{(request()->is('admin/settings/aboutUs*')) ? 'active' : ''}}" href="{{route('admin.aboutUs.index')}}">About us</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#">Why Choose Us</a>
-                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link {{(request()->is('admin/settings/howItWorks*')) ? 'active' : ''}}" href="{{route('admin.howItWorks.index')}}">How it works</a>
                                     </li>
@@ -85,42 +86,61 @@
                             </div>
                         </li>
                     <!-- Admin Sidebar End -->
-                    <!-- Supplier Sidebar -->
+                    <!-- Expert Sidebar start -->
                     @elseif(Auth::user()->user_type == 2)
-
-                        {{-- here goes teacher sidebar menu --}}
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fa fa-fw fa-user-circle"></i>My Case study</a>
+                            <a class="nav-link {{ Request::segment(2) === 'my-course' ? 'active' : null }}" href="{{route('teacher.my-course.index')}}"><i class="fas fa-book"></i>My Case study</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fa fa-fw fa-user-circle"></i>My Slots</a>
+                            <a class="nav-link {{ Request::segment(3) === 'slotlist' ? 'active' : null }}" href="{{ route('teacher.my-slots.slotList') }}"><i class="fas fa-bookmark"></i>My Slots</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('user/sessions*')) ? 'active' : '' }}" href="{{ route('expert.sessions.index') }}"><i class="fa fa-fw fa-user-circle"></i>Video sessions</a>
+                            <a class="nav-link {{ (request()->is('teacher/knowledgebank*')) ? 'active' : '' }}" href="{{ route('teacher.knowledgebank.index') }}"><i class="fas fa-box-open"></i>Knowledge Bank</a>
+                        </li>
+                        <li class="nav-divider">Purchase related</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('teacher/knowledgebank*')) ? 'active' : '' }}" href="{{ route('teacher.knowledgebank.index') }}"><i class="fa fa-fw fa-user-circle"></i>Knowledge Bank</a>
+                            <a class="nav-link {{ (request()->is('user/report/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('teacher/chat*')) ? 'active' : '' }}" href="{{ route('teacher.chat.index') }}"><i class="fa fa-fw fa-user-circle"></i>Chat</a>
+                            <a class="nav-link {{ (request()->is('user/report/case-study*')) ? 'active' : '' }}" href="{{ route('user.caseStudy.index') }}"><i class="fa fa-book"></i>Case studies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-fw fa-user-circle"></i>Settings</a>
+                            <a class="nav-link {{ (request()->is('user/chat*')) ? 'active' : '' }}" href="{{ route('user.chat.index') }}"><i class="fa fa-comment"></i>Chat</a>
+                        </li>
+                        <li class="nav-divider">Settings</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-cog"></i>Settings</a>
                         </li>
                         <li class="nav-item mb-5">
-                            <a class="nav-link {{ (request()->is('user/status*')) ? 'active' : '' }}" href="{{ route('user.status') }}"><i class="fa fa-fw fa-user-circle"></i> Status</a>
-                            {{-- <a class="nav-link {{ (request()->is('user/status*')) ? 'active' : '' }}" href="{{ route('user.status') }}"><i class="fa fa-fw fa-user-circle"></i> Status <i class="fa fa-circle text-{{$user->user_availability->type}}"></i></a> --}}
+                            <a class="nav-link {{ (request()->is('user/status*')) ? 'active' : '' }}" href="{{ route('user.status') }}"><i class="fas fa-circle-notch"></i> Status</a>
                         </li>
-
+                    <!-- Expert Sidebar end -->
+                    <!-- Student Sidebar start -->
                     @elseif(Auth::user()->user_type == 3)
                         {{-- here goes user sidebar menu --}}
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('user/sessions*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fa fa-fw fa-user-circle"></i>Video sessions</a>
+                            <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-fw fa-user-circle"></i>Settings</a>
+                            <a class="nav-link {{ (request()->is('user/report/session*')) ? 'active' : '' }}" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/report/case-study*')) ? 'active' : '' }}" href="{{ route('user.caseStudy.index') }}"><i class="fa fa-book"></i>Case studies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/chat*')) ? 'active' : '' }}" href="{{ route('user.chat.index') }}"><i class="fa fa-comment"></i>Chat</a>
+                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/review*')) ? 'active' : '' }}" href="{{ route('user.review.index') }}"><i class="fa fa-star"></i>Review</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('user/profile*')) ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa fa-cog"></i>Settings</a>
                         </li>
                     @endif
+                    <!-- Student Sidebar end -->
                 </ul>
             </div>
         </nav>
