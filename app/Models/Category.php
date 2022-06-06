@@ -12,6 +12,6 @@ class Category extends Model
 
     public function expertLists()
     {
-        return $this->hasMany('App\Model\User', 'primary_category', 'id');
+        return $this->hasMany('App\Models\User', 'primary_category', 'id');
     }
 }

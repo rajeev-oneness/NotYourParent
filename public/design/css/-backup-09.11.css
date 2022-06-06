@@ -1,76 +1,3 @@
-@font-face {
-    font-family: "Proxima Nova Regular";
-    src: url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.eot");
-    src: url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Bold";
-    src: url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.eot");
-    src: url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Extrabold";
-    src: url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.eot");
-    src: url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Black";
-    src: url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.eot");
-    src: url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.svg#Proxima Nova Bl")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Lt";
-    src: url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.eot");
-    src: url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.svg#Proxima Nova Lt")
-            format("svg");
-}
-
-
-
 body {
     font-family: "Proxima Nova Regular" !important;
 }
@@ -78,7 +5,7 @@ a, a:hover{
     text-decoration: none!important;
 }
 .paginate_button, table.dataTable td.dataTables_empty, table.dataTable th.dataTables_empty, div.dataTables_wrapper div.dataTables_length label, div.dataTables_wrapper div.dataTables_info {
-    font-size: 16px;
+    font-size: 12px;
 }
 .card-header, .table-striped tbody tr:nth-of-type(odd){
     background: #fff!important;
@@ -129,19 +56,6 @@ table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:
     color: #fff;
     
 }
-
-.navbar-expand-lg .navbar-nav .dropdown-menu{
-    box-shadow: 0px 3px 25px -4px rgb(154 154 204 / 74%) !important;
-    border: 0;
-    border-radius: 10px;
-    padding: 10px!important;
-    width: 17rem;
-}
-
-
-
-
-
 /*Tooltip Design*/
 .tooltip {position: relative;display: inline-block;border-bottom: 1px dotted black; /* If you want dots under the hoverable text */}
 
@@ -317,8 +231,7 @@ table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:
    ========================================================================== */
 
 body {
-    /*font-family: 'Circular Std Book';*/
-     font-family: 'Milliard Book';
+    font-family: 'Circular Std Book';
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -1639,7 +1552,7 @@ Top Header
 
 .nav-user-name {
     color: #fff;
-    font-size: 17px;
+    font-size: 13px;
     text-transform: uppercase;
 }
 
@@ -1652,49 +1565,22 @@ Top Header
 .nav-user-dropdown {}
 
 .nav-user-dropdown .dropdown-item {
-   display: block;
+    display: block;
     width: 100%;
     padding: 8px 15px 9px;
     clear: both;
     font-weight: 400;
     color: #686972;
     text-align: inherit;
-    white-space: inherit;
+    white-space: nowrap;
     background-color: transparent;
     border: 0;
-    font-size: 15px;
-    line-height: 18px;
-}
-.dropdown-item h6{
-    font-size: 14px;
-    font-weight: 600;
-}
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #89d640!important;;
-    border-radius: 50%;
-    border-color: #a0ed58!important;;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 23px;
-}
-.dropdown-item p{
-   margin-bottom: 0;
+    font-size: 12px;
+    line-height: 0.4;
 }
 
-.dropdown-item p:last-child {
-    margin: 0px;
-    color: #000 !important;
-    font-weight: 600;
-}
-
-.page-item.disabled .page-link {
-    border: 0;
-}
 .nav-user-dropdown .dropdown-item:hover {
-    background-color: #e6ffce73;
+    background-color: #f7f7fb;
 }
 
 
@@ -4715,13 +4601,7 @@ Pills vertical
 .table {
     margin-bottom: 0px;
 }
-.table th, .table td {
-  
-    vertical-align: inherit !important;
-}
-.table td a{
-    color:#000;
-}
+
 .table td,
 .table th {
     padding: 10px;
@@ -4730,69 +4610,6 @@ Pills vertical
     font-weight: normal;
 }
 
-
-.nav-user-img .badge-danger {
-    border-radius: 50%;
-    width: 20px;
-height: 20px;
-}
-select{
-    background: transparent;
-border: 1px solid #e1e1e1;
-height: 45px;
-font-size: 14px;
-color: #6f6969;
-}
-
-.nav-pills .nav-link.active{
-    color: #0e0c28!important;;
-    background-color: #ffffff!important;;
-    box-shadow: 0px 3px 25px -4px rgb(154 154 204 / 41%) !important;
-}
-.form-inline{
-    justify-content: space-between;
-}
-
-
-
-.card-footer {
-    background-color: transparent!important;
-    border-top: none!important;
-}
-.form-control:focus {
-    color: #000!important;;
-    background-color: transparent;
-    border-color: #e1e1e1!important;;
-    outline: 0;
-    box-shadow: none !important;;
-}
-
-.chat__tabs .form-control{
-    border:0;
-    border-bottom: 1px solid #e1e1e1;
-    border-top: 1px solid #e1e1e1;
-}
-.chat__tabs .btn-primary {
-    color: #fff;
-    background-color: #92d051;
-    border-color: #92d051;
-}
-.nav-pills .nav-link {
-    border-radius: 0.25rem;
-    color: #000;    margin-bottom: 10px;
-    padding: 20px;
-}
-
-.chat__tabs .alert-primary {
-    color: #707070;
-    background-color: #f9fff4;
-    border-color: #f3f9ed;
-}
-
-.table video{
-    width:100%;
-    height:60px;
-}
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #e6e6f2;
@@ -4801,7 +4618,7 @@ color: #6f6969;
 .table thead th,
 .table th {
     color: #0e0c28;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     /*font-family: 'Circular Std Medium';*/
 }
@@ -7097,12 +6914,6 @@ Media Query
     .dashboard-content {
     padding: 20px 20px 60px 20px;
 }
-
-
-table tr td, table th  {
-   white-space:nowrap;
-}
-
     .nav-left-sidebar .navbar a {
         color: #fff;
         font-size: 18px;
@@ -7506,9 +7317,8 @@ table tr td, table th  {
 }
 
 .single-noti.unread-noti {
-    /*background-color: #89d64073 !important;*/
-    /*color: #000 !important;*/
-    border-bottom: 1px solid #e1e1e1;
+    background-color: #89d64073 !important;
+    color: #000 !important;
 }
 
 .single-noti.read-noti {
@@ -7516,9 +7326,9 @@ table tr td, table th  {
     color: #ccc !important;
 }
 
-/*.single-noti.unread-noti:hover {*/
-/*    background-color: #89d640b5 !important;*/
-/*}*/
+.single-noti.unread-noti:hover {
+    background-color: #89d640b5 !important;
+}
 
 .single-noti.read-noti:hover {
     background-color: #f1f1f1 !important;
@@ -7567,6 +7377,7 @@ table tr td, table th  {
 .sidebar-dark.nav-left-sidebar .nav-link i {
     color: #ffffff;
 }
+
 .sidebar-dark.nav-left-sidebar .nav-link.active i {
     color: #0e0c28;
 }
@@ -7583,13 +7394,13 @@ table tr td, table th  {
 
 ::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #0e0c28;
 }
 
 ::-webkit-scrollbar
 {
-	width: 3px;
+	width: 6px;
 	background-color: #0e0c28;
 }
 

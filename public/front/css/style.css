@@ -192,7 +192,7 @@ button {
 .header_top {
     padding: 20px 0;
     border-bottom: 2px solid rgba(25, 33, 70, 0.07);
-    padding-right: 150px;
+    /*padding-right: 150px;*/
 }
 .logo {
     max-width: 280px;
@@ -216,22 +216,25 @@ button {
     flex-wrap: wrap;
 }
 .header_right ul li.expart_btn {
-    padding-right: 20px;
+    padding-right: 5px;
 }
 .header_right li a {
-    padding: 13px 25px;
-    font-size: 18px;
+    padding: 18px 18px;
+    font-size: 15px;
     font-family: "Proxima Nova Bold";
     background: #192146;
     line-height: 1.2;
     color: #fff;
     border-radius: 30px;
+    height:50px;
 }
 .header_right ul li.sign_up_btn a {
     background: #89d640;
 }
 .header_right ul li.sign_up_btn a img {
-    margin-right: 5px;
+    margin-right: 0;
+    width: 22px;
+    vertical-align: top;
 }
 
 /*====================
@@ -261,10 +264,10 @@ button {
 	Banner
 =====================*/
 .banner_section {
-    min-height: 1000px;
+    min-height: 800px;
     background-size: cover;
     background-position: center;
-    padding-top: 235px;
+    padding-top: 270px;
     padding-bottom: 12%;
     display: flex;
     align-items: center;
@@ -541,21 +544,29 @@ button {
     justify-content: center;
 }
 .mentor_tab_menu li {
-    padding: 0 15px;
+    padding: 0 2px;
 }
 .mentor_tab_menu li a {
     padding: 8px 20px;
     font-size: 16px;
     color: #fff;
-    border-radius: 30px;
+    border-radius: 30px !important;
     font-family: "Proxima Nova Bold";
     letter-spacing: 0.5px;
 }
-.mentor_tab_menu li a:hover,
-.mentor_tab_menu li.current a {
+.mentor_tab_menu  .nav-item .nav-link:hover,
+.mentor_tab_menu  .nav-item .nav-link.active{
     background: #89d640;
 }
-
+.no-product{
+    background: none;
+    border: 0;
+}
+.no-product h5{
+    color: #919ac1;
+    font-size: 34px;
+    text-transform: capitalize;
+}
 .mentor_course_img {
     position: relative;
 }
@@ -684,9 +695,10 @@ button {
 }
 .mentor_course_content li {
     padding: 0 5px;
+    margin-top:5px;
 }
 .mentor_course_content li a {
-    padding: 0 20px;
+    padding: 0 15px;
     font-size: 11px;
     font-family: "Proxima Nova Bold";
     line-height: 35px;
@@ -848,21 +860,23 @@ button {
 }
 
 .calender_heading ul {
-    width: 30%;
+    width:14%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: relative;
+    top: -16px;
 }
 .calender_heading ul li {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: grid;
     place-content: center;
     border-radius: 100%;
-    box-shadow: 0px 0px 10px 5px #d1e2e9;
+    /*box-shadow: 0px 0px 10px 5px #d1e2e9;*/
 }
 .calender_heading ul li img {
-    width: 100%;
+    width: 58%;
     text-align: center;
 }
 .weeks,
@@ -906,13 +920,14 @@ button {
     color: #56c927;
 }
 .calender .times li {
-    padding: 10px 15px;
-    border-bottom: 0.5px solid lightgray;
+    padding: 3px 15px;
+    border-bottom:none;
     text-align: center;
 }
 .calender_right h5 {
-    text-align: center;
-    padding: 10px 15px;
+        text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #1d2b68;
 }
 .featured_experts_right {
     width: 40%;
@@ -1874,8 +1889,10 @@ button {
 	Mentor
 =====================*/
 
-.mentors_section .container {
-    padding: 0 100px;
+@media only screen and (min-width:991px) {
+    .mentors_section .container {
+        padding: 0 100px;
+    }
 }
 .testimonials {
     width: 100%;
@@ -2123,7 +2140,7 @@ button {
     height: 150px;
 }
 .knowledge_bank_cards .img__holder img {
-    max-height: 100%;
+    /*max-height: 100%;
     max-width: 100%;
     width: auto;
     height: auto;
@@ -2132,7 +2149,9 @@ button {
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
+    margin: auto;*/
+    width: 100%;
+    object-fit: cover;
 }
 .new {
     background-color: #f8b810;
@@ -2140,8 +2159,10 @@ button {
     display: inline-block;
     position: absolute;
     right: -20px;
-    top: 20px;
-    border-radius: 18px;
+    top: 0;
+    border-radius: 0 0 0 36px;
+    font-size: 12px;
+    letter-spacing: 0.85px;
 }
 
 /*====================
@@ -2347,6 +2368,16 @@ article {
     background-color: #edf4f7;
 }
 
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #192146;
+    border-color: #192146;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgb(25 33 70 / 61%);
+}
+
 /*====================
 	Footer
 =====================*/
@@ -2405,7 +2436,7 @@ article {
 }
 .footer_nav li {
     position: relative;
-    padding: 0 20px;
+    padding: 0 5px;
 }
 .footer_nav li a {
     display: block;
@@ -2459,6 +2490,31 @@ article {
     bottom: 8%;
     z-index: -1;
     right: 2%;
+}
+
+.how_it_work_section .btn-sm{
+    background: #d1e2e9;
+    color: #2a2a2a;
+    border: 0;
+    border-radius: 7px;
+    width: 125px;
+}
+.how_it_work_section .btn-sm:hover, .how_it_work_section .btn-sm .active {
+    background: #d1e2e9 !important;
+    color: #2a2a2a !important;
+    border: 0;
+    border-radius: 7px;
+    width: 125px;
+}
+.times .btn-sm{
+    margin-bottom:10px;
+}
+.article_right .badge{
+    font-weight: 300;
+    letter-spacing: 0.85px;
+    background: #92d051;
+    color: #192146;
+    padding: 5px 8px;
 }
 
 /* Big Screen */
@@ -2570,6 +2626,12 @@ article {
 }
 
 @media screen and (max-width: 1199px) {
+    .mentor_course_review_img{
+        margin:0 auto;
+    }
+    .mentor_course_review{
+        justify-content: center;
+    }
     .hand {
         width: 30%;
     }
@@ -2597,8 +2659,8 @@ article {
         margin-bottom: -5px;
     }
     .mentor_price {
-        padding: 5px 15px;
-        font-size: 18px;
+        padding: 5px 8px;
+        font-size: 14px;
     }
     .mentor_course_overlay h3 {
         font-size: 28px;
@@ -2635,7 +2697,11 @@ article {
     }
     .mentor_course_content {
         padding: 20px;
+        text-align:center;
     }
+    .logo {
+    max-width: 127px;
+}
     .review_slider_item_left p,
     .become_member_content p {
         font-size: 17px;
@@ -2765,9 +2831,17 @@ article {
         padding-right: 15px;
     }
     .header_right li a {
-        padding: 10px 15px;
+        /*padding: 10px 15px;*/
         font-size: 15px;
     }
+
+    .mentor_price {
+    background: #e76f37;
+    bottom: 6px;
+    right: 15px;
+}
+
+
     .logo {
         max-width: 200px;
     }
@@ -3168,9 +3242,9 @@ article {
     .banner_content p {
         font-size: 15px;
     }
-    .our_process_wrap {
+    /* .our_process_wrap {
         max-width: 300px;
-    }
+    } */
     .our_process_wrap .col-3 {
         flex: 0 0 50%;
         max-width: 50%;
@@ -3243,9 +3317,6 @@ article {
     .header_right ul {
         justify-content: center;
     }
-    .menu_btn {
-        top: 40px;
-    }
     .mentor_course_content ul li {
         padding: 10px;
     }
@@ -3273,5 +3344,36 @@ article {
 @media screen and (min-width: 1366px) {
     .container {
         max-width: 1270px;
+    }
+}
+@media only screen and (max-width:475px) {
+    .header_right ul li.expart_btn{
+        padding-right: 0;
+    }
+}
+@media only screen and (max-width:444px) {
+
+    .menu_btn {
+        top: 40px;
+    }
+    .header_right{
+        position: unset;
+        margin-top: 1rem;
+        width: 100%;
+    }
+    .header_right ul{
+        justify-content: space-between;
+    }
+    .header_top{
+        padding-bottom: 20px;
+    }
+    .header_right ul li a{
+        font-size: 12px;
+    }
+    .header_right ul li.sign_up_btn a img{
+        width: 14px;
+    }
+    .header_right ul li.expart_btn{
+        padding-right: 0;
     }
 }

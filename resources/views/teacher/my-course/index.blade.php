@@ -25,7 +25,7 @@
                                     <th>Name</th>
                                     <th>Preview video</th>
                                     <th>Original video</th>
-                                    <th>Duration (Minutes)</th>
+                                    <th>Duration</th>
                                     <th>Price</th>
                                     <th>Action</th>
                                 </tr>
@@ -49,7 +49,7 @@
                                             <source src="{{asset($course->original_video_url)}}" type="video/mp4">
                                         </video>
                                     </td>
-                                    <td>{{$course->duration}}</td>
+                                    <td>{{$course->duration}} {{($course->duration == 1 ? 'minute' : 'minutes')}}</td>
                                     <td>$ {{$course->price}}</td>
                                     <td><a href="{{route('teacher.my-course.edit',['id' => $course->id])}}">Edit</a> | <a href="#" data-id="{{$course->id}}" class="text-danger delete-confirm">Delete</a></td>
                                 </tr>

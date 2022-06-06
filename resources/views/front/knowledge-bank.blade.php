@@ -1,6 +1,6 @@
 @extends('front.layouts.master')
 
-@section('head-script-style')    
+@section('head-script-style')
 @endsection
 
 @section('title')
@@ -20,14 +20,14 @@
 
         <div class="row mb-5">
             @php
-                $allClass = $inHouseClass = $expertrClass = 'btn-outline-primary';
+                $allClass = $inHouseClass = $expertrClass = 'btn-primary ';
                 if (empty($_GET['content'])) {
-                    $allClass = 'btn-primary';
+                    $allClass .= 'active';
                 } else {
                     if ($_GET['content'] == 'in-house') {
-                        $inHouseClass = 'btn-primary';
+                        $inHouseClass .= 'active';
                     } else {
-                        $expertrClass = 'btn-primary';
+                        $expertrClass .= 'active';
                     }
                 }
             @endphp
@@ -64,7 +64,7 @@
         <div class="how_ite_works_plane">
             <img class="img-fluid" src="{{asset('front/images/how_it_work_plane.png')}}">
         </div>
-    </div>			
+    </div>
 </section>
 <!-- Knowledge Bank Section Ends -->
 
@@ -72,5 +72,5 @@
 @endsection
 
 @section('script')
-    
+
 @endsection
