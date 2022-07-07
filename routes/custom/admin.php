@@ -103,7 +103,7 @@
 
         Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
 		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
-		Route::post('/manage',[CrudController::class,'manageUser'])->name('admin.user.manageUser');
+		Route::post('/manage',[UserController::class,'manageUser'])->name('admin.user.manageUser');
 
         Route::get('/add',[UserController::class, 'addNewUser'])->name('admin.user.add');
         Route::post('/store',[UserController::class, 'saveUser'])->name('admin.user.store');
@@ -111,6 +111,25 @@
         Route::put('/update/{id}',[UserController::class, 'updateUser'])->name('admin.user.update');
         Route::get('/delete/{id}',[UserController::class, 'deleteUser'])->name('admin.user.delete');
         Route::post('/updateStatus',[UserController::class, 'updateStatus'])->name('admin.user.updateStatus');
+    });
+    // job post
+    Route::group(['prefix' => 'jobcat'], function() {
+        Route::get('/',[JobCategoryController::class, 'index'])->name('admin.jobcat.index');
+        Route::get('/add',[JobCategoryController::class, 'create'])->name('admin.jobcat.add');
+        Route::post('/store',[JobCategoryController::class, 'store'])->name('admin.jobcat.store');
+        Route::get('/edit/{id}',[JobCategoryController::class, 'edit'])->name('admin.jobcat.edit');
+        Route::put('/update/{id}',[JobCategoryController::class, 'update'])->name('admin.jobcat.update');
+        Route::get('/delete/{id}',[JobCategoryController::class, 'destroy'])->name('admin.jobcat.delete');
+
+    });
+    Route::group(['prefix' => 'job'], function() {
+        Route::get('/',[JobController::class, 'index'])->name('admin.job.index');
+        Route::get('/add',[JobController::class, 'create'])->name('admin.job.add');
+        Route::post('/store',[JobController::class, 'store'])->name('admin.job.store');
+        Route::get('/edit/{id}',[JobController::class, 'edit'])->name('admin.job.edit');
+        Route::put('/update/{id}',[JobController::class, 'update'])->name('admin.job.update');
+        Route::get('/delete/{id}',[JobController::class, 'destroy'])->name('admin.job.delete');
+
     });
 
     Route::group(['prefix' => 'settings'], function() {

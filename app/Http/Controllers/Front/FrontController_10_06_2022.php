@@ -173,31 +173,10 @@ class FrontController extends Controller
     //     return response()->json(['error' => false, 'message' => 'Course Data', 'data' => $course, 'total' => $total, 'requests' => $reqs]);
     // }
 
-    // public function experts()
-    // {
-    //     $experts = User::where('user_type', 2)->get();
-    //     return view('front.experts', compact('experts'));
-    // }
-
-    public function experts(Request $req)
+    public function experts()
     {
-     $availabilities = UserAvailability::orderBy('name')->get();
-        $availability = $req['availability']?? "";
-        $rating = $req['rating']?? "";
-
-        // if($category != ""){
-        //     $category_name = Category::where('id', $category)->get();
-        //     foreach($category_name as $item) {
-        //         $cat_name = $item->name;
-        //     }
-        // }
-        if($availability != "" || $rating != ""){
-
-            $experts = User::where('user_type', 2)->where('availability', 'LIKE', "%$availability%")->orWhere('review', 'LIKE', "%$rating%")->with('user_primary_category')->get();
-        }else{
-            $experts = User::where('user_type', 2)->get();
-            }
-        return view('front.experts', compact('experts', 'availabilities'));
+        $experts = User::where('user_type', 2)->get();
+        return view('front.experts', compact('experts'));
     }
 
     public function expertsSingle(Request $req)

@@ -11,6 +11,7 @@ use App\Models\UserLanguage;
 use App\Models\Address;
 use App\Models\Conversation;
 use App\Models\CoursePurchase;
+use App\Models\JobUser;
 use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Review;
@@ -72,17 +73,17 @@ class HomeController extends Controller
     public function userProfileSave(Request $req)
     {
         $req->validate([
-            'name' => 'required|max:200',
-            'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+            'name' => 'nullable|max:200',
+            'email' => 'nullable|email|unique:users,email,' . Auth::user()->id,
             'mobile' => 'nullable|numeric',
             'gender' => 'nullable|string|in:Male,Female,Not specified',
             'dob' => 'nullable|date_format:Y-m-d|before:' . date('Y-m-d'),
             'marital' => 'nullable|string|in:Single,Married,Divorced',
             'aniversary' => 'nullable|date_format:Y-m-d|before:' . date('Y-m-d'),
-            'short_description' => 'nullable|string|min:1|max: 15',
+            //'short_description' => 'nullable|string|min:1|max: 15',
             'bio' => 'nullable|string',
             'linkedin_url' => 'nullable|url',
-            'fb_url' => 'nullable|url',
+           // 'fb_url' => 'nullable|url',
             'twitter_url' => 'nullable|url',
             'instagram_url' => 'nullable|url',
             'hourly_rate' => 'nullable|min:1|max:10',
@@ -514,5 +515,15 @@ class HomeController extends Controller
         } else {
             return response()->json(['status' => 400, 'message' => 'Login first']);
         }
+    }
+
+
+    //user save jobs
+
+    public function userjob($id){
+        $id = Auth::user()->id;
+        $userJob = JobUser::with('job')->where("user_id",$id)->get();
+        $this->setPageTitle('Saved Job', 'Saved Job');
+        return view('front.job.saved_job' , compact('userJob'));
     }
 }

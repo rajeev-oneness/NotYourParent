@@ -1,6 +1,6 @@
 @extends('front.layouts.master')
 
-@section('head-script-style')    
+@section('head-script-style')
 @endsection
 
 @section('title')
@@ -103,7 +103,7 @@
 
             <h5 class="black designation">
                 @if (count($topics) > 0)
-                Expert in other topics :    
+                Expert in other topics :
                 @endif
                 @foreach ($topics as $topic)
                     {{ $loop->first ? '' : ', ' }}
@@ -113,13 +113,13 @@
 
             <h3 class="proxima_exbold black">
                 @if ($coursesCount > 0)
-                TOTAL <span class="golden">{{$coursesCount}}</span> CASE STUDIES 
+                TOTAL <span class="golden">{{$coursesCount}}</span> CASE STUDIES
                 @endif
 
                 @if ($teacher->review > 0.00)
                 <span class="badge badge-{{custom_review($teacher->review)}} badge-pill" title="K2 review is {{$teacher->review}}">{{$teacher->review}} <i class="fa fa-star"></i> </span>
                 @endif
-                {{-- <span style="color: #e76f37;">4.5</span> 
+                {{-- <span style="color: #e76f37;">4.5</span>
                 <span class="proxima_normal" style="color: #003456;">Ratings</span> --}}
             </h3>
             {{-- <h3 style="color: #003456;"><span class="darkblue proxima_exbold">34,598</span> Students</h3> --}}
@@ -139,7 +139,7 @@
                         <div class="weeks">
                             @for($days = 0; $days < 7; $days++)
                                 <div class="days">{{date('D',strtotime($currentDate.'+'.$days.' day'))}}</div>
-                            @endfor 
+                            @endfor
                         </div>
                         <div class="dates">
                             @for($days=1;$days <= getDays(date('m',strtotime($currentDate)),date('Y',strtotime($currentDate))); $days++ )
@@ -170,12 +170,14 @@
             </div>
             <div class="footer_social">
                 <ul>
-                    <li><a href="{{($teacher->linkedin_url != '')?$teacher->linkedin_url:'javascript:void(0);'}}"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="{{$teacher->linkedin_url}}"><i class="fab fa-linkedin-in"></i></a></li>
                     <li><a href="{{($teacher->fb_url != '')?$teacher->fb_url:'javascript:void(0);'}}"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="{{($teacher->twitter_url != '')?$teacher->twitter_url:'javascript:void(0);'}}"><i class="fab fa-twitter"></i></a></li>
                     <li><a href="{{($teacher->instagram_url != '')?$teacher->instagram_url:'javascript:void(0);'}}"><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
+            <h6 class="darkblue text_uupercase proxima_exbold">Contact Details</h6>
+                <p>{{$teacher->email}}<br>{{$teacher->mobile}}</p>
 
             @if (!empty($teacher->hourly_rate))
                 <h6 class="darkblue text_uupercase proxima_exbold">Rate</h6>
@@ -253,7 +255,7 @@
             @endforelse
         </div>
         {{-- --}}
-        
+
         <div class="explore_all text-center">
             <a href="{{route('front.courses')}}" class="parimary_btn green_btn">explore all</a>
         </div>
@@ -288,7 +290,7 @@
                     <div class="review_slider_item_right bg-gray">
                         <div class="class_teacher_description align-self-center">
                             <h3 class="text-uppercase darkblue">
-                                Total 
+                                Total
                                 <span class="golden">{{$coursesCount}}</span>
                                 <br>
                                 <b>Case studies</b>
@@ -382,7 +384,7 @@
 @section('script')
 <script>
     function truncateWithEllipses(text, max) {
-        return text.substr(0,max-1)+(text.length>max?'&hellip;':''); 
+        return text.substr(0,max-1)+(text.length>max?'&hellip;':'');
     }
 
     function dayClick(selectedDate) {

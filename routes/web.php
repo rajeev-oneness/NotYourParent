@@ -85,6 +85,19 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/profile/address/edit', [HomeController::class, 'userAddressEdit'])->name('user.address.edit');
 	Route::put('user/profile/address/update', [HomeController::class, 'userAddressUpdate'])->name('user.address.update');
 
+
+    //job create
+
+    Route::group(['prefix' => 'job'], function() {
+        Route::get('/',[JobController::class, 'index'])->name('front.job.index');
+        Route::get('/add',[JobController::class, 'create'])->name('front.job.add');
+        Route::post('/store',[JobController::class, 'store'])->name('front.job.store');
+        Route::get('/edit/{id}',[JobController::class, 'edit'])->name('front.job.edit');
+        Route::put('/update/{id}',[JobController::class, 'update'])->name('front.job.update');
+        Route::get('/delete/{id}',[JobController::class, 'destroy'])->name('front.job.delete');
+
+    });
+
 	// purchase reports
 	Route::group(['prefix' => 'user/report'], function () {
 		Route::get('transaction', [HomeController::class, 'transactionIndex'])->name('user.transactions.index');
@@ -106,6 +119,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/create', [HomeController::class, 'reviewCreate'])->name('user.review.create');
 	});
 
+    //my-jobs
+    Route::group(['prefix' => 'user/jobs'], function () {
+    Route::get('saved-job/{id}',[HomeController::class, 'userjob'])->name('user.savejob.index');
+    });
 	// notification read
 	Route::post('/read', [HomeController::class, 'readIndex'])->name('user.notification.read');
 

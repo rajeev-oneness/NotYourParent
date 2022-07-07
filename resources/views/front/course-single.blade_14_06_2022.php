@@ -61,7 +61,7 @@
                         <span class="experty_insights_date">{{date('d M, Y', strtotime($item->created_at))}}</span>
                         <h3 class="proxima_bold darkblue">{{$item->title}}</h3>
                         <p class="darkgray">{{words($course->description, 20)}}</p>
-                        <a href="{{route('front.courses.single', ['courseId' => $item->id])}}">Read More</a>
+                        <a href="{{route('front.articles.single', ['articleId' => $item->id])}}">Read More</a>
                     </div>
                 </div>
             </div>

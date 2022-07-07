@@ -11,6 +11,58 @@
                 </div>
                 <div class="card-body">
                     <p>Welcome, {{ucwords(Auth::user()->name)}}</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <a href="{{ route('user.transactions.index') }}">
+                                <div class="card inner-card">
+                                    <div class="card-body p-0 d-flex">
+                                        <i class="fas fa-credit-card"></i>
+                                        <p>Transactions</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="{{ route('user.sessions.index') }}">
+                                <div class="card inner-card">
+                                    <div class="card-body p-0 d-flex">
+                                        <i class="fas fa-play"></i>
+                                        <p>Video sessions</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="{{ route('user.caseStudy.index') }}">
+                                <div class="card inner-card">
+                                    <div class="card-body p-0 d-flex">
+                                        <i class="fa fa-book"></i>
+                                        <p>Case studies</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="{{ route('user.chat.index') }}">
+                                <div class="card inner-card">
+                                    <div class="card-body p-0 d-flex">
+                                        <i class="fa fa-comment"></i>
+                                        <p>Chat</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="{{ route('user.profile') }}">
+                                <div class="card inner-card">
+                                    <div class="card-body p-0 d-flex">
+                                        <i class="fa fa-cog"></i>
+                                        <p>Settings</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

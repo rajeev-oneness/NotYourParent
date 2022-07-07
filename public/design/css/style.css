@@ -7597,3 +7597,20 @@ table tr td, table th  {
 {
 	background-color: #89d640;
 }
+/* dashboard inner card */
+.dashboard-content .inner-card{
+    background: #89d640b5;
+    color: #0e0c28;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
+}
+.dashboard-content .inner-card:hover{
+    background: #89d640;
+}
+.inner-card .card-body{
+    align-items: center;
+}
+.inner-card  i{
+    font-size: 26px;
+    margin-right: 20px;
+}
+/* dashboard inner card */

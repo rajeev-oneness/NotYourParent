@@ -47,7 +47,8 @@ $(document).ready(function() {
                             courses += '<div class="mentor_course_content">';
                             courses += '<div class="mentor_course_review">';
                             courses += '<div class="mentor_course_review_img">';
-                            courses += '<img src="{{asset("")}}'+val.image+'">';
+                            courses += '<img src="'+val.image+'">';
+                            // courses += '<img src="{{asset("")}}'+val.image+'">';
                             courses += '</div>';
                             courses += '<div class="mentor_course_review_name">';
                             courses += '<h5 class="mb-0">'+val.name+'</h5>';

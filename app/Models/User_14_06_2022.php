@@ -73,7 +73,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Category', 'primary_category', 'id');
     }
-    public function user_address(){
-        return $this->belongsTo('App\Models\Address', 'id', 'userId');
-    }
 }

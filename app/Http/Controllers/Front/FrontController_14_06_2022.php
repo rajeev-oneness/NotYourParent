@@ -182,6 +182,8 @@ class FrontController extends Controller
     public function experts(Request $req)
     {
      $availabilities = UserAvailability::orderBy('name')->get();
+     $languages = UserLanguage::orderBy('name')->get();
+
         $availability = $req['availability']?? "";
         $rating = $req['rating']?? "";
 
@@ -196,8 +198,8 @@ class FrontController extends Controller
             $experts = User::where('user_type', 2)->where('availability', 'LIKE', "%$availability%")->orWhere('review', 'LIKE', "%$rating%")->with('user_primary_category')->get();
         }else{
             $experts = User::where('user_type', 2)->get();
-            }
-        return view('front.experts', compact('experts', 'availabilities'));
+        }
+        return view('front.experts', compact('experts', 'availabilities', 'languages'));
     }
 
     public function expertsSingle(Request $req)

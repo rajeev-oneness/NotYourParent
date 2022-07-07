@@ -103,36 +103,8 @@
                             </div>
                             <div class="mentor_course_review_name">
                                 <h5 class="mb-0">{{$course->name}}</h5>
-                                <p class="mb-0"> {{$course->user_primary_category ?$course->user_primary_category->name : "NA"}} 
-
-                                    @php
-                                    $languages = App\Models\UserLanguagesKnown::join('user_languages', 'user_languages.id', '=', 'user_languages_knowns.language_id')->join('users', 'users.id', '=', 'user_languages_knowns.user_id')->where('users.id', '=', $course->id)->take(2)->get(['user_languages.name']);
-                                    @endphp
-                                    <small class="text-dark font-weight-bold">(
-                                        @foreach($languages as $language)
-                                            {{$language ? $language->name : "NA"}},
-                                        @endforeach
-                                        )
-                                    </small>
-                                   
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-2 mt-3">
-                            <div class="availability_section">
-                                <span class="badge badge-light badge-pill" title="Expert is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
-                            </div>
-                            <div class="rating_section">
-                                @if (!empty($course->review))
-                                <small title="K2 review is {{$course->review}}" class="font-weight-bold"><i class="fa fa-star text-warning"></i> {{$course->review}} 
-                                @if($course->rating_count)
-                                <span class="text-muted">({{ $course->rating_count }} Reviews)</span> 
-                                @else
-                              <span class="text-muted">(New)</span>
-                                @endif
-                                </small>
+                                <p class="mb-0">Expert in {{$course->user_primary_category ?$course->user_primary_category->name : "NA"}}</p>
                                 
-                                @endif
                             </div>
                         </div>
                         @if($course->bio)
@@ -140,18 +112,23 @@
                         @else
                         <p class="small mt-3 mb-0" style="max-height: 60px;overflow: hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro explicabo earum perspiciatis vitae eaque dolorum cupiditate dolores accusamus quidem....</p>
                         @endif
+
                         <div class="d-flex mb-2 mt-3">
+                            <div class="availability_section">
+                                <span class="badge badge-light badge-pill" title="Expert is {{ucwords($course->user_availability->name)}}"> <i class="fa fa-circle text-{{$course->user_availability->type}}"></i> {{ucwords($course->user_availability->name)}}</span>
+                            </div>
                             <div class="rate_section">
                                 @if (!empty($course->hourly_rate))
                                 <span class="badge badge-light badge-pill" title="Hourly rate of Expert is ${{$course->hourly_rate}}">${{$course->hourly_rate}}/ hr</span>
                                 @endif
                             </div>
-                            <div class="location_section">
-                                @if (!empty($course->user_address->city))
-                                <i class="fa fa-map-marker" aria-hidden="true"></i><span class="badge badge-light badge-pill" title="{{$course->user_address->city}}">{{$course->user_address->city}}, {{ $course->user_address->state }}</span>
+                            <div class="rating_section">
+                                @if (!empty($course->review))
+                                <span class="badge badge-{{custom_review($course->review)}} badge-pill" title="K2 review is {{$course->review}}">{{$course->review}} <i class="fa fa-star"></i> </span>
                                 @endif
                             </div>
                         </div>
+
                         <ul class="mt-4">
                             <li><a href="{{route('front.experts.single', ['expertId' => $course->id])}}">Visit Profile</a></li>
                         </ul>

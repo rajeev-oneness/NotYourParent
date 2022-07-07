@@ -43,6 +43,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('admin/language*')) ? 'active' : '' }}" href="{{route('admin.language.index')}}"><i class="fas fa-language"></i>Language</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('admin/jobcat*')) ? 'active' : '' }}" href="{{ route('admin.jobcat.index') }}"><i class="fas fa-box-open"></i>Job Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('admin/job')) ? 'active' : '' }}" href="{{ route('admin.job.index') }}"><i class="fas fa-box-open"></i>Job</a>
+                        </li>
                         <li class="nav-divider">Report</li>
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('user/report/transaction*')) ? 'active' : '' }}" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
@@ -96,6 +102,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('teacher/knowledgebank*')) ? 'active' : '' }}" href="{{ route('teacher.knowledgebank.index') }}"><i class="fas fa-box-open"></i>Knowledge Bank</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('teacher/jobcat*')) ? 'active' : '' }}" href="{{ route('front.jobcat.index') }}"><i class="fas fa-box-open"></i>Job Category</a>
                         </li>
                         <li class="nav-divider">Purchase related</li>
                         <li class="nav-item">

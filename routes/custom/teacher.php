@@ -42,3 +42,25 @@ Route::group(['prefix' => 'knowledgebank'], function() {
     Route::put('/update/{id}',[TeacherController::class, 'knowledgeBankUpdate'])->name('teacher.knowledgebank.update');
     Route::get('/delete/{id}',[TeacherController::class, 'knowledgeBankDestroy'])->name('teacher.knowledgebank.delete');
 });
+
+
+// job post
+Route::group(['prefix' => 'jobcat'], function() {
+    Route::get('/',[JobCategoryController::class, 'index'])->name('front.jobcat.index');
+    Route::get('/add',[JobCategoryController::class, 'create'])->name('front.jobcat.add');
+    Route::post('/store',[JobCategoryController::class, 'store'])->name('front.jobcat.store');
+    Route::get('/edit/{id}',[JobCategoryController::class, 'edit'])->name('front.jobcat.edit');
+    Route::put('/update/{id}',[JobCategoryController::class, 'update'])->name('front.jobcat.update');
+    Route::get('/delete/{id}',[JobCategoryController::class, 'destroy'])->name('front.jobcat.delete');
+
+});
+Route::group(['prefix' => 'job'], function() {
+    Route::get('/',[JobController::class, 'index'])->name('front.job.index');
+    Route::get('/add',[JobController::class, 'create'])->name('front.job.add');
+    Route::post('/store',[JobController::class, 'store'])->name('front.job.store');
+    Route::get('/edit/{id}',[JobController::class, 'edit'])->name('front.job.edit');
+    Route::put('/update/{id}',[JobController::class, 'update'])->name('front.job.update');
+    Route::get('/delete/{id}',[JobController::class, 'destroy'])->name('front.job.delete');
+
+});
+

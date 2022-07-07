@@ -40,8 +40,12 @@
                                 @endif
                                 <p class="font-weight-bold mb-0">Member since</p>
                                 <p class="text-muted">{{$user->created_at->diffForHumans()}}</p>
+                                <p class="font-weight-bold mb-0">Last Online</p>
+                                <p class="text-muted">{{$user->last_login = DB::raw('now')}}</p>
                                 <p class="font-weight-bold mb-0">Last Profile update</p>
                                 <p class="text-muted">{{$user->updated_at->diffForHumans()}}</p>
+                                <p class="font-weight-bold mb-0">NYP Score</p>
+                                <p class="text-muted">{{$user->company_score}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -54,9 +58,9 @@
                                 <label for="name" class="col-form-label">Name:</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name" value="{{(old('name') ? old('name') : $user->name)}}" autofocus="">
                                 @error('name')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
-                            </div>    
+                            </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="email" class="col-form-label">Email:</label>
@@ -174,7 +178,7 @@
                 <div class="card-body">
                     <form method="post" action="{{route('user.changepassword.save')}}">
                         @csrf
-                        
+
                         <div class="form-group col-md-6">
                             <label for="old_password" class="col-form-label">Old Password</label>
                             <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" autofocus="" placeholder="Old password" value="{{old('old_password')}}">
