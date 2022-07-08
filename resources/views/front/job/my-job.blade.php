@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-    Saved Jobs
+    My Jobs
 @endsection
 
 @section('content')

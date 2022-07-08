@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\JobCategory;
+use App\Models\JobUser;
 use Illuminate\Support\Facades\Auth;
 class JobController extends Controller
 {
@@ -14,10 +15,19 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $job = Job::all();
-        return view('front.job.index', compact('job'));
+        $businessSaved = 0;
+        $term= $request->term;
+        if (!empty($request->term)) {
+            $job= Job::where([['title', 'LIKE', '%' . $term . '%']])
+            ->orWhere('skill', 'LIKE', '%' . $term . '%')
+            ->orWhere('budget', 'LIKE', '%' . $term . '%')
+            ->get();
+        } else {
+        $job = Job::paginate(10);
+        }
+        return view('front.job.index', compact('job','businessSaved'));
     }
 
     /**
@@ -28,7 +38,7 @@ class JobController extends Controller
     public function create()
     {
         $job = Job::all();
-        return view('teacher.job.add', compact('job'));
+        return view('front.job.add', compact('job'));
     }
 
     /**
@@ -39,8 +49,9 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $request->validate([
-            'cat_id' => 'required',
+            //'cat_id' => 'required',
             'title' => 'required|string|min:2|max:255',
             'type' => 'required|string|min:2',
             'description' => 'required|string|min:2',
@@ -61,9 +72,14 @@ class JobController extends Controller
         $job->start_date = $request->start_date;
         $job->end_date = $request->end_date;
         $job->budget = $request->budget;
+        $job->sample_question = $request->sample_question;
+        $job->experience = $request->experience;
+        $job->location = $request->location;
+        $job->duration = $request->duration;
+        $job->time = $request->time;
         $job->user_id = $user_id;
         $job->save();
-        return redirect()->route('teacher.job.index');
+        return redirect()->route('front.jobs.index');
     }
 
     /**
@@ -129,5 +145,73 @@ class JobController extends Controller
     {
         Job::where('id', $id)->delete();
         return redirect()->route('teacher.job.index');
+    }
+
+    /**
+     * save job .
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function savejob(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $job = JobUser::with('job')->where("user_id",$userId)->get();
+        return view('front.job.saved_job', compact('job'));
+    }
+
+    /**
+     * @param id
+     * @param user_id
+     * @return JobUser|mixed
+     */
+    public function saveUserJob(Request $request,$id){
+
+        $businessSaved = 0;
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $userId = Auth::user()->id;
+        $userJob = new JobUser;
+        $userJob->job_id = $id;
+        $userJob->ip = $ip;
+        $userJob->user_id = $userId;
+        $userJob->save();
+        if($userJob>0){
+            $businessSaved = 1;
+        }else{
+            $businessSaved = 0;
+        }
+        return redirect()->route('front.jobs.index');
+    }
+
+    /**
+     * @param job_id
+     * @param user_id
+     * @return bool
+     */
+    public function deleteUserJob($collection_id,$user_id,$ip){
+        JobUser::where("collection_id",$collection_id)->where("user_id",$user_id)->where("ip",$ip)->delete();
+
+        return true;
+    }
+
+    /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function UserJob($user_id){
+        $Userjob = JobUser::with('job')->where("user_id",$user_id)->get();
+
+
+    }
+
+    /**
+     * @param business_id
+     * @param $user_id
+     * @return mixed
+     */
+    public function checkUserJob($job_id,$user_id,$ip){
+        $Userjob = JobUser::where('job',$job_id)->where("user_id",$user_id)->where('ip',$ip)->get();
+
+
     }
 }

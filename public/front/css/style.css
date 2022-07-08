@@ -1,92 +1,8 @@
-@font-face {
-    font-family: "Proxima Nova Regular";
-    src: url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.eot");
-    src: url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/bf9f5d50c1b928ff21436517a1a95ad9.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Bold";
-    src: url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.eot");
-    src: url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/72b6f2c9990bd3d37b8013a59ed78902.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Extrabold";
-    src: url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.eot");
-    src: url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/5243e362912f7119ede836ab03f23ac7.svg#Proxima Nova")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Black";
-    src: url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.eot");
-    src: url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/4cca4c1ead331379762339c8302c40b0.svg#Proxima Nova Bl")
-            format("svg");
-}
-@font-face {
-    font-family: "Proxima Nova Lt";
-    src: url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.eot");
-    src: url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.woff2")
-            format("woff2"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.woff")
-            format("woff"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.ttf")
-            format("truetype"),
-        url("https://db.onlinewebfonts.com/t/12259b169c5f9fe42a8bcc738952ea91.svg#Proxima Nova Lt")
-            format("svg");
-}
-
-.proxima_light {
-    font-family: "Proxima Nova Lt" !important;
-}
-.proxima_normal {
-    font-family: "Proxima Nova" !important;
-}
-.proxima_bold {
-    font-family: "Proxima Nova Bold" !important;
-}
-.proxima_exbold {
-    font-family: "Proxima Nova Extrabold" !important;
-}
-.proxima_black {
-    font-family: "Proxima Nova Black" !important;
-}
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap');
 
 body {
-    font-family: "Proxima Nova Regular";
+    font-family: "Rubik", sans-serif;
 }
 ul {
     list-style: none;
@@ -106,6 +22,11 @@ a:focus {
     -moz-transition: all 300ms ease-in-out;
     -o-transition: all 300ms ease-in-out;
 }
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Montserrat', sans-serif;
+}
+
 input:focus-visible,
 input:focus {
     outline: none;
@@ -114,6 +35,22 @@ button {
     cursor: pointer;
 }
 
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+	background-color: #0e0c28;
+}
+
+::-webkit-scrollbar
+{
+	width: 3px;
+	background-color: #0e0c28;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #89d640;
+}
 /*====================
 	Common
 =====================*/
@@ -142,7 +79,6 @@ button {
 .parimary_btn {
     padding: 0 45px;
     font-size: 18px;
-    font-family: "Proxima Nova Bold";
     line-height: 54px;
     color: #000;
     border-radius: 30px;
@@ -168,7 +104,6 @@ button {
 .secondary_btn {
     padding: 0 20px;
     font-size: 11px;
-    font-family: "Proxima Nova Bold";
     line-height: 35px;
     color: #fff;
     border-radius: 30px;
@@ -195,46 +130,110 @@ button {
     /*padding-right: 150px;*/
 }
 .logo {
-    max-width: 280px;
-}
-.logo a {
     display: block;
+    height: 60px;
 }
-.logo a img {
+.logo img {
     display: block;
-    width: 100%;
+    height: 100%;
 }
 .header_right {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .header_right ul {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 .header_right ul li.expart_btn {
     padding-right: 5px;
 }
-.header_right li a {
-    padding: 18px 18px;
-    font-size: 15px;
-    font-family: "Proxima Nova Bold";
-    background: #192146;
-    line-height: 1.2;
+.header_right ul .nav-item .nav-link {
+    font-size: 16px;
+    color: #192146;
+}
+#notificationBell, #userDropdown{
+    color: #192146;
+    font-size: 24px;
+    margin-left: 12px;
+}
+.header_right .dropdown-menu a{
+    font-size: 18px;
+}
+.header_right .dropdown-menu.show{
+    left: unset !important;
+    right: 0 !important;
+    top: 100% !important;
+    transform: unset !important;
+}
+.right-nav .dropdown-menu{
+    box-shadow: 0px 3px 25px -4px rgb(154 154 204 / 74%) !important;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px!important;
+}
+.noti-menu{
+    height: 400px;
+    width: 300px;
+    overflow-y: scroll;
+}
+.right-nav .dropdown-item:active, .right-nav .dropdown-item:focus{
+    background-color: #f8f9fa;
+}
+.noti-menu .dropdown-item{
+    white-space: normal;
+    padding: 15px;
+}
+.noti-menu h6{
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d405c;
+    margin-bottom: 8px;
+}
+.noti-menu p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #656c86;
+    margin-bottom: 8px;
+}
+.noti-menu small{
+    font-size: 13px;
+    text-align: right;
+    display: block;
+    color: #3d405c;
+}
+.user-nav a.dropdown-item{
+    font-size: 14px;
+    padding: 8px 12px;
+    color: #192146;
+}
+.user-nav .dropdown-item i {
+    padding-right: 8px;
+    color: #92d051;
+}
+.right-nav .user-nav .userName{
+    background-color: #192146;
     color: #fff;
-    border-radius: 30px;
-    height:50px;
 }
-.header_right ul li.sign_up_btn a {
-    background: #89d640;
+
+.post_job_btn{
+    background-color: #92d051;
+    height: auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: capitalize;
+    line-height: 1;
 }
-.header_right ul li.sign_up_btn a img {
-    margin-right: 0;
-    width: 22px;
-    vertical-align: top;
+.post_job_btn:hover{
+    background-color: #192146;
+    color: #fff;
+}
+.dropdown-toggle:focus-visible{
+    outline: 0;
+    border: 0;
 }
 
 /*====================
@@ -251,7 +250,7 @@ button {
 .main_navigation li a {
     padding: 20px;
     font-size: 18px;
-    font-family: "Proxima Nova Extrabold";
+
     color: #192146;
     line-height: 1.2;
     text-transform: uppercase;
@@ -297,19 +296,20 @@ button {
     font-weight: bold;
     line-height: 1;
     margin-bottom: 0;
+    color: #89d640;
 }
 .banner_content h3 span {
-    font-size: 45px;
+    font-size: 28px;
     line-height: 1;
 }
 .banner_content h1 {
-    font-size: 85px;
+    font-size: 65px;
     line-height: 0.95;
     color: #192146;
     margin-bottom: 15px;
 }
 .banner_content h1 strong {
-    font-size: 75px;
+    font-size: 65px;
     line-height: 0.95;
     color: #f8b810;
 }
@@ -414,7 +414,7 @@ button {
     font-size: 56px;
 }
 .how_it_work_content h2 span {
-    font-family: "Proxima Nova Regular";
+
 }
 .how_it_work_content h2 span b {
     font-weight: normal;
@@ -551,7 +551,7 @@ button {
     font-size: 16px;
     color: #fff;
     border-radius: 30px !important;
-    font-family: "Proxima Nova Bold";
+
     letter-spacing: 0.5px;
 }
 .mentor_tab_menu  .nav-item .nav-link:hover,
@@ -605,7 +605,7 @@ button {
 }
 .mentor_time {
     font-size: 17px;
-    font-family: "Proxima Nova Bold";
+
     color: #fff;
 }
 .mentor_price {
@@ -618,10 +618,10 @@ button {
     right: 0;
     font-size: 22px;
     text-transform: uppercase;
-    font-family: "Proxima Nova Extrabold";
+
 }
 .mentor_price span {
-    font-family: "Proxima Nova Regular";
+
 }
 .mentor_course_overlay h4 sub {
     bottom: 0;
@@ -669,7 +669,7 @@ button {
     align-self: center;
 }
 .mentor_course_review_name h5 {
-    font-family: "Proxima Nova Extrabold";
+
     color: #000;
     line-height: 1.2;
     margin-bottom: 5px;
@@ -678,7 +678,7 @@ button {
 }
 .mentor_course_review_name h6 {
     margin-bottom: 0;
-    font-family: "Proxima Nova Extrabold";
+
     color: #000;
     text-transform: uppercase;
     font-size: 12px;
@@ -707,7 +707,7 @@ button {
 .mentor_course_content li a {
     padding: 0 15px;
     font-size: 11px;
-    font-family: "Proxima Nova Bold";
+
     line-height: 35px;
     color: #fff;
     border-radius: 30px;
@@ -1134,7 +1134,7 @@ button {
 .class_teacher_description h3 b {
     font-size: 25px;
     font-weight: normal;
-    font-family: "Proxima Nova Extrabold";
+
 }
 .class_teacher_name h4 {
     font-size: 22px;
@@ -1167,7 +1167,7 @@ button {
     margin-bottom: 40px;
     font-size: 19px;
     color: #fff;
-    font-family: "Proxima Nova Lt" !important;
+
     position: relative;
 }
 .review_slider_item_left p:after {
@@ -1433,7 +1433,7 @@ button {
 }
 .experty_insights_content a {
     font-size: 19px;
-    font-family: "Proxima Nova Bold";
+
     color: #f8b810;
 }
 .experty_insights_loadmore {
@@ -1630,7 +1630,7 @@ button {
     margin-bottom: 0;
     font-size: 16px;
     text-transform: uppercase;
-    font-family: "Proxima Nova Bold";
+
     color: #000000;
 }
 .expart_search_grid select {
@@ -1639,7 +1639,7 @@ button {
     border: none;
     color: #818181;
     letter-spacing: 0.8px;
-    font-family: "Proxima Nova Bold";
+
     font-size: 15px;
     appearance: none;
     -webkit-appearance: none;
@@ -1872,14 +1872,14 @@ button {
     font-size: 72px;
     font-weight: 900;
     line-height: 55px;
-    font-family: "Proxima Nova black";
+
 }
 .sign_up_text .darkblue {
     font-size: 36px;
     margin-left: 0;
 }
 .sign_up_text .h2 {
-    font-family: "Proxima Nova LT";
+
 }
 .sign_up_text p {
     font-size: 16px;
@@ -3387,76 +3387,573 @@ article {
     .header_right ul li.expart_btn{
         padding-right: 0;
     }
+}
 
 
+.header_padding{
+	padding-top: 270px;
+}
+.post_job_section{
+	min-height: 100vh;
+}
+body{
+	font-family: 'Rubik', sans-serif;
+	font-weight: 400;
+}
+
+
+/* Job Listing */
+.job_listing{
+	padding-bottom: 70px;
+	background: #f1f2f4;
+}
+.searchHeading {
+    margin-bottom: 20px;
+    color: #192146;
+    font-size: 26px;
+    font-weight: 600;
+	font-family: 'Rubik', sans-serif;
+}
+.searchBox{
+	margin-bottom: 20px;
+}
+.searchBox h5{
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 0;
+	font-size:14px;
+	font-weight: 400;
+}
+.searchBox h5 svg{
+	width: 20px;
+	margin-right: 10px;
+}
+.searchBox h5 svg path{
+    stroke: #89d640;
+}
+.searchBox h5 svg circle{
+    stroke: #89d640;
+}
+.searchBox h5 span{
+	font-weight: 500;
+}
+
+.joblist_search {
+	display: flex;
+	flex-wrap: wrap;
+	box-shadow: 3px 3px 10px rgb(0 0 0 / 10%);
+}
+.joblist_search .form-control{
+	flex: 1 0 0%;
+	border-radius: 3px 0 0 3px;
+	border-right: none;
+	border: none;
+	height: 42px;
+	padding: 5px 20px;
+	font-size: 14px;
+	letter-spacing: 0.5px;
+}
+.joblist_search .form-control:focus{
+	box-shadow: none;
+}
+.jobsearch_btn{
+	border: none;
+	display: flex;
+	flex-wrap: wrap;
+	right: 0;
+	top: 0;
+	height: 42px;
+	width: 45px;
+	justify-content: center;
+	border-radius:  0 3px 3px 0;
+	align-items: center;
+	color: #fff;
+	background: #192146;
+}
+.jobsearch_btn svg{
+	width: 20px;
+}
+
+.job_list_wrap{
 
 }
-/* Navbar container */
-.navbar {
-    overflow: hidden;
-    background-color: #333;
-    font-family: Arial;
-  }
+.job_list:first-child{
+	border-radius: 4px 4px 0 0;
+}
+.job_list:last-child{
+	border-radius: 0 0 4px 4px;
+}
+.job_list:not(first-child){
+	margin-top: -1px;
+}
+.job_list{
+	padding: 25px;
+	background: #fff;
+	border: 1px solid rgb(224, 224, 224);
+}
+.job_list_top h4{
+	font-size: 20px;
+	margin-bottom: 20px;
+	font-family: 'Rubik', sans-serif;
+}
+.job_list_top h4 a{
+	color: #192146;
+}
+.job_list:hover h4 a{
+	color: #70b72d;
+}
+.job_list_top h4 a:hover{
+	text-decoration: underline;
+}
+.job_list_top .is_save{
+	display: none;
+}
+.job_list_top ul{
+	display: flex;
+	flex-wrap: wrap;
+}
+.job_list_top ul li:last-child{
+	margin-left: 10px;
+}
+.job_list_top ul li button{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: none;
+}
+.job_list_top ul li button:focus{
+	outline: none;
+}
 
-  /* Links inside the navbar */
-  .navbar a {
-    float: left;
+.job_time_est{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+.job_time_est small{
+	font-size:100%;
+}
+.job_time_est strong{
+	color: #505050;
+	font-weight: 500;
+}
+.job_description_text{
+	margin-bottom: 15px;
+}
+.job_description_text p{
+	font-size: 14px;
+	line-height: 1.5;
+	display: block;
+	display: -webkit-box;
+	max-width: 100%;
+	height: 60px;
+	margin: 0 auto;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.job_skill_slider{
+	margin-bottom: 15px;
+	padding: 0;
+}
+.proposals_text{
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+.proposals_text small{
+	font-size:100%;
+}
+.proposals_text strong{
+	font-weight: 400;
+}
+
+.badge-line {
+    font-size: 12px;
+}
+.badge-line small{
+	font-size:100%;
+	margin-right: 10px;
+}
+.badge-line strong{
+	font-weight: 500;
+}
+.badge-line strong i{
+	color: #aaa;
+}
+.job_star_rating{
+	display: inline-flex;
+}
+.payment_verification_status strong{
+	display: inline-flex;
+	color: #444;
+	align-items: center;
+}
+.payment_verification_status strong i{
+	margin-right: 5px;
+	font-size: 13px;
+}
+.job_star_rating{
+	font-size: 13px
+}
+.unverified_rating span{
+	color: #ddd;
+}
+.verified_status strong i{
+	color: #1f57c3;
+	font-size: 13px;
+}
+.verified_rating span{
+	color: #14a800;
+}
+
+.job_skill_slider .job_skill{
+	width: auto;
+}
+.job_skill a{
+	display: inline-block;
+	background: #f2f2f2;
+	color: #222;
+	font-size: 13px;
+	padding: 5px 15px;
+	border-radius: 15px;
+}
+.job_skill a:hover{
+	background: #e0e0e0;
+}
+
+.job_skill_slider .swiper-button-prev {
+    width: 30px;
+    font-size: 25px;
+    height: 30px;
+    top: 0;
+    transform: translateY(0);
+    margin: 0;
+    left: 0;
+    color: #89d640;
+    background: #fff;
+}
+.job_skill_slider .swiper-button-prev:after{
     font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-  /* The dropdown container */
-  .dropdown {
-    float: left;
-    overflow: hidden;
-  }
-
-  /* Dropdown button */
-  .dropdown .dropbtn {
+    font-weight: bold;
+}
+.job_skill_slider .swiper-button-next {
+    width: 30px;
+    font-size: 25px;
+    height: 30px;
+    top: 0;
+    transform: translateY(0);
+    margin: 0;
+    right: 0;
+    color: #89d640;
+    background: #fff;
+}
+.job_skill_slider .swiper-button-next:after{
     font-size: 16px;
+    font-weight: bold;
+}
+.job_skill_slider .swiper-button-disabled{
+	display: none;
+}
+.job_skill_slider .swiper-button-next:before{
+	content: "";
+	width: 20px;
+	height: 100%;
+	background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
+	right: 100%;
+	position: absolute;
+	top: 0;
+}
+.job_skill_slider .swiper-button-prev:before{
+	content: "";
+	width: 20px;
+	height: 100%;
+	background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
+	left: 100%;
+	position: absolute;
+	top: 0;
+}
+
+
+
+/* Job Post */
+.jobPost_get_started{
+	border: 1px solid #dedede;
+	border-radius: 4px;
+}
+.jobPost_get_started_top{
+	padding: 20px 30px;
+	border-bottom: 1px solid #dedede;
+}
+.jobPost_get_started_top h3{
+	font-weight: 500;
+	font-size: 22px;
+	font-family: "Rubik", sans-serif;
+}
+
+.jobPost_get_started_body_top{
+	margin-bottom: 20px;
+}
+.jobPost_get_started_body_top h4{
+	font-size: 18px;
+	font-weight: normal;
+	margin-bottom: 10px;
+	color: #111;
+	font-family: "Rubik", sans-serif;
+}
+.jobPost_get_started_body_top label{
+	display: block;
+	margin-bottom: 0;
+	position:relative;
+	padding-left: 25px;
+	font-size: 14px;
+	color: #555;
+}
+.jobPost_get_started_body_top input{
+	opacity: 0;
+	position: absolute;
+}
+.jobPost_get_started_body_top span{
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 1px solid #192146;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.jobPost_get_started_body_top span:after{
+	content:"";
+	width: 8px;
+	height: 8px;
+	background: #192146;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;;
+	position: absolute;
+	border-radius: 50%;
+	display: none;
+}
+.jobPost_get_started_body_top input[type=radio]:checked + span:after{
+	display: block;
+}
+
+.jobPost_get_started_body_box{
+	border: 1px solid #dedede;
+	padding: 20px 15px;
+	text-align: center;
+	position: relative;
+	border-radius: 5px;
+}
+.jobPost_get_started_body_box.is_active{
+	border-color: #14a800;
+}
+.jobPost_get_started_body_box label{
+	position: absolute;
+	z-index: 11;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+	cursor: pointer;
+}
+.jobPost_get_started_body_box input{
+	position: absolute;
+	opacity: 0;
+	z-index: 11;
+}
+.jobPost_get_started_body_box span{
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	border: 1px solid #14a800;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+}
+.jobPost_get_started_body_box span:after{
+	content:"";
+	width: 8px;
+	height: 8px;
+	background: #14a800;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;;
+	position: absolute;
+	border-radius: 50%;
+	display: none;
+}
+.jobPost_get_started_body_box input[type=radio]:checked + span:after{
+	display: block;
+}
+
+.jobPost_get_started_body{
+	padding: 30px;
+	border-bottom: 1px solid #dedede;
+}
+
+.jobPost_get_started_foot{
+	padding: 20px 30px;
+}
+.jobPost_get_started_body_box i{
+	font-size: 35px;
+	color: #192146;
+	display: inline-block;
+	margin-bottom: 15px;
+}
+.jobPost_get_started_body_box_text h5{
+	font-family: "Rubik", sans-serif;
+	font-size: 16px;
+}
+.jobPost_get_started_body_box_text p{
+	font-size: 14px;
+	color: #888;
+}
+.cancle_btn{
+    color: #14a800;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 14px;
+    background: #f2f2f2;
+}
+.cancle_btn:hover{
+	text-decoration: underline;
+	color: #14a800;
+    background: #efefef;
+}
+.continue_btn{
+    color: #fff;
+    background: #14a800;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 14px;
     border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit; /* Important for vertical align on mobile phones */
-    margin: 0; /* Important for vertical align on mobile phones */
-  }
+}
+.continue_btn:hover{
+	color: #fff;
+    background: #308525;
+}
+.continue_btn:focus-visible,
+.continue_btn:focus{
+	outline: none;
+	border: none;
+}
 
-  /* Add a red background color to navbar links on hover */
-  .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-  }
+.continue_btn:disabled{
+	opacity: 0.4;
+	background: #555;
+	color: #fff;
+	cursor: not-allowed;
+}
+.post_job_section{
+	min-height: 100vh;
+	padding-bottom: 80px;
+}
 
-  /* Dropdown content (hidden by default) */
-  .dropdown-content {
-    display: none;
+
+/*post_job_progress*/
+.post_job_progress{
+	margin-bottom: 70px;
+}
+
+.post_job_progress_bar{
+	height: 10px;
+	width: 100%;
+	background: rgba(255,255,255,0.2);
+	border-radius: 10px;
+	position: relative;
+	margin-bottom: 10px;
+}
+.post_job_progress_bar span{
+    height: 100%;
+    background: #56c927;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
+    border-radius: 10px;
+    top: 0;
+}
+#headline_step .post_job_progress_bar span{
+	width: 25%;
+}
+#skills_step .post_job_progress_bar span{
+	width: 50%;
+}
+#scope_step .post_job_progress_bar span{
+	width: 75%;
+}
+#budget_step .post_job_progress_bar span{
+	width: 100%;
+}
 
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
+.post_job_progress_text{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.post_job_progress_text span{
+	color: rgba(255,255,255,0.7);
+	font-size: 12px;
+	font-weight: 300;
+	letter-spacing: .3px;
+}
 
-  /* Add a grey background color to dropdown links on hover */
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+.post_job_form_left{
+	background: #181c2f;
+	height: 100%;
+	border-radius: 5px 0 0 5px;
+	padding: 30px;
+}
+.post_job_form_right{
+	padding: 20px;
+}
+.exampleHeading h6{
+	font-size: 16px;
+	margin-bottom: 15px;
+	font-family: 'Rubik', sans-serif;
+}
+.post_job_form_right ul{
+	margin-left: 20px;
+	list-style: square;
+}
+.post_job_form_right ul li{
+	font-size: 14px;
+	line-height: 1.4;
+	margin-bottom: 12px;
+}
+.post_job_form_foot{
+	margin-top: 100px;
+}
+.post_job_box{
+	border: 1px solid #dedede;
+	border-radius: 5px;
+}
+.post_job_form_left h3{
+	font-size: 24px;
+	color: #fff;
+	font-weight: normal;
+	font-family: 'Rubik', sans-serif;
+	margin-bottom: 20px;
+}
+.post_job_form_left p{
+	font-size: 14px;
+	letter-spacing: 0.4px;
+	color: #fff;
+	opacity: 0.9;
+	font-weight:400;
+}
+.post_job_box{
+	display: none;
+}

@@ -60,6 +60,21 @@ Route::get('/payment/session/{slotId?}', [PaymentController::class, 'videoSessio
 Route::get('/payment/case/{courseId?}', [PaymentController::class, 'caseStudy'])->name('payment.casestudy');
 Route::get('/order-response', [PaymentController::class, 'orderSuccess'])->name('front.purchase.success');
 
+//job create
+
+Route::group(['prefix' => 'job'], function() {
+    Route::get('/',[JobController::class, 'index'])->name('front.jobs.index');
+    Route::get('/add',[JobController::class, 'create'])->name('front.jobs.add');
+    Route::post('/store',[JobController::class, 'store'])->name('front.jobs.store');
+    Route::get('/edit/{id}',[JobController::class, 'edit'])->name('front.jobs.edit');
+    Route::put('/update/{id}',[JobController::class, 'update'])->name('front.jobs.update');
+    Route::get('/saved-job',[JobController::class, 'savejob'])->name('front.saved.jobs');
+    Route::get('/{id}/delete', [JobController::class, 'removeSavedJob'])->name('front.jobs.delete');
+    Route::get('/my-jobs',[JobController::class, 'myjob'])->name('front.my.jobs');
+    Route::post('save-user-job/{id}',[JobController::class, 'saveUserJob'])->name('front.user.save.jobs');
+    //Route::get('delete-user-job/{id}',[JobController::class, 'myjob'])->name('front.user.delete.jobs');
+
+});
 // Common Auth Routes
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/profile', [HomeController::class, 'userProfile'])->name('user.profile');
@@ -86,17 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('user/profile/address/update', [HomeController::class, 'userAddressUpdate'])->name('user.address.update');
 
 
-    //job create
 
-    Route::group(['prefix' => 'job'], function() {
-        Route::get('/',[JobController::class, 'index'])->name('front.job.index');
-        Route::get('/add',[JobController::class, 'create'])->name('front.job.add');
-        Route::post('/store',[JobController::class, 'store'])->name('front.job.store');
-        Route::get('/edit/{id}',[JobController::class, 'edit'])->name('front.job.edit');
-        Route::put('/update/{id}',[JobController::class, 'update'])->name('front.job.update');
-        Route::get('/delete/{id}',[JobController::class, 'destroy'])->name('front.job.delete');
-
-    });
 
 	// purchase reports
 	Route::group(['prefix' => 'user/report'], function () {

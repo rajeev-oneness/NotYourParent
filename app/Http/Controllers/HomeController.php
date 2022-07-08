@@ -51,7 +51,7 @@ class HomeController extends Controller
                 return redirect('teacher/dashboard');
                 break;
             case 3:
-                return redirect('student/dashboard');
+                return redirect('/');
                 break;
         }
         return view('home');
