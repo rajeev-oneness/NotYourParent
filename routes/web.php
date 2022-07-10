@@ -66,13 +66,17 @@ Route::group(['prefix' => 'job'], function() {
     Route::get('/',[JobController::class, 'index'])->name('front.jobs.index');
     Route::get('/add',[JobController::class, 'create'])->name('front.jobs.add');
     Route::post('/store',[JobController::class, 'store'])->name('front.jobs.store');
-    Route::get('/edit/{id}',[JobController::class, 'edit'])->name('front.jobs.edit');
+    Route::get('/details',[JobController::class, 'detail'])->name('front.jobs.details');
     Route::put('/update/{id}',[JobController::class, 'update'])->name('front.jobs.update');
     Route::get('/saved-job',[JobController::class, 'savejob'])->name('front.saved.jobs');
     Route::get('/{id}/delete', [JobController::class, 'removeSavedJob'])->name('front.jobs.delete');
     Route::get('/my-jobs',[JobController::class, 'myjob'])->name('front.my.jobs');
-    Route::post('save-user-job/{id}',[JobController::class, 'saveUserJob'])->name('front.user.save.jobs');
-    //Route::get('delete-user-job/{id}',[JobController::class, 'myjob'])->name('front.user.delete.jobs');
+    Route::get('/jobs-proposal/{id}',[JobController::class, 'proposal'])->name('front.jobs.proposals');
+    Route::get('/applied-jobs',[JobController::class, 'applied'])->name('front.jobs.contracts');
+    Route::post('save-user-job',[JobController::class, 'saveUserJob'])->name('front.user.save.jobs');
+     Route::post('apply-user-job',[JobController::class, 'applyUserJob'])->name('front.user.apply.jobs');
+    Route::get('delete-user-job',[JobController::class, 'myjob'])->name('front.user.delete.jobs');
+    Route::post('/category', [JobController::class, 'user'])->name('user.category');
 
 });
 // Common Auth Routes

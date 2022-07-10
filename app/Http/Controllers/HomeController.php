@@ -48,7 +48,7 @@ class HomeController extends Controller
                 return redirect('admin/dashboard');
                 break;
             case 2:
-                return redirect('teacher/dashboard');
+                return redirect('/');
                 break;
             case 3:
                 return redirect('/');

@@ -1,22 +1,23 @@
-@extends('layouts.dashboard.master')
-@section('title','Chat')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Chat
+@endsection
+
 @section('content')
-<div class="container-fluid  dashboard-content">
-    <div class="row">
+<section class="job_listing header_padding">
+<div class="container  dashboard-content">
+    <div class="row m-0 justify-content-center chat_section">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card" sty le="border: 0;box-shadow: 0px 1px 2px 1px transparent;">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Chat</h5></div>
-                        {{-- <div class="col-6 text-right"><a href="#allUserModal" data-toggle="modal" class="btn btn-sm btn-primary">Start new chat</a></div> --}}
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="row mx-0">
+            <h5>Chat</h5>
+            {{-- <div class="col-6 text-right"><a href="#allUserModal" data-toggle="modal" class="btn btn-sm btn-primary">Start new chat</a></div> --}}
+                    <div class="row m-0">
                         <div class="col-md-12">
                             <div class="row">
                                 @if (count($data) > 0)
-                                <div class="col-md-3 px-0">
+                                <div class="col-md-3 px-0 bg-white">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         @foreach($data as $index => $user)
                                             @php
@@ -52,13 +53,13 @@
                                                 <div class="card-body" style="min-height: 200px;max-height: 350px;overflow-y: scroll;display: flex;flex-direction: column-reverse;">
                                                     <div class="row" id="userMessages"></div>
                                                 </div>
-                                                <div class="card-footer text-muted p-0">
+                                                <div class="card-footer text-muted p-0 border-bottom-0">
                                                     <form action="{{ route('user.chat.create') }}" class="form-inline" method="post" autocomplete="off" id="createNewChat">
                                                         <div class="form-group" style="width: 90%">
                                                             <input type="hidden" id="conversation_id" name="conversation_id" value="">
                                                             <input type="text" class="form-control rounded-0 w-100" id="typed_message" name="message" placeholder="Type something...">
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary rounded-0 ml-2"><i class="fa fa-fw fa-paper-plane"></i></button>
+                                                        <button type="submit" class="btn chat_send"><i class="fa fa-fw fa-paper-plane"></i></button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -75,12 +76,11 @@
                             </div>
                         </div>                       
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
+</section>
 <div class="modal fade" id="allUserModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">

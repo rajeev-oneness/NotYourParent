@@ -22,6 +22,12 @@
                                 <a class="dropdown-item" href="{{ route('front.my.jobs') }}">
                                     My Jobs
                                 </a>
+                                <!-- <a class="dropdown-item" href="">
+                                   Proposals
+                                </a> -->
+                                <a class="dropdown-item" href="{{ route('front.jobs.contracts') }}">
+                                    My Proposal
+                                </a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -80,6 +86,7 @@
                             </div>
                         </li>
                         @endif
+                         @if(Auth::user()->user_type == 3)
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="#" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="far fa-user-circle"></i>
@@ -88,30 +95,82 @@
                                 <a class="dropdown-item userName" href="#">
                                     {{ucwords(Auth::user()->name)}}
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">
                                     <i class="fas fa-tachometer-alt"></i>
-                                    Dashboard
+                                    Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.transactions.index') }}">
                                     <i class="fas fa-credit-card"></i>
                                     Transactions
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.sessions.index') }}">
                                     <i class="fas fa-play"></i>
                                     Video sessions
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.caseStudy.index') }}">
                                     <i class="fa fa-book"></i>
                                     Case studies
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.chat.index') }}">
                                     <i class="fa fa-comment"></i>
                                     Chat
                                 </a>
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>{{ __('Logout') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                             </div>
                         </li>
-
+                       
+                           @elseif(Auth::user()->user_type == 2)
+                            <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="#" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-user-circle"></i>
+                            </a>
+                            <div class="dropdown-menu user-nav" aria-labelledby="userDropdown">
+                                <a class="dropdown-item userName" href="#">
+                                    {{ucwords(Auth::user()->name)}}
+                                </a>
+                       
+                            <a class="dropdown-item" href="{{route('teacher.my-course.index')}}"><i class="fas fa-book"></i>My Case study</a>
+                       
+                       
+                           <a class="dropdown-item" href="{{ route('teacher.my-slots.slotList') }}"><i class="fas fa-bookmark"></i>My Slots</a>
+                        
+                        
+                            <a class="dropdown-item" href="{{ route('teacher.knowledgebank.index') }}"><i class="fas fa-box-open"></i>Knowledge Bank</a>
+                       
+                        
+                            <a class="dropdown-item" href="{{ route('front.jobcat.index') }}"><i class="fas fa-box-open"></i>Job Category</a>
+                        
+                       
+                        
+                           <a class="dropdown-item" href="{{ route('user.transactions.index') }}"><i class="fas fa-credit-card"></i>Transactions</a>
+                        
+                      
+                            <a class="dropdown-item" href="{{ route('user.sessions.index') }}"><i class="fas fa-play"></i>Video sessions</a>
+                       
+                        
+                           <a class="dropdown-item" href="{{ route('user.caseStudy.index') }}"><i class="fa fa-book"></i>Case studies</a>
+                       
+                        
+                           <a class="dropdown-item" href="{{ route('user.chat.index') }}"><i class="fa fa-comment"></i>Chat</a>
+                       
+                       
+                        
+                            <a class="dropdown-item" href="{{ route('user.profile') }}"><i class="fa fa-cog"></i>Settings</a>
+                      
+                        
+                            <a class="dropdown-item" href="{{ route('user.status') }}"><i class="fas fa-circle-notch"></i> Status</a>
+                            <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>{{ __('Logout') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                        </li>
+                        @endif
                         @endauth
+
                         @guest
                             <li class="expart_btn"><a href="{{route('front.sign-up',['userType' => 2])}}">Become an Expert</a></li>
                             <li class="sign_up_btn mr-1"><a href="{{url('login')}}"><img src="{{asset('front/images/sign-up-icon.png')}}" alt=""> Login</a></li>

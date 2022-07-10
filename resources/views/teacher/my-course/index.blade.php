@@ -1,11 +1,16 @@
-@extends('layouts.dashboard.master')
-@section('title','Case study')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    My Course
+@endsection
+
 @section('content')
-<div class="container-fluid  dashboard-content">
-    <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-header">
+<section class="job_listing header_padding">
+<div class="container dashboard-content">
+    <div class="row m-0 justify-content-center">
+        <div class="col-12 col-lg-12 col-md-12 nyt_table">
                     <h5 class="mb-0">Case study
                         <a class="headerbuttonforAdd addBlogCategory" href="{{route('teacher.my-course.add')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add
@@ -14,9 +19,9 @@
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+              
+                     <div class="table-responsive">
+                         <table id="example4" class="table table-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -62,7 +67,7 @@
         </div>
     </div>
 </div>
-
+</section>
 
 @section('script')
 <script type="text/javascript">
@@ -87,5 +92,6 @@
             });
         });
 </script>
+  
 @stop
 @endsection

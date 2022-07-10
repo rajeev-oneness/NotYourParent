@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master')
+@extends('front.layouts.master')
 @section('title','Slot')
 @section('css')
 <link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
@@ -13,6 +13,7 @@
     </style>
 @endsection
 @section('content')
+<section class="job_listing header_padding">
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -63,6 +64,7 @@
         </div>
     </div>
 </div>
+</section>
 @endsection
 @section('script')
 <script src="{{asset('design/vendor/full-calendar/js/fullcalendar.js')}}"></script>

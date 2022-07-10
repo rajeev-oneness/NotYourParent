@@ -1,20 +1,19 @@
-@extends('layouts.dashboard.master')
-@section('title','Transactions')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Transaction
+@endsection
 
 @section('content')
-
-<div class="container-fluid dashboard-content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card text-left">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Transactions</h5></div>
-                    </div>
-                </div>
-                <div class="card-body">
+<section class="job_listing header_padding">
+<div class="container dashboard-content">
+    <div class="row m-0 justify-content-center">
+        <div class="col-12 col-lg-12 col-md-12 nyt_table">
+                <h5>Transactions</h5>
                     <div class="table-responsive">
-                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -30,14 +29,10 @@
                                 <tr>
                                     <td>{{$key + 1}}</td>
                                     <td>
-                                        <p class="small text-muted">
-                                            <span class="text-dark">{{ $item->userDetail->name }}</span>
-                                        </p>
+                                        {{ $item->userDetail->name }}
                                     </td>
                                     <td>
-                                        <p class="small text-muted">
-                                            <span class="text-dark">#{{ $item->transaction }}</span>
-                                        </p>
+                                        #{{ $item->transaction }}
                                     </td>
                                     <td>
                                         @if ($item->purchaseType == 'course_purchases')
@@ -47,23 +42,21 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <p class="small text-muted">
-                                            <span class="text-dark">{{currencySymbol($item->currency)}}{{$item->amount}}</span>
-                                        </p>
+                                        {{currencySymbol($item->currency)}}{{$item->amount}}
                                     </td>
                                     <td>
-                                        <p class="small text-muted">{{$item->created_at}}</p>
+                                       {{$item->created_at}}
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+</section>
 
 @section('script')
     <script type="text/javascript">

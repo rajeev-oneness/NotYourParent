@@ -1,15 +1,13 @@
-@extends('layouts.dashboard.master')
-@section('title','Edit address')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Transaction
+@endsection
 
 @section('content')
-
-<style>
-    input[type=radio] {
-        display: inline-block;
-    }
-</style>
-
-<div class="container-fluid dashboard-content">
+<section class="job_listing header_padding">
     <div class="row">
         <div class="col-12">
             <div class="card text-left">
@@ -88,7 +86,7 @@
         </div>
     </div>
 </div>
-
+</section>
 @section('script')
     <script type="text/javascript"></script>
 @stop

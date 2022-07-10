@@ -12,4 +12,9 @@ class Job extends Model
     {
         return $this->belongsTo(JobCategory::class, 'cat_id', 'id');
     }
+
+    public function job()
+    {
+        return $this->hasMany(UserJob::class, 'job_id', 'id');
+    }
 }

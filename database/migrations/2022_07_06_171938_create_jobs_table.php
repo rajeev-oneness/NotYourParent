@@ -13,7 +13,7 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('jobs1', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('cat_id');

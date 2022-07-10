@@ -1,20 +1,20 @@
-@extends('layouts.dashboard.master')
-@section('title','Case study report')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Case Study
+@endsection
 
 @section('content')
-
-<div class="container-fluid dashboard-content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card text-left">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Purchased Case study</h5></div>
-                    </div>
-                </div>
-                <div class="card-body">
+<section class="job_listing header_padding">
+<div class="container dashboard-content">
+    <div class="row m-0 justify-content-center">
+        <div class="col-12 col-lg-12 col-md-12 nyt_table">
+            <h5 class="mb-0">Purchased Case study</h5>
+            
                     <div class="table-responsive">
-                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -30,52 +30,50 @@
                                     <td>{{$key + 1}}</td>
                                     <td>
                                         @if (Auth::user()->id == 1)
-                                        <p class="small text-muted">
+                                        
                                             EXPERT :
                                             <span class="text-dark">{{ $item->courseDetails->teacherDetail->name }}</span>
-                                        </p>
-                                        <p class="small text-muted">
+                                            
+                                        
                                             USER :
                                             <span class="text-dark">{{ $item->userDetails->name }}</span>
-                                        </p>
+                                            
                                         @endif
                                         @if (Auth::user()->id == 2)
-                                        <p class="small text-muted">
+                                        
                                             USER :
                                             <span class="text-dark">{{ $item->userDetails->name }}</span>
-                                        </p>
+                                            
                                         @endif
                                         @if (Auth::user()->id == 3)
-                                        <p class="small text-muted">
+                                            
                                             EXPERT :
-                                            <span class="text-dark">{{ $item->courseDetails->teacherDetail->name }}</span>
-                                        </p>
+                                            <span class="text-dark">{{ $item->courseDetails->teacherDetail->name }}</span> 
+                                            
                                         @endif
                                     </td>
                                     <td>
-                                        <p class="small text-muted">
-                                            <span class="text-dark">{{$item->courseDetails->name}}</span>
-                                        </p>
+                                            
+                                        {{$item->courseDetails->name}}
                                     </td>
                                     <td>
-                                        <video controls muted height="100">
+                                        <video controls muted height="60" width="60">
                                             <source src="{{asset($item->courseDetails->original_video_url)}}" type="video/mp4">
                                         </video>
                                     </td>
                                     <td>
-                                        <p class="small text-muted">{{$item->created_at}}</p>
+                                        {{$item->created_at}}
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
+</section>
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {

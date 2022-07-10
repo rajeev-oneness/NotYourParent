@@ -1,8 +1,13 @@
-@extends('layouts.dashboard.master')
-@section('title','Video sessions')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Session
+@endsection
 
 @section('content')
-
+<section class="job_listing header_padding">
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-12">
@@ -71,7 +76,7 @@
         </div>
     </div>
 </div>
-
+</section>
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {

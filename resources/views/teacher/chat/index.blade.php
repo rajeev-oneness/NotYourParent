@@ -1,6 +1,7 @@
-@extends('layouts.dashboard.master')
+@extends('front.layouts.master')
 @section('title','Chat')
 @section('content')
+<section class="job_listing header_padding">
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -70,7 +71,7 @@
         </div>
     </div>
 </div>
-
+</section>
 <div class="modal fade" id="allUserModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">

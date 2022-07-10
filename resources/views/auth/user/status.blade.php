@@ -1,7 +1,13 @@
-@extends('layouts.dashboard.master')
-@section('title','Status')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Status
+@endsection
 
 @section('content')
+<section class="job_listing header_padding">
 
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -31,7 +37,7 @@
         </div>
     </div>
 </div>
-
+</section>
 @section('script')
     <script type="text/javascript"></script>
 @stop

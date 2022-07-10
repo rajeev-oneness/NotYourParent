@@ -13,8 +13,10 @@
 		<!-- owl.carousel -->
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/owl.carousel.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/owl.theme.default.min.css')}}">
+		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 		<!-- custom -->
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
 
         @yield('head-script-style')
 		<title>:: Not Your Parent-@yield('title') ::</title>
@@ -101,6 +103,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+		<script async src="https://static.addtoany.com/menu/page.js"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 		<script>
 			$(document).ready(function() {
 				$('.loading-data').hide();
@@ -276,6 +281,127 @@
 			});
 			// strpe payment gateway ends
     	</script>
+    	<script>
+        // enable tooltips everywhere
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+        // sweetalert fires | type = success, error, warning, info, question
+        function toastFire(type = 'success', title, body = '') {
+            /* Swal.fire({
+                icon: type,
+                title: title,
+                text: body,
+                confirmButtonColor: '#c10909',
+                timer: 5000
+            }) */
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            Toast.fire({
+                icon: type,
+                title: title
+            });
+        }
+        // on session toast fires
+        @if (Session::get('success'))
+            toastFire('success', '{{ Session::get('success') }}');
+        @elseif (Session::get('failure'))
+            toastFire('danger', '{{ Session::get('failure') }}');
+        @endif
+        // button text changes on form submit
+        $('form').on('submit', function(e) {
+            $('button').attr('disabled', true).prop('disabled', 'disabled');
+        });
+       
+        /* let chekoutAmount = getCookie('checkoutAmount');
+       
+        // let paymentGatewayAmount = parseInt($('#displayGrandTotal').text()) * 100;
+    </script>
+
+     <script>
+    // $('.product__color li').eq(0).addClass('active');
+    
+    // wishlist ajax
+    $('#toggleWishlistForm').on('submit', function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: data,
+            beforeSend: function() {
+                // $('#addToCart__btn').addClass('missingVariationSelection').text('Adding to Cart');
+            },
+            success: function(result) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    // timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                if (result.status == 200) {
+                    Toast.fire({
+                      icon: 'success',
+                      title: result.message
+                    });
+                    if (result.message == "Saved") {
+                        Toast.fire({
+                          icon: 'success',
+                          title: 'Job Saved'
+                        });
+                        $('.save_job').addClass('active');
+                    } else {
+                        Toast.fire({
+                          icon: 'success',
+                          title: 'Job removed '
+                        });
+                        $('.save_job').removeClass('active');
+                    }
+                    $('#wishlist-count').text(result.count);
+                } else {
+                    Toast.fire({
+                      icon: 'error',
+                      title: result.message
+                    })
+                }
+               
+                $('.save_job').attr('disabled', false);
+            },
+        });
+    });
+    //local timezone
+        console.log(moment.tz.guess());
+
+        function readNotification(id, route) {
+            $.ajax({
+                url : '{{route("user.notification.read")}}',
+                method : 'POST',
+                data : {'_token' : '{{csrf_token()}}', id : id},
+                success : function(result) {
+                    // console.log('{{url()->current()}}',route);
+                    // if (route != '' && '{{url()->current()}}' != route) {
+                        window.location = route;
+                    // }
+                }
+            });
+        }
+</script>
+
         @yield('script')
 	</body>
 </html>

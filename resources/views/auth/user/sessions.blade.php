@@ -1,20 +1,19 @@
-@extends('layouts.dashboard.master')
-@section('title','Video sessions')
+@extends('front.layouts.master')
+@section('head-script-style')
+@endsection
+
+@section('title')
+    Video Session
+@endsection
 
 @section('content')
-
-<div class="container-fluid dashboard-content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card text-left">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6"><h5 class="mb-0">Purchased Video Sessions</h5></div>
-                    </div>
-                </div>
-                <div class="card-body">
+<section class="job_listing header_padding">
+<div class="container dashboard-content">
+    <div class="row m-0 justify-content-center">
+        <div class="col-12 col-lg-12 col-md-12 nyt_table">
+                 <h5 class="mb-0">Purchased Video Sessions</h5>
                     <div class="table-responsive">
-                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -54,8 +53,8 @@
                                             <span class="text-dark">{{$item->slotDetails->note}}</span>
                                         </p>
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <a href="{{$item->join_url}}" class="btn btn-sm btn-primary" style="white-space: nowrap" target="_blank">Start Video <i class="fa fa-video"></i></a>
+                                    <td>
+                                        <a href="{{$item->join_url}}" class="btn start_Video" target="_blank">Start Video <i class="fa fa-video"></i></a>
                                     </td>
                                     <td>
                                         <p class="small text-muted">{{$item->created_at}}</p>
@@ -65,12 +64,10 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-
+</section>
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {

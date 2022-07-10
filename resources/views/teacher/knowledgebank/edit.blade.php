@@ -1,6 +1,7 @@
-@extends('layouts.dashboard.master')
+@extends('front.layouts.master')
 @section('title','Edit Knowledge Bank')
 @section('content')
+<section class="job_listing header_padding">
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -46,6 +47,8 @@
         </div>
     </div>
 </div>
+</section>
+
 @endsection
 
 @section('css')
