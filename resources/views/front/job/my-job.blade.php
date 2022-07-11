@@ -37,7 +37,7 @@
 
         <div class="job_list_wrap">
             @foreach ( $job as $key=> $item )
-            <div class="job_list jobDetailsmodal" data-popup="jobDetailsModal1">
+            <div class="job_list jobDetailsmodal" data-popup="jobDetailsModal{{ $item->id }}">
                 <div class="job_list_top">
                     <div class="row">
                         <div class="col">
@@ -53,21 +53,21 @@
                                     </button>
                                 </li> --}}
                                 <!-- <li>
-                                   
+
                                     <a href="{{ route('front.user.save.jobs','$item->id') }}}" class="btn btn-blue wishlist text-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
                                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                         </svg>
                                     </a>
-                                   
+
                                     <a href="{!! URL::to('save-user-job/'.$item->id) !!}" class="btn btn-light text-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
                                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                         </svg>
                                     </a>
-                                    
+
                                     {{-- <button id="saveBtn" class="saveJob_btn save_unsave">
                                         <i class="far fa-heart not_save"></i>
                                         <i class="fas fa-heart is_save"></i>
@@ -163,6 +163,149 @@
                     <a href="{{route('front.jobs.proposals',['id' => $item->id])}}"><strong class="connect-price">{{$item->job->count()}} Connects</strong></small></a>
                 </div>
             </div>
+            <div class="job_modal" id="jobDetailsModal{{ $item->id }}">
+                <div class="job_modal-content">
+                    <div class="job_modal_header">
+                        <button type="button" class="modalClose"><i class="far fa-angle-left"></i></button>
+                    </div>
+                    <div class="job_modal_body">
+                        <div class="job_modal_body_inner">
+                            <div class="row ml-0 mr-0">
+                                <div class="col job_modal_body_left">
+                                    <h3>{{ $item->title }}</h3>
+                                    <div class="job_cat">
+                                        <h6>{{ $item->cat ? $item->cat->title : '' }}</h6>
+                                        <span>{{ $item->created_at }}</span>
+                                        <div class="job_location">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>{{ $item->location }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-description job_left_spacing">
+                                        <p>
+                                            {{ $item->description }}
+                                        </p>
+                                    </div>
+                                    <div class="project_brief job_left_spacing">
+                                        <ul class="d-flex justify-content-between">
+                                            <li>
+                                                <i class="far fa-clock"></i>
+                                                <div class="content">
+                                                    <strong>{{ $item->time }}</strong>
+                                                    <small>Hourly</small>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-calendar-alt"></i>
+                                                <div class="content">
+                                                    <strong>{{ $item->duration }}</strong>
+                                                    <small>Project Length</small>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-head-side-brain"></i>
+                                                <div class="content">
+                                                    <strong>Expert</strong>
+                                                    <small>
+                                                        {{ $item->experience }}.
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-stopwatch"></i>
+                                                <div class="content">
+                                                    <strong>{{ $item->budget }}</strong>
+                                                    <small>Hourly</small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="project_type job_left_spacing">
+                                        <p>Project type: <span>{{ $item->type }} project</span></p>
+                                    </div>
+                                    <div class="job_skill job_left_spacing">
+                                        <h4>Skills and Expertise</h4>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5>Must have</h5>
+                                                <a href="#">{{ $item->skill }}</a>
+                                               <!--  <a href="#">CSS</a>
+                                                <a href="#">Bootstrap</a>
+                                                <a href="#">Javascript</a>
+                                                <a href="#">jQuery</a> -->
+                                            </div>
+                                            <div class="col">
+                                                <h5>Good to have</h5>
+                                                <a href="#">SASS</a>
+                                                <a href="#">Github</a>
+                                                <a href="#">React/Angular</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(!Auth::user())
+                                <div class="job_modal_body_right">
+                                    <div class="btn_group">
+                                        <button type="" class="btn submit_proposal">Submit a Proposal</button>
+                                        <button class="btn save_job"><i class="far fa-heart"></i> Save Job </button>
+                                    </div>
+                                    @endif
+                                    <div class="aboutClient">
+                                        <h4>About the client</h4>
+                                        <small class="payment_verification_status verified_status badge-line">
+                                            <strong class="text-muted">
+                                                <i class="fas fa-badge-check"></i>
+                                                {{Auth::user()->name}}
+                                            </strong>
+                                        </small>
+                                        <!-- <div class="clientsRating">
+                                            <small class="job_star_rating verified_rating">
+                                                <span><i class="fas fa-star"></i></span>
+                                                <span><i class="fas fa-star"></i></span>
+                                                <span><i class="fas fa-star"></i></span>
+                                                <span><i class="fas fa-star"></i></span>
+                                                <span><i class="fas fa-star"></i></span>
+                                            </small>
+                                            <span>5.00 of 2 reviews</span>
+                                        </div> -->
+                                        <ul class="client_brief">
+                                            <li>
+                                                <strong>{{Auth::user()->address}}</strong>
+                                               <!--  <p>
+                                                    Davie <span>1:47 pm </span>
+                                                </p> -->
+                                            </li>
+                                           <!--  <li>
+                                                <strong> jobs posted</strong>
+                                                <p>
+                                                    50% hire rate, 1 open job
+                                                </p>
+                                            </li> -->
+                                            <!-- <li>
+                                                <strong>$100k+ total spent</strong>
+                                                <p>
+                                                    53 hires, 4 active
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <strong>
+                                                    20.06 /hr avg hourly rate paid
+                                                </strong>
+                                                <p>
+                                                    4,714 hours
+                                                </p>
+                                            </li> -->
+                                            <li>
+                                                <small>Member since {{ Auth::user()->created_at }}</small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
         </div>
     </div>
@@ -170,151 +313,9 @@
 </div>
 </section>
 
- @foreach ( $job as $key=> $item )
-<div class="job_modal" id="jobDetailsModal1">
-        <div class="job_modal-content">
-            <div class="job_modal_header">
-                <button type="button" class="modalClose"><i class="far fa-angle-left"></i></button>
-            </div>
-            <div class="job_modal_body">
-                <div class="job_modal_body_inner">
-                    <div class="row ml-0 mr-0">
-                        <div class="col job_modal_body_left">
-                            <h3>{{ $item->title }}</h3>
-                            <div class="job_cat">
-                                <h6>{{ $item->cat ? $item->cat->title : '' }}</h6>
-                                <span>{{ $item->created_at }}</span>
-                                <div class="job_location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $item->location }}</span>
-                                </div>
-                            </div>
-                            <div class="job-description job_left_spacing">
-                                <p>
-                                    {{ $item->description }}
-                                </p>
-                            </div>
-                            <div class="project_brief job_left_spacing">
-                                <ul class="d-flex justify-content-between">
-                                    <li>
-                                        <i class="far fa-clock"></i>
-                                        <div class="content">
-                                            <strong>{{ $item->time }}</strong>
-                                            <small>Hourly</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <i class="far fa-calendar-alt"></i>
-                                        <div class="content">
-                                            <strong>{{ $item->duration }}</strong>
-                                            <small>Project Length</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-head-side-brain"></i>
-                                        <div class="content">
-                                            <strong>Expert</strong>
-                                            <small>
-                                                {{ $item->experience }}.
-                                            </small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-stopwatch"></i>
-                                        <div class="content">
-                                            <strong>{{ $item->budget }}</strong>
-                                            <small>Hourly</small>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="project_type job_left_spacing">
-                                <p>Project type: <span>{{ $item->type }} project</span></p>
-                            </div>
-                            <div class="job_skill job_left_spacing">
-                                <h4>Skills and Expertise</h4>
-                                <div class="row">
-                                    <div class="col">
-                                        <h5>Must have</h5>
-                                        <a href="#">{{ $item->skill }}</a>
-                                       <!--  <a href="#">CSS</a>
-                                        <a href="#">Bootstrap</a>
-                                        <a href="#">Javascript</a>
-                                        <a href="#">jQuery</a> -->
-                                    </div>
-                                    <div class="col">
-                                        <h5>Good to have</h5>
-                                        <a href="#">SASS</a>
-                                        <a href="#">Github</a>
-                                        <a href="#">React/Angular</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @if(!Auth::user())
-                        <div class="job_modal_body_right">
-                            <div class="btn_group">
-                                <button type="" class="btn submit_proposal">Submit a Proposal</button>
-                                <button class="btn save_job"><i class="far fa-heart"></i> Save Job </button>
-                            </div>
-                            @endif
-                            <div class="aboutClient">
-                                <h4>About the client</h4>
-                                <small class="payment_verification_status verified_status badge-line">
-                                    <strong class="text-muted">
-                                        <i class="fas fa-badge-check"></i>
-                                        {{Auth::user()->name}}
-                                    </strong>
-                                </small>
-                                <!-- <div class="clientsRating">
-                                    <small class="job_star_rating verified_rating">
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                    </small>
-                                    <span>5.00 of 2 reviews</span>
-                                </div> -->
-                                <ul class="client_brief">
-                                    <li>
-                                        <strong>{{Auth::user()->address}}</strong>
-                                       <!--  <p>
-                                            Davie <span>1:47 pm </span>
-                                        </p> -->
-                                    </li>
-                                   <!--  <li>
-                                        <strong> jobs posted</strong>
-                                        <p>
-                                            50% hire rate, 1 open job
-                                        </p>
-                                    </li> -->
-                                    <!-- <li>
-                                        <strong>$100k+ total spent</strong>
-                                        <p>
-                                            53 hires, 4 active
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <strong>
-                                            20.06 /hr avg hourly rate paid
-                                        </strong>
-                                        <p>
-                                            4,714 hours
-                                        </p>
-                                    </li> -->
-                                    <li>
-                                        <small>Member since {{ Auth::user()->created_at }}</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
+
+
+
 
 @endsection
 

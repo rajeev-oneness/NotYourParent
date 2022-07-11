@@ -13,10 +13,10 @@
 		<!-- owl.carousel -->
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/owl.carousel.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/owl.theme.default.min.css')}}">
-		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 		<!-- custom -->
 		<link rel="stylesheet" type="text/css" href="{{asset('front/css/style.css')}}">
-<link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
+        <link rel="stylesheet" href="{{asset('design/vendor/full-calendar/css/fullcalendar.css')}}">
 
         @yield('head-script-style')
 		<title>:: Not Your Parent-@yield('title') ::</title>
@@ -104,7 +104,7 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 		<script async src="https://static.addtoany.com/menu/page.js"></script>
-		 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 		<script>
 			$(document).ready(function() {
@@ -322,15 +322,15 @@
         $('form').on('submit', function(e) {
             $('button').attr('disabled', true).prop('disabled', 'disabled');
         });
-       
+
         /* let chekoutAmount = getCookie('checkoutAmount');
-       
+
         // let paymentGatewayAmount = parseInt($('#displayGrandTotal').text()) * 100;
     </script>
 
      <script>
     // $('.product__color li').eq(0).addClass('active');
-    
+
     // wishlist ajax
     $('#toggleWishlistForm').on('submit', function(e) {
         e.preventDefault();
@@ -379,7 +379,7 @@
                       title: result.message
                     })
                 }
-               
+
                 $('.save_job').attr('disabled', false);
             },
         });
